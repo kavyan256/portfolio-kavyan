@@ -95,14 +95,14 @@ const Hero = () => {
 
 
       <div className="absolute top-2/3 left-1/2 transform -translate-x-1/2 -translate-y-0 flex items-center text-center text-[clamp(1.77dvh,3.2dvh,4.61dvh)] text-[#fffce1]">
-        <Shape1 className="random-shape mr-16" size={100} color="red" />
+        <Shape1 className="random-shape flip-shape mr-16" size={100} color="red" />
         <p id="subtitle" className="opacity-0 w-[45dvw] mx-8">
           A <span id="coder" className="text-[#ffcc00] font-bold">coder</span>,
           a <span id="designer" className="text-[#ff5733] font-bold">designer</span>,
           and an <span id="artist" className="text-[#33ff57] font-bold">artist</span>—
           curious about everything, committed to nothing (except making cool things).
         </p>
-        <Shape1 className="random-shape scale-x-[-1] ml-16" size={100} color="red" />
+        <Shape1 className="random-shape flip-shape scale-x-[-1] ml-16" size={100} color="red" />
       </div>
 
 
