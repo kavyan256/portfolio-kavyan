@@ -10,6 +10,18 @@ const LoadingPage = ({ onLoadingComplete }) => {
     const [showWelcome, setShowWelcome] = React.useState(true);
     const [showLines, setShowLines] = React.useState(false);
 
+    const animateWelcomeExit = (onCompleteCallback) => {
+        if (textRef.current) {
+            gsap.to(textRef.current, {
+                scaleY: 0,                
+                duration: 0.5,
+                transformOrigin: "center",
+                ease: "power2.inOut",
+                onComplete: onCompleteCallback
+            });
+        }
+    };
+
     useEffect(() => {
         if (showWelcome && textRef.current) {
             const text = textRef.current;
@@ -23,7 +35,7 @@ const LoadingPage = ({ onLoadingComplete }) => {
             fullText.split("").forEach((letter, index) => {
                 // Add random character animation for each position
                 tl.to({}, {
-                    duration: 1,
+                    duration: 0.5,
                     repeat: 4,
                     onRepeat: () => {
                         const randomChar = chars[Math.floor(Math.random() * chars.length)];
@@ -44,28 +56,37 @@ const LoadingPage = ({ onLoadingComplete }) => {
 
     useEffect(() => {
         if (showLines && linesRef.current) {
-            // Fade in the lines
-            gsap.fromTo(linesRef.current, 
-                { opacity: 0 }, 
-                { opacity: 1, duration: 1, ease: "power2.out" }
-            );
+            const lines = linesRef.current.children;
+            
+            // Set initial state: all lines at center position
+            gsap.set(lines, { 
+                x: 0, 
+                opacity: 1,
+                transformOrigin: "center"
+            });
+            
+            // Animate lines sliding out from center
+            gsap.to(lines, {
+                x: (index) => {
+                    // Calculate final positions: spread them apart from center
+                    const centerOffset = (index - 1.5) * 100; // Distribute evenly
+                    return centerOffset;
+                },
+                duration: 0.8,
+                ease: "power2.inOut",
+                stagger: 0.1
+            });
         }
     }, [showLines]);
 
-    const completeWelcome = (e) => {
-        e.stopPropagation(); // Prevent parent click
-        setShowWelcome(false);
-        setShowLines(true);
-    };
-
-    const handleLinesClick = (e) => {
-        e.stopPropagation(); // Prevent parent click
-        onLoadingComplete();
-    };
-
     const handleContainerClick = () => {
-        // This handles clicks on the container when neither welcome nor lines are shown
-        if (!showWelcome && !showLines) {
+        if (showWelcome) {
+            animateWelcomeExit(() => {
+                setShowWelcome(false);
+                setShowLines(true);
+            });
+        } else if (showLines) {
+            // Step 2: After lines are visible, complete loading
             onLoadingComplete();
         }
     };
@@ -76,19 +97,17 @@ const LoadingPage = ({ onLoadingComplete }) => {
             className="min-h-screen bg-white cursor-pointer flex flex-col items-center justify-center text-2xl"
         >
             {showWelcome && (
-                <p ref={textRef} onClick={completeWelcome}>Welcome Human</p>
+                <p ref={textRef}>Welcome Human</p>
             )}
-            
             {showLines && (
                 <div 
                     ref={linesRef}
-                    onClick={handleLinesClick}
-                    className="flex justify-around items-center w-1/3 mt-4"
+                    className="flex items-center justify-center relative w-full mt-4"
                 >
-                    <Line width="80" height="50" color="black" />
-                    <Line width="80" height="50" color="black" />
-                    <Line width="80" height="50" color="black" />
-                    <Line width="80" height="50" color="black" />
+                    <div className="absolute"><Line width="80" height="50" color="black" /></div>
+                    <div className="absolute"><Line width="80" height="50" color="black" /></div>
+                    <div className="absolute"><Line width="80" height="50" color="black" /></div>
+                    <div className="absolute"><Line width="80" height="50" color="black" /></div>
                 </div>
             )}
         </div>
