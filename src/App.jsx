@@ -1,29 +1,22 @@
-import React, { useEffect, useRef } from "react";
-import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import Projects from "./components/Projects"
-import AboutMe from "./components/AboutMe";
-import Contacts from "./components/Contacts";
+import React, { useState, useEffect } from "react";
+import LoadingPage from "./pages/LoadingPage";
+import LandingPage from "./pages/landingPage";
 import gsap from "gsap";
 
 const App = () => {
-  const mainRef = useRef(null);
+  const [showLoading, setShowLoading] = useState(true);
 
-  useEffect(() => {
-    gsap.fromTo(
-      mainRef.current,
-      { opacity: 0 },
-      { opacity: 1, duration: 0.8, ease: "power2.out" }
-    );
-  }, []);
+  const handleLoadingComplete = () => {
+    setShowLoading(false);
+  };
 
   return (
-    <main ref={mainRef} className="bg-black">
-      <Navbar />
-      <Hero />
-      <AboutMe />
-      <Projects />
-      <Contacts />
+    <main className="bg-black min-h-screen">
+      {showLoading ? (
+        <LoadingPage onLoadingComplete={handleLoadingComplete} />
+      ) : (
+        <LandingPage />
+      )}
     </main>
   );
 };
