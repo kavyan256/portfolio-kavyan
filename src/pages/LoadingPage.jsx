@@ -145,16 +145,16 @@ const LoadingPage = ({ onLoadingComplete }) => {
                     {/* Icons Container - positioned above lines */}
                     <div ref={iconsRef} className="flex items-center justify-center absolute w-full top-0" style={{transform: 'translateY(-60px)'}}>
                         <div className="absolute">
-                            <EyeIcon className="w-8 h-8" />
+                            <EyeIcon className="w-24 h-24 mt-3" />
                         </div>
                         <div className="absolute">
-                            <RamenIcon className="w-8 h-8" />
+                            <RamenIcon className="w-14 h-14" />
                         </div>
                         <div className="absolute">
-                            <RocketIcon className="w-8 h-8" />
+                            <RocketIcon className="w-16 h-16" />
                         </div>
                         <div className="absolute">
-                            <CompassIcon className="w-8 h-8" />
+                            <CompassIcon className="w-16 h-16" />
                         </div>
                     </div>
                 </div>
