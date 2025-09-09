@@ -27,7 +27,7 @@ const LoadingPage = ({ onLoadingComplete }) => {
         }
     };
 
-    useEffect(() => {
+    useEffect(() => { //text animation
         if (showWelcome && textRef.current) {
             const text = textRef.current;
             const fullText = text.innerText;
@@ -39,7 +39,7 @@ const LoadingPage = ({ onLoadingComplete }) => {
             fullText.split("").forEach((letter, index) => {
 
                 tl.to({}, {
-                    duration: 0.5,
+                    duration: 0.4,
                     repeat: 4,
                     onRepeat: () => {
                         const randomChar = chars[Math.floor(Math.random() * chars.length)];
@@ -104,6 +104,37 @@ const LoadingPage = ({ onLoadingComplete }) => {
         }
     }, [showLines]);
 
+    const animateSVGsExit = (onCompleteCallback) => {
+        if (iconsRef.current && linesRef.current) {
+            const icons = iconsRef.current.children;
+            const lines = linesRef.current.children;
+            
+            const tl = gsap.timeline({
+                onComplete: onCompleteCallback
+            });
+
+            // Fade out icons first with stagger
+            tl.to(icons, {
+                opacity: 0,
+                y: -30,
+                rotation: 180,
+                scale: 0.8,
+                duration: 0.6,
+                ease: "power2.in",
+                stagger: 0.1
+            });
+
+            // Then fade out lines
+            tl.to(lines, {
+                opacity: 0,
+                scaleX: 0,
+                duration: 0.4,
+                ease: "power2.in",
+                stagger: 0.05
+            }, "-=0.2"); // overlap slightly
+        }
+    };
+
     const handleContainerClick = () => {
         if (showWelcome) {
             animateWelcomeExit(() => {
@@ -111,8 +142,10 @@ const LoadingPage = ({ onLoadingComplete }) => {
                 setShowLines(true);
             });
         } else if (showLines) {
-            // Step 2: After lines are visible, complete loading
-            onLoadingComplete();
+            // Animate SVGs exit before completing loading
+            animateSVGsExit(() => {
+                onLoadingComplete();
+            });
         }
     };
 
@@ -151,7 +184,7 @@ const LoadingPage = ({ onLoadingComplete }) => {
                             <RamenIcon className="w-14 h-14" />
                         </div>
                         <div className="absolute">
-                            <RocketIcon className="w-16 h-16" />
+                            <RocketIcon className="w-16 h-16 mt-1" />
                         </div>
                         <div className="absolute">
                             <CompassIcon className="w-16 h-16" />
