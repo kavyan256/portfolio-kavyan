@@ -5,6 +5,7 @@ import EyeIcon from "../svg/eye.svg?react";
 import RamenIcon from "../svg/ramen.svg?react";
 import RocketIcon from "../svg/rocket.svg?react";
 import CompassIcon from "../svg/compass.svg?react";
+import CurvedCursorText from "../components/CurvedCursorText";
 
 const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+<>?:|{}[]'/.,";
 
@@ -39,7 +40,7 @@ const LoadingPage = ({ onLoadingComplete }) => {
             fullText.split("").forEach((letter, index) => {
 
                 tl.to({}, {
-                    duration: 0.4,
+                    duration: 0.5,
                     repeat: 4,
                     onRepeat: () => {
                         const randomChar = chars[Math.floor(Math.random() * chars.length)];
@@ -152,7 +153,7 @@ const LoadingPage = ({ onLoadingComplete }) => {
     return (
         <div 
             onClick={handleContainerClick}
-            className="min-h-screen bg-white cursor-pointer flex flex-col items-center justify-center text-2xl"
+            className="min-h-screen bg-white cursor-none flex flex-col items-center justify-center text-2xl"
         >
             {showWelcome && (
                 <p ref={textRef}>Welcome Human</p>
@@ -192,6 +193,9 @@ const LoadingPage = ({ onLoadingComplete }) => {
                     </div>
                 </div>
             )}
+            
+            {/* Curved rotating cursor text */}
+            <CurvedCursorText text="click  • " />
         </div>
     );
 };
