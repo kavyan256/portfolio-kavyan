@@ -37,10 +37,11 @@ const navItems = [
     },
     { name: "Contact", 
       href: "#contact",
-      dropdown: [{name : "+91 79090 69340"},
-                 {name : "kavyanhembrom@gmail.com"},
-                 {name : "linkedin.com/in/kavyan-hembrom/"},
-                 {name : "github.com/kavyan256"},
+      dropdown: [
+        { name: "+91 79090 69340", href: "tel:+917909069340" },
+        { name: "kavyanhembrom@gmail.com", href: "mailto:kavyanhembrom@gmail.com"},
+        { name: "linkedin.com/in/kavyan-hembrom/", href: "https://linkedin.com/in/kavyan-hembrom/" },
+        { name: "github.com/kavyan256", href: "https://github.com/kavyan256" },
       ],
       description: "Get in touch with me via email, social media, or contact form." 
     },
@@ -179,5 +180,5 @@ const Navbar = () => {
   );
 };
 
-export default Navbar; 
+export default Navbar;
 
