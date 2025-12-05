@@ -102,16 +102,16 @@ const Navbar = () => {
     <div className="relative" onMouseLeave={handleContainerMouseLeave}>
       {/* White rectangle - only visible when Projects or Portfolio are hovered */}
       <div 
-        className={`absolute top-0 left-0 w-full h-[60vh] bg-white transition-opacity duration-300 z-10 ${
+        className={`absolute top-0 left-0 w-full h-[60vh] bg-[#fffce1] transition-opacity duration-300 z-10 ${
           showWhiteRect ? 'opacity-100' : 'opacity-0'
         }`}
       >
         <div className="flex h-full pt-16">
           {/* Left Area */}
-          <div className="w-1/2 flex flex-col items-start justify-start border border-gray-300 pb-8 pl-72 pr-8 pt-12">
+          <div className="flex flex-col items-start justify-start w-1/2 pt-12 pb-8 pr-8 border border-gray-300 pl-72">
             {hoverIndex !== null && navItems[hoverIndex].dropdown ? (
               <>
-                <p className="text-xs font-normal text-gray-800 mb-1">
+                <p className="mb-1 text-xs font-normal text-gray-800">
                   {navItems[hoverIndex].name}
                 </p>
                 <ul className="space-y-2">
@@ -120,7 +120,7 @@ const Navbar = () => {
                       <a
                         href={dropItem.href}
                         ref={(el) => (navItems[hoverIndex].dropdown[dropIndex].ref = el)}
-                        className="text-black hover:text-blue-600 text-xl font-semibold transition-colors duration-200 text-left relative"
+                        className="relative text-xl font-semibold text-left text-black transition-colors duration-200 hover:text-blue-600"
                         onMouseEnter={() => handleDropdownMouseEnter(hoverIndex, dropIndex)}
                         onMouseLeave={() => handleDropdownMouseLeave(hoverIndex, dropIndex)}
                       >
@@ -137,7 +137,7 @@ const Navbar = () => {
           </div>
 
           {/* Right Area */}
-          <div className="w-1/2 flex items-start justify-start pr-56 pt-12 pl-16 border border-gray-300">
+          <div className="flex items-start justify-start w-1/2 pt-12 pl-16 pr-56 border border-gray-300">
             {hoverIndex !== null && navItems[hoverIndex].description ? (
               <p className="font-normal text-black">
                 {navItems[hoverIndex].description}
@@ -150,15 +150,15 @@ const Navbar = () => {
       </div>
 
       {/* Navbar */}
-      <nav className="flex justify-center items-center h-16 w-full bg-transparent relative z-20">
-        <div className="flex flex-1 justify-center">
+      <nav className="relative z-20 flex items-center justify-center w-full h-16 bg-transparent ">
+        <div className="flex justify-center flex-1">
           {navItems.map((item, index) => (
             <a
               key={index}
               href={item.href}
               ref={(el) => (navItems[index].ref = el)}
               className={`px-8 text-base cursor-pointer transition-colors group duration-300 relative outline-none ${
-                showWhiteRect ? 'text-black hover:text-gray-900' : 'text-white hover:text-gray-200'
+                showWhiteRect ? 'text-black hover:text-gray-900' : 'text-gray hover:text-gray-200'
               }`}
               onMouseEnter={() => handleMouseEnter(index)}
               onMouseLeave={() => handleMouseLeave(index)}
@@ -167,7 +167,7 @@ const Navbar = () => {
               <span className="relative">
                 {item.name}
                 <span className={`absolute left-0 bottom-0 w-0 h-[1px] transition-all duration-500 ease-out group-hover:w-full ${
-                  showWhiteRect ? 'bg-black' : 'bg-white'
+                  showWhiteRect ? 'bg-black' : 'bg-[#fffce1]'
                 }`}></span>
               </span>
             </a>

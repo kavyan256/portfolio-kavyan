@@ -40,7 +40,7 @@ const App = () => {
   };
 
   return (
-    <main className="bg-black min-h-screen relative overflow-hidden">
+    <main className="relative min-h-screen overflow-hidden bg-black">
       {/* Landing page is always loaded behind */}
       <div className={`absolute inset-0 ${showLoading || isTransitioning ? 'pointer-events-none' : ''}`}>
         <LandingPage />
@@ -48,7 +48,7 @@ const App = () => {
       
       {/* Loading page on top */}
       {showLoading && (
-        <div className="absolute inset-0 z-10">
+        <div className="absolute inset-0 z-20">
           <LoadingPage onLoadingComplete={handleLoadingComplete} />
         </div>
       )}
