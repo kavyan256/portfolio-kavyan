@@ -15,6 +15,7 @@ const LoadingPage = ({ onLoadingComplete }) => {
     const iconsRef = useRef(null);
     const [showWelcome, setShowWelcome] = React.useState(true);
     const [showLines, setShowLines] = React.useState(false);
+    const [svgsAnimationComplete, setSvgsAnimationComplete] = React.useState(false);
 
     const animateWelcomeExit = (onCompleteCallback) => {
         if (textRef.current) {
@@ -56,6 +57,14 @@ const LoadingPage = ({ onLoadingComplete }) => {
                     }
                 }, index * 0.09);
             });
+
+            // After welcome text animation completes, automatically exit welcome and show SVGs
+            tl.add(() => {
+                animateWelcomeExit(() => {
+                    setShowWelcome(false);
+                    setShowLines(true);
+                });
+            }, "+=4.25"); // 1.5s delay after all letters finish animating
         }
     }, [showWelcome]);
 
@@ -77,7 +86,11 @@ const LoadingPage = ({ onLoadingComplete }) => {
                 x: 0
             });
 
-            const tl = gsap.timeline();
+            const tl = gsap.timeline({
+                onComplete: () => {
+                    setSvgsAnimationComplete(true);
+                }
+            });
 
             // Step 1: Animate lines sliding out from center
             tl.to(lines, {
@@ -137,12 +150,7 @@ const LoadingPage = ({ onLoadingComplete }) => {
     };
 
     const handleContainerClick = () => {
-        if (showWelcome) {
-            animateWelcomeExit(() => {
-                setShowWelcome(false);
-                setShowLines(true);
-            });
-        } else if (showLines) {
+        if (showLines && svgsAnimationComplete) {
             // Animate SVGs exit before completing loading
             animateSVGsExit(() => {
                 onLoadingComplete();
@@ -153,15 +161,15 @@ const LoadingPage = ({ onLoadingComplete }) => {
     return (
         <div 
             onClick={handleContainerClick}
-            className="min-h-screen bg-white cursor-none flex flex-col items-center justify-center text-2xl"
+            className="flex flex-col items-center justify-center min-h-screen text-2xl bg-white cursor-none"
         >
             {showWelcome && (
                 <p ref={textRef}>Welcome Human</p>
             )}
             {showLines && (
-                <div className="flex items-center justify-center relative w-full mt-4">
+                <div className="relative flex items-center justify-center w-full mt-4">
                     {/* Lines Container */}
-                    <div ref={linesRef} className="flex items-center justify-center relative w-full">
+                    <div ref={linesRef} className="relative flex items-center justify-center w-full">
                         <div className="absolute">
                             <Line width="80" height="50" color="black" />
                         </div>
@@ -177,7 +185,7 @@ const LoadingPage = ({ onLoadingComplete }) => {
                     </div>
 
                     {/* Icons Container - positioned above lines */}
-                    <div ref={iconsRef} className="flex items-center justify-center absolute w-full top-0" style={{transform: 'translateY(-60px)'}}>
+                    <div ref={iconsRef} className="absolute top-0 flex items-center justify-center w-full" style={{transform: 'translateY(-60px)'}}>
                         <div className="absolute">
                             <EyeIcon className="w-24 h-24 mt-3" />
                         </div>

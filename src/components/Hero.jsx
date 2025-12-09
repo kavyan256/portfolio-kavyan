@@ -55,7 +55,7 @@ const Hero = () => {
 
   return (
     
-    <section className="absolute overflow-hidden w-full h-full bg-black text-[#fffce1] font-amidone leading-[0.8] ml-[1dvw] mb-[1dvh] -mt-32">
+    <section className="absolute overflow-hidden w-full h-full bg-black text-[#fffce1] font-amidone leading-[0.8] ml-[1dvw] mb-[1dvh] -mt-36">
         <div className="relative flex items-center justify-center h-full" style={{ fontFamily: "Amidone" }}>
           <div className="text-[clamp(7dvh,17dvh,21.5dvw)] flex -mb-12">
             <span id="K">K</span>
@@ -82,13 +82,11 @@ const Hero = () => {
         </div>
 
 
-      <div className="absolute top-2/3 left-1/2 transform -translate-x-1/2 -translate-y-0 flex items-center text-center text-[clamp(1.77dvh,3.2dvh,4.61dvh)] text-[#fffce1]">
-        <p id="subtitle" className="opacity-0 w-[45dvw] mx-8">
-          A <span id="coder" className="text-[#ffcc00] font-bold">coder</span>,
-          a <span id="designer" className="text-[#ff5733] font-bold">designer</span>,
-          and an <span id="artist" className="text-[#33ff57] font-bold">artist</span>—
-          curious about everything, committed to nothing (except making cool things).
-        </p>
+      <div className="absolute top-2/3 left-1/2 transform -translate-x-1/2 -translate-y-0 flex items-center text-center text-lg text-[#fffce1]">
+        <p id="subtitle" className="opacity-0 w-[45dvw] mx-8 font-light tracking-wide leading-relaxed">
+          I'm a <span className="font-semibold text-[#00d4ff]">developer</span> based in <span className="text-[#ffa502]">India</span> and currently studying at <span className="font-medium text-[#c44569]">IIIT Allahabad</span> and
+          I’ve been building projects involving <span className="font-semibold text-[#00d4ff]">system design</span>, <span className="font-semibold text-[#00d4ff]">low-level systems</span>, and <span className="font-semibold text-[#ffa502]">AI/ML</span>.
+          I'm currently working on <span className="font-medium text-[#ffa502]">database tools</span> and <span className="font-medium text-[#ffa502]">ML applications</span> in <span className="font-semibold text-[#ff6b9d]">Quant</span></p>
       </div>
 
     </section>
