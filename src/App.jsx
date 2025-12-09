@@ -10,10 +10,10 @@ const App = () => {
   const handleLoadingComplete = () => {
     setIsTransitioning(true);
     
-    // Switch to landing page immediately (hidden behind loading page)
+    // Hide loading page immediately to show landing page behind
     setShowLoading(false);
     
-    // Create diagonal wipe overlay that covers the loading page initially
+    // Create diagonal wipe overlay that covers the landing page
     const wipeOverlay = document.createElement('div');
     wipeOverlay.style.position = 'fixed';
     wipeOverlay.style.top = '0';
@@ -41,10 +41,12 @@ const App = () => {
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-black">
-      {/* Landing page is always loaded behind */}
-      <div className={`absolute inset-0 ${showLoading || isTransitioning ? 'pointer-events-none' : ''}`}>
-        <LandingPage />
-      </div>
+      {/* Landing page - shown after loading is complete */}
+      {!showLoading && (
+        <div className="absolute inset-0">
+          <LandingPage />
+        </div>
+      )}
       
       {/* Loading page on top */}
       {showLoading && (

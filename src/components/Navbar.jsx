@@ -103,7 +103,7 @@ const Navbar = () => {
     <div className="relative" onMouseLeave={handleContainerMouseLeave}>
       {/* White rectangle - only visible when Projects or Portfolio are hovered */}
       <div 
-        className={`absolute top-0 left-0 w-full h-[60vh] bg-[#fffce1] transition-opacity duration-300 z-10 ${
+        className={`absolute top-0 left-0 w-full h-[60vh] bg-[#fcfaf0] transition-opacity duration-300 z-10 ${
           showWhiteRect ? 'opacity-100' : 'opacity-0'
         }`}
       >
@@ -168,7 +168,7 @@ const Navbar = () => {
               <span className="relative">
                 {item.name}
                 <span className={`absolute left-0 bottom-0 w-0 h-[1px] transition-all duration-500 ease-out group-hover:w-full ${
-                  showWhiteRect ? 'bg-black' : 'bg-[#fffce1]'
+                  showWhiteRect ? 'bg-black' : 'bg-[#fcfaf0]'
                 }`}></span>
               </span>
             </a>
