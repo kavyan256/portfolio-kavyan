@@ -1,14 +1,7 @@
 import React, { useEffect } from "react";
 import gsap from "gsap";
-import { getRandomShape } from "coolshapes-react";
 
 const Hero = () => {
-
-  const Shape1 = getRandomShape({ type: "star" });
-  const Shape2 = getRandomShape();
-  const Shape3 = getRandomShape();
-  const Shape4 = getRandomShape();
-  const Shape5 = getRandomShape();
 
   useEffect(() => {
     const tl = gsap.timeline({ defaults: { ease: "power2.out", duration: 1.0 } });
@@ -90,31 +83,13 @@ const Hero = () => {
 
 
       <div className="absolute top-2/3 left-1/2 transform -translate-x-1/2 -translate-y-0 flex items-center text-center text-[clamp(1.77dvh,3.2dvh,4.61dvh)] text-[#fffce1]">
-        <Shape1 className="mr-16 random-shape flip-shape" size={100} color="red" />
-        <p id="subtitle" className="opacity-0 w-[45dvw] mx-8 -mt-20">
+        <p id="subtitle" className="opacity-0 w-[45dvw] mx-8">
           A <span id="coder" className="text-[#ffcc00] font-bold">coder</span>,
           a <span id="designer" className="text-[#ff5733] font-bold">designer</span>,
           and an <span id="artist" className="text-[#33ff57] font-bold">artist</span>—
           curious about everything, committed to nothing (except making cool things).
         </p>
-        <Shape1 className="random-shape flip-shape scale-x-[-1] ml-16" size={100} color="red" />
       </div>
-
-
-            
-      {/*
-      <svg
-        className="absolute w-full h-full transform -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 1000 1000"
-        style={{ transform: "scale(2.2) scaleX(1.1) translateX(-19.5rem) translateY(3rem)", display: "" }}>
-        <path
-          id="path"
-          d="M 1 177 Q 187 50 275 212 Q 440 509 564 370 C 634 271 377 83 382 285 C 450 550 567 282 636 267 A 50 50 0 1 1 676 402 A 26 46 20 1 1 799 93"
-          stroke="black"
-          fill="transparent"/>
-      </svg>
-      */}
 
     </section>
   );
