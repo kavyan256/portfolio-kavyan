@@ -118,6 +118,19 @@ const LoadingPage = ({ onLoadingComplete }) => {
         }
     }, [showLines]);
 
+    // Oscillating opacity for "Click !" text
+    useEffect(() => {
+        if (svgsAnimationComplete) {
+            gsap.to("#click-text", {
+                opacity: 1,
+                duration: 0.8,
+                ease: "sine.inOut",
+                repeat: -1,
+                yoyo: true
+            });
+        }
+    }, [svgsAnimationComplete]);
+
     const animateSVGsExit = (onCompleteCallback) => {
         if (iconsRef.current && linesRef.current) {
             const icons = iconsRef.current.children;
@@ -199,6 +212,17 @@ const LoadingPage = ({ onLoadingComplete }) => {
                             <CompassIcon className="w-16 h-16" />
                         </div>
                     </div>
+
+                    {/* Click Text - appears after SVG animation */}
+                    {svgsAnimationComplete && (
+                        <div 
+                            id="click-text"
+                            className="absolute text-xl text-black -bottom-16 "
+                            style={{ opacity: 0 }}
+                        >
+                            Click !
+                        </div>
+                    )}
                 </div>
             )}
             
