@@ -64,7 +64,7 @@ const LoadingPage = ({ onLoadingComplete }) => {
                     setShowWelcome(false);
                     setShowLines(true);
                 });
-            }, "+=4.25"); // 1.5s delay after all letters finish animating
+            }, "+=5.75"); // 1.5s delay after all letters finish animating
         }
     }, [showWelcome]);
 
@@ -177,7 +177,7 @@ const LoadingPage = ({ onLoadingComplete }) => {
             className="flex flex-col items-center justify-center min-h-screen text-2xl bg-white cursor-none"
         >
             {showWelcome && (
-                <p ref={textRef}>Welcome Human</p>
+                <p ref={textRef}>Hi, nice to meet you !</p>
             )}
             {showLines && (
                 <div className="relative flex items-center justify-center w-full mt-4">
