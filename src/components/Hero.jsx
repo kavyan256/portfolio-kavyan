@@ -1,5 +1,10 @@
 import React, { useEffect } from "react";
 import gsap from "gsap";
+import VerticalLineSVG from "../components/lineSVG";
+import logo from "../../public/assets/images/logo.svg";
+import github from "../../public/assets/images/github.png";
+import linkedin from "../../public/assets/images/linkedIn.png";
+import whatsapp from "../../public/assets/images/Whatsapp.png";
 
 const Hero = () => {
 
@@ -55,7 +60,7 @@ const Hero = () => {
 
   return (
     
-    <section className="absolute overflow-hidden w-full h-full bg-black text-[#fffce1] font-amidone leading-[0.8] ml-[1dvw] mb-[1dvh] -mt-36">
+    <section className="absolute overflow-visible w-full h-full bg-black text-[#fffce1] font-amidone leading-[0.8] ml-[1dvw] mb-[1dvh] -mt-32">
         <div className="relative flex items-center justify-center h-full" style={{ fontFamily: "Amidone" }}>
           <div className="text-[clamp(7dvh,17dvh,21.5dvw)] flex -mb-12">
             <span id="K">K</span>
@@ -82,11 +87,31 @@ const Hero = () => {
         </div>
 
 
-      <div className="absolute top-2/3 left-1/2 transform -translate-x-1/2 -translate-y-0 flex items-center text-center text-lg text-[#fffce1]">
+      <div className="absolute top-2/3 left-1/2 transform -translate-x-1/2 flex items-center text-center text-xl text-[#fffce1] -mt-4">
         <p id="subtitle" className="opacity-0 w-[45dvw] mx-8 font-light tracking-wide leading-relaxed">
-          I'm a <span className="font-semibold text-[#00d4ff]">developer</span> based in <span className="text-[#ffa502]">India</span> and currently studying at <span className="font-medium text-[#c44569]">IIIT Allahabad</span> and
-          I’ve been building projects involving <span className="font-semibold text-[#00d4ff]">system design</span>, <span className="font-semibold text-[#00d4ff]">low-level systems</span>, and <span className="font-semibold text-[#ffa502]">AI/ML</span>.
-          I'm currently working on <span className="font-medium text-[#ffa502]">database tools</span> and <span className="font-medium text-[#ffa502]">ML applications</span> in <span className="font-semibold text-[#ff6b9d]">Quant</span></p>
+          Full-Stack Developer • Systems Design Engineer • AI/ML Engineer <br />
+        </p>
+      </div>
+      
+      {/* Logo - Top Left */}
+      <div className="absolute top-20 left-2">
+        <img src={logo} alt="logo" className="w-8 h-8" />
+      </div>
+
+      {/* Social Icons - Bottom Left */}
+      <div className="absolute flex flex-col items-center gap-8 bottom-2">
+        <div className=" transformleft-1 top-1/2">
+          <VerticalLineSVG className="z-10" />
+        </div>
+        <a href="https://github.com/kavyan256" target="_blank" rel="noopener noreferrer">
+          <img src={github} alt="github" className="w-10 h-10 transition-transform duration-300 hover:scale-110" />
+        </a>
+        <a href="https://linkedin.com/in/kavyan-hembrom/" target="_blank" rel="noopener noreferrer">
+          <img src={linkedin} alt="linkedin" className="w-10 h-10 transition-transform duration-300 hover:scale-110" />
+        </a>
+        <a href="https://wa.me/917909069340" target="_blank" rel="noopener noreferrer">
+          <img src={whatsapp} alt="whatsapp" className="w-10 h-10 transition-transform duration-300 hover:scale-110" />
+        </a>
       </div>
 
     </section>
