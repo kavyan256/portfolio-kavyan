@@ -109,35 +109,37 @@ export default function WhiteFireTailCursor() {
 
   return (
     <>
-      {/* Main cursor */}
-      <div
-        className="pointer-events-none fixed z-[9999] rounded-full bg-white -translate-x-1/2 -translate-y-1/2"
-        style={{
-          width: BASE_SIZE,
-          height: BASE_SIZE,
-          left: cursorPos.x,
-          top: cursorPos.y,
-        }}
-      />
+      <div className="mix-blend-difference z-[9998] pointer-events-none fixed inset-0">
+        {/* Main cursor */}
+        <div
+          className="pointer-events-none fixed z-[9999] rounded-full bg-white -translate-x-1/2 -translate-y-1/2"
+          style={{
+            width: BASE_SIZE,
+            height: BASE_SIZE,
+            left: cursorPos.x,
+            top: cursorPos.y,
+          }}
+        />
 
-      {/* Fire tail */}
-      {trail.map((point, i) => {
-        const size = BASE_SIZE * Math.pow(DECAY, i + 1);
+        {/* ✅ FIRE TAIL WITH CUT-OUT UNDER CURSOR */}
+        {trail.map((point, i) => {
+          const size = BASE_SIZE * Math.pow(DECAY, i + 1);
 
-        return (
-          <div
-            key={i}
-            className="pointer-events-none fixed z-[9998] rounded-full bg-white -translate-x-1/2 -translate-y-1/2"
-            style={{
-              width: size,
-              height: size,
-              left: point.x,
-              top: point.y,
-              opacity: 1 - i / TRAIL_COUNT,
-            }}
-          />
-        );
-      })}
+          return (
+            <div
+              key={i}
+              className="fixed -translate-x-1/2 -translate-y-1/2 bg-white rounded-full pointer-events-none"
+              style={{
+                width: size,
+                height: size,
+                left: point.x,
+                top: point.y,
+                opacity: 1 - i / TRAIL_COUNT,
+              }}
+            />
+          );
+        })}
+      </div>
     </>
   );
 }
