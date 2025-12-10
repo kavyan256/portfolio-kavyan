@@ -2,38 +2,22 @@ import { useState, useEffect, useRef } from "react";
 import gsap from "gsap";
 
 const navItems = [
-    { 
-      name: "Portfolio", 
-      href: "#portfolio",
-      dropdown: [
-        { name: "Design Work", href: "#design" },
-        { name: "AI/ML", href: "#AIML" },
-        { name: "Case Studies", href: "#case-studies" },
-        { name: "Web Development", href: "#webDevelopment" }
-      ],
-      description: "A showcase of my portfolio including design work, AI/ML projects, case studies, and web development."
-    },
-    { name: "About Me", 
-      href: "#about",
-      dropdown: [],
-      description: "Learn more about me, my background, skills, and interests."
-    },
+    { name: "Home",},
     { 
       name: "Projects", 
       href: "#projects",
       dropdown: [
-        { name: "Website Development", href: "#web-dev" },
-        { name: "Mobile Apps", href: "#mobile" },
-        { name: "AI/ML Projects", href: "#ai-ml" },
-        { name: "Open Source Contributions", href: "#opensource" }
+        { name: "Design Work", href: "#design" },
+        { name: "AI/ML", href: "#AIML" },
+        { name: "System Design", href: "#system-design" },
+        { name: "Web Development", href: "#webDevelopment" }
       ],
-      description: "A collection of my recent projects showcasing my skills in web development, mobile applications, AI/ML, and contributions to open source."
+      description: "A showcase of my portfolio including design work, AI/ML projects, case studies, and web development."
     },
-    
-    { name: "Resume/CV", 
-      ref: "#resume",
-      dropdown: [],  // empty
-      description: "View my resume/CV including education, experience, and achievements." 
+    { name: "About", 
+      href: "#about",
+      dropdown: [],
+      description: "Learn more about me, my background, skills, and interests."
     },
     { name: "Contact", 
       href: "#contact",

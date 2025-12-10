@@ -64,7 +64,7 @@ const LoadingPage = ({ onLoadingComplete }) => {
                     setShowWelcome(false);
                     setShowLines(true);
                 });
-            }, "+=5.00"); // 1.5s delay after all letters finish animating
+            }, "+=3.00"); // 1.5s delay after all letters finish animating
         }
     }, [showWelcome]);
 
