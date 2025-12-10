@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import LoadingPage from "./pages/LoadingPage";
 import LandingPage from "./pages/landingPage";
 import gsap from "gsap";
+import FollowCursor from "./components/FollowCursor";
 
 const App = () => {
   const [showLoading, setShowLoading] = useState(true);
@@ -45,6 +46,7 @@ const App = () => {
       {!showLoading && (
         <div className="absolute inset-0">
           <LandingPage />
+          <FollowCursor />
         </div>
       )}
       
