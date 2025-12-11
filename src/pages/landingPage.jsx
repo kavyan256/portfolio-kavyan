@@ -5,7 +5,7 @@ import Hero from "../components/Hero";
 const LandingPage = () => {
   return (
     <div className="g-black ">
-      <Navbar />
+      <Navbar className="" />
       <Hero />
     </div>
   );

@@ -94,12 +94,12 @@ const Hero = () => {
         </div>
       </div>
       
-      <div className="absolute top-4 left-4">
+      <div className="absolute p-2 top-4 left-4">
           <img src={logo} alt="logo" className="w-8 h-8" />
-        </div>
+      </div>
     
       {/* Social Icons - Bottom Left */}
-        <div className="fixed flex flex-col gap-8 left-4 bottom-2">
+        <div className="fixed flex flex-col gap-8 left-4 bottom-8">
           {/* Logo - Top Left */}
         
           <div className="">

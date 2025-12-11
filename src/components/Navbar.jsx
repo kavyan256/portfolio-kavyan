@@ -86,7 +86,7 @@ const Navbar = () => {
 
 
   return (
-    <div className="relative" onMouseLeave={handleContainerMouseLeave}>
+    <div className="absolute top-0 left-0 w-full" onMouseLeave={handleContainerMouseLeave}>
       {/* White rectangle - only visible when Projects or Portfolio are hovered */}
       <div 
         className={`absolute top-0 left-0 w-full h-[60vh] bg-[#fcfaf0] transition-opacity duration-300 z-10 ${
