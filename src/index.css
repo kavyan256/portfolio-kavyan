@@ -22,3 +22,39 @@ html, body, #root {
   font-weight: normal;
   font-style: normal;
 }
+
+/* Squiggly animation for music player */
+@keyframes squiggle {
+  0% {
+    transform: scaleY(1);
+  }
+  12.5% {
+    transform: scaleY(0.8);
+  }
+  25% {
+    transform: scaleY(0.6);
+  }
+  37.5% {
+    transform: scaleY(0.8);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+  62.5% {
+    transform: scaleY(0.8);
+  }
+  75% {
+    transform: scaleY(0.6);
+  }
+  87.5% {
+    transform: scaleY(0.8);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
+
+.squiggle-anim {
+  animation: squiggle 0.8s cubic-bezier(0.42, 0, 0.58, 1) infinite;
+  transform-origin: center;
+}

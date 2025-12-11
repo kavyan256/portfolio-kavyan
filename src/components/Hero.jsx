@@ -61,8 +61,8 @@ const Hero = () => {
   return (
     
     <section className="absolute overflow-visible w-full h-full bg-black text-[#fffce1] font-amidone leading-[0.8] ml-[1dvw] mb-[1dvh] -mt-32">
-        <div className="relative flex items-center justify-center h-full" style={{ fontFamily: "Amidone" }}>
-          <div className="text-[clamp(7dvh,17dvh,21.5dvw)] flex -mb-12">
+        <div className="relative flex items-center justify-center h-full px-[5dvw]" style={{ fontFamily: "Amidone" }}>
+          <div id="name-container" className="flex max-w-full -mb-12 text-9xl">
             <span id="K">K</span>
             <span className="relative w-[1ch] inline-block">
               <span id="fake-a1" className="absolute top-0 left-0 w-full text-center">n</span>

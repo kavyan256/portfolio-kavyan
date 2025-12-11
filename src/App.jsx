@@ -70,11 +70,29 @@ const App = () => {
         <div className="absolute inset-0">
           <LandingPage />
           <FollowCursor />
-          <div id="music" className="fixed w-12 h-12 bottom-8 right-8">
+          <div id="music" className="fixed flex items-center justify-center w-12 h-12 bottom-8 right-8">
             <button
               onClick={toggleAudio}
               className="flex items-center justify-center w-12 h-12 transition bg-white rounded-full bg-opacity-20 backdrop-blur-lg hover:bg-opacity-40"
-            ></button>
+            >
+              {/* Mini Squiggly Animation */}
+              <svg
+                width="30"
+                height="12"
+                transform="translateX(10px)"
+                viewBox="0 0 30 12"
+                className={`transition-opacity transform duration-300 ${isAudioOn ? "squiggle-anim opacity-100" : "opacity-40"}`}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M2 6 Q6 2, 10 6 T 18 6 T 26 6"
+                  stroke="white"
+                  strokeWidth="2"
+                  fill="none"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </button>
           </div>
         </div>
       )}
