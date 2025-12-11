@@ -60,61 +60,61 @@ const Hero = () => {
 
   return (
     
-    <section className="absolute overflow-visible w-full h-full bg-black text-[#fffce1] font-amidone leading-[0.8] ml-[1dvw] mb-[1dvh] -mt-32">
-        <div className="relative flex items-center justify-center h-full px-[5dvw]" style={{ fontFamily: "Amidone" }}>
-          <div id="name-container" className="flex max-w-full -mb-12 text-9xl">
-            <span id="K">K</span>
-            <span className="relative w-[1ch] inline-block">
-              <span id="fake-a1" className="absolute top-0 left-0 w-full text-center">n</span>
-              <span id="a1" className="absolute top-0 left-0 w-full text-center opacity-0">a</span>
-            </span>
-            <span id="v">v</span>
-            <span id="y">y</span>
-            <span className="relative w-[1ch] inline-block">
-              <span id="fake-a2" className="absolute top-0 left-0 w-full text-center">e</span>
-              <span id="a2" className="absolute top-0 left-0 w-full text-center opacity-0">a</span>
-            </span>
-            <span id="n">n</span>
-            <span className="pl-8"></span>
-            <span id="H">H</span>
-            <span id="e">e</span>
-            <span id="m">m</span>
-            <span id="b">b</span>
-            <span id="r">r</span>
-            <span id="o">o</span>
-            <span id="m2">m</span>
+    <section className="relative w-full h-screen bg-black text-[#fffce1] font-amidone flex items-center justify-center">
+        <div>
+          <div className="flex items-center justify-center w-full" style={{ fontFamily: "Amidone" }}>
+            <div id="name-container" className="flex text-9xl">
+              <span id="K">K</span>
+              <span className="relative w-[1ch] inline-block">
+                <span id="fake-a1" className="absolute top-0 left-0 w-full text-center">n</span>
+                <span id="a1" className="absolute top-0 left-0 w-full text-center opacity-0">a</span>
+              </span>
+              <span id="v">v</span>
+              <span id="y">y</span>
+              <span className="relative w-[1ch] inline-block">
+                <span id="fake-a2" className="absolute top-0 left-0 w-full text-center">e</span>
+                <span id="a2" className="absolute top-0 left-0 w-full text-center opacity-0">a</span>
+              </span>
+              <span id="n">n</span>
+              <span className="pl-8"></span>
+              <span id="H">H</span>
+              <span id="e">e</span>
+              <span id="m">m</span>
+              <span id="b">b</span>
+              <span id="r">r</span>
+              <span id="o">o</span>
+              <span id="m2">m</span>
+            </div>
           </div>
+    
+        <div className="flex items-center justify-center text-center text-xl text-[#fffce1] mt-4">
+          <p id="subtitle" className="opacity-0 w-[45dvw] mx-8 font-light tracking-wide leading-relaxed">
+            Full-Stack Developer • Systems Design Engineer • AI/ML Engineer <br />
+          </p>
         </div>
-
-
-      <div className="absolute top-2/3 left-1/2 transform -translate-x-1/2 flex items-center text-center text-xl text-[#fffce1] -mt-4">
-        <p id="subtitle" className="opacity-0 w-[45dvw] mx-8 font-light tracking-wide leading-relaxed">
-          Full-Stack Developer • Systems Design Engineer • AI/ML Engineer <br />
-        </p>
       </div>
       
-      {/* Logo - Top Left */}
-      <div className="absolute top-20 left-2">
-        <img src={logo} alt="logo" className="w-8 h-8" />
-      </div>
-
+      <div className="absolute top-4 left-4">
+          <img src={logo} alt="logo" className="w-8 h-8" />
+        </div>
+    
       {/* Social Icons - Bottom Left */}
-      <div className="absolute flex flex-col items-center gap-8 bottom-2">
-        <div className=" transformleft-1 top-1/2">
-          <VerticalLineSVG className="z-10" />
-        </div>
-        <a href="https://github.com/kavyan256" target="_blank" rel="noopener noreferrer">
-          <img src={github} alt="github" className="w-10 h-10 transition-transform duration-300 hover:scale-110" />
-        </a>
-        <a href="https://linkedin.com/in/kavyan-hembrom/" target="_blank" rel="noopener noreferrer">
-          <img src={linkedin} alt="linkedin" className="w-10 h-10 transition-transform duration-300 hover:scale-110" />
-        </a>
-        <a href="https://wa.me/917909069340" target="_blank" rel="noopener noreferrer">
-          <img src={whatsapp} alt="whatsapp" className="w-10 h-10 transition-transform duration-300 hover:scale-110" />
-        </a>
+        <div className="fixed flex flex-col gap-8 left-4 bottom-2">
+          {/* Logo - Top Left */}
+        
+          <div className="">
+            <VerticalLineSVG className="z-10" />
+          </div>
+          <a className="flex justify-center" href="https://github.com/kavyan256" target="_blank" rel="noopener noreferrer">
+            <img src={github} alt="github" className="w-10 h-10 transition-transform duration-300 hover:scale-110" />
+          </a>
+          <a className="flex justify-center" href="https://linkedin.com/in/kavyan-hembrom/" target="_blank" rel="noopener noreferrer">
+            <img src={linkedin} alt="linkedin" className="w-10 h-10 transition-transform duration-300 hover:scale-110" />
+          </a>
+          <a className="flex justify-center" href="https://wa.me/917909069340" target="_blank" rel="noopener noreferrer">
+            <img src={whatsapp} alt="whatsapp" className="w-10 h-10 transition-transform duration-300 hover:scale-110" />
+          </a>
       </div>
-
-      
     </section>
   );
 };

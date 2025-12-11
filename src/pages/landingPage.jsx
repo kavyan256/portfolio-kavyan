@@ -4,8 +4,7 @@ import Hero from "../components/Hero";
 
 const LandingPage = () => {
   return (
-    <div className="relative min-h-screen bg-black">
-      <Navbar />
+    <div className="g-black ">
       <Hero />
     </div>
   );
