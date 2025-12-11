@@ -97,14 +97,16 @@ const Hero = () => {
       <div className="absolute p-2 top-4 left-4">
           <img src={logo} alt="logo" className="w-8 h-8" />
       </div>
+
+      <div className="fixed z-10 left-5 top-16 bottom-64">
+        <VerticalLineSVG className="w-auto h-full" />
+      </div>
+
     
       {/* Social Icons - Bottom Left */}
-        <div className="fixed flex flex-col gap-8 left-4 bottom-8">
+        <div className="fixed flex flex-col gap-8 left-5 bottom-8">
           {/* Logo - Top Left */}
-        
-          <div className="">
-            <VerticalLineSVG className="z-10" />
-          </div>
+          
           <a className="flex justify-center" href="https://github.com/kavyan256" target="_blank" rel="noopener noreferrer">
             <img src={github} alt="github" className="w-10 h-10 transition-transform duration-300 hover:scale-110" />
           </a>
