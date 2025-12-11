@@ -2,7 +2,9 @@ import { useState, useEffect, useRef } from "react";
 import gsap from "gsap";
 
 const navItems = [
-    { name: "Home",},
+    { name: "Home",
+      href: "#landingpage",
+    },
     { 
       name: "Projects", 
       href: "#projects",
