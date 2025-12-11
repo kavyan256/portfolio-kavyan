@@ -27,9 +27,10 @@ const DropdownPanel = ({
 
   return (
     <div
-      className={`absolute top-0 left-0 w-full h-[60vh] bg-[#fcfaf0] transition-opacity duration-300 z-10 pointer-events-none ${
+      className={`absolute top-0 left-0 w-full h-[60vh] bg-[#fcfaf0] transition-opacity duration-300 z-10 pointer-events-auto ${
         showWhiteRect ? "opacity-100" : "opacity-0"
       }`}
+      style={{ pointerEvents: showWhiteRect ? "auto" : "none" }}
     >
       <div className="flex h-full pt-16 pointer-events-auto">
         {/* Left Area */}

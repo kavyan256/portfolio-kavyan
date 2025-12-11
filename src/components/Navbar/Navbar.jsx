@@ -62,12 +62,14 @@ export default function Navbar() {
       onMouseLeave={handleContainerMouseLeave}
     >
       {/* Dropdown */}
-      <DropdownPanel
-        showWhiteRect={showWhiteRect}
-        hoverIndex={hoverIndex}
-        navItems={navItems}
-        dropdownRefs={dropdownRefs}
-      />
+      {showWhiteRect && (
+        <DropdownPanel
+          showWhiteRect={showWhiteRect}
+          hoverIndex={hoverIndex}
+          navItems={navItems}
+          dropdownRefs={dropdownRefs}
+        />
+      )}
 
       {/* Navbar */}
       <nav className="relative z-20 flex items-center justify-center w-full h-16 bg-transparent">
