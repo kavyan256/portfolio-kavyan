@@ -5,9 +5,12 @@ import About from "../components/AboutMe";
 
 const LandingPage = () => {
   return (
-    <div className="g-black ">
+    <div className="flex flex-col h-screen bg-black">
       <Navbar />
-      <Hero />
+      <div className="flex-1 overflow-y-auto hide-scrollbar">
+        <Hero />
+        <About />
+      </div>
     </div>
   );
 };
