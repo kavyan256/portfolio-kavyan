@@ -66,45 +66,48 @@ function MarqueeRow({ reverse }) {
 
 /* ---------------------------------------------------- */
 
-function TileSet() {
-  const items = [
-    "C",
-    "C++",
-    "Python",
-    "JavaScript",
-    "GSAP",
-    "Tailwind",
-    "Git",
-    "Docker",
-    "Linux",
-    "Go",
-    "Rust",
-    "tensorflow",
-    "node.js",
-    "react",
-    "next.js",
-    "express",
-    "mongodb",
-    "postgresql",
-  ];
+const icons = [
+  "devicon-c-plain",
+  "devicon-cplusplus-plain",
+  "devicon-python-plain",
+  "devicon-javascript-plain",
+  "devicon-tailwindcss-plain",
+  "devicon-git-plain",
+  "devicon-docker-plain",
+  "devicon-linux-plain",
+  "devicon-go-original-wordmark",
+  "devicon-rust-plain",
+  "devicon-tensorflow-original",
+  "devicon-nodejs-plain",
+  "devicon-react-original",
+  "devicon-nextjs-plain",
+  "devicon-express-original-wordmark",
+  "devicon-mongodb-plain",
+  "devicon-postgresql-plain",
+  "devicon-graphql-plain-wordmark",
+  "devicon-redis-plain",
+  "devicon-kubernetes-plain",
+];
 
+function TileSet() {
   return (
     <>
-      {items.map((item, i) => (
+      {icons.map((icon, i) => (
         <div
-          key={`${item}-${i}`}
+          key={`${icon}-${i}`}
           className="
             w-56 h-32
             rounded-lg
             border-2 border-[#1b2aa6]
             bg-transparent
             flex items-center justify-center
-            text-[#1b2aa6] font-bold
-            text-2xl
             flex-shrink-0
           "
         >
-          {item}
+          <i
+            className={`${icon} text-6xl text-[#1b2aa6]`}
+            aria-hidden
+          />
         </div>
       ))}
     </>
