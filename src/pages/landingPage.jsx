@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "../components/Navbar/Navbar";
 import Hero from "../components/Hero";
 import About from "../components/AboutMe";
+import FeaturedProjects from "../components/MyProjects";
 
 const LandingPage = () => {
   return (
@@ -10,6 +11,7 @@ const LandingPage = () => {
       <div className="flex-1 overflow-y-auto hide-scrollbar">
         <Hero />
         <About />
+        <FeaturedProjects />
       </div>
     </div>
   );
