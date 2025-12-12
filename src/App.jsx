@@ -79,7 +79,7 @@ const App = () => {
               <svg
                 width="30"
                 height="12"
-                transform="translateX(10px)"
+                transform="translate(10,0)"
                 viewBox="0 0 30 12"
                 className={`transition-opacity transform duration-300 ${isAudioOn ? "squiggle-anim opacity-100" : "opacity-40"}`}
                 xmlns="http://www.w3.org/2000/svg"
