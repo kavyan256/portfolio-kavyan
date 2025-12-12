@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import gsap from "gsap";
 import VerticalLineSVG from "../components/lineSVG";
-import logo from "../../public/assets/images/logo.svg";
-import github from "../../public/assets/images/github.png";
-import linkedin from "../../public/assets/images/linkedIn.png";
-import whatsapp from "../../public/assets/images/Whatsapp.png";
+import logo from "../assets/images/logo.svg";
+import github from "../assets/images/github.png";
+import linkedin from "../assets/images/linkedIn.png";
+import whatsapp from "../assets/images/Whatsapp.png";
 import TubesCursor from "./TubesCursor";
 
 const Hero = () => {

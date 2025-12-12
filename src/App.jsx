@@ -3,7 +3,7 @@ import LoadingPage from "./pages/LoadingPage";
 import LandingPage from "./pages/landingPage";
 import gsap from "gsap";
 import FollowCursor from "./components/FollowCursor";
-import bg_music from "../public/assets/music/bg_music.mp3";
+import bg_music from "./assets/music/bg_music.mp3";
 
 const App = () => {
   const [showLoading, setShowLoading] = useState(true);
