@@ -3,17 +3,14 @@ import React from "react";
 
 export default function About() {
   return (
-    <section className="flex items-center justify-center w-full h-screen px-6 text-white bg-gradient-to-b from-gray-900 to-gray-800">
-      <div className="max-w-xl space-y-6 text-center">
-        <h1 className="text-4xl font-bold tracking-wide md:text-5xl">
-          About Me
-        </h1>
-        <p className="text-lg leading-relaxed text-gray-300 md:text-xl">
-          I’m Kavyan, a developer exploring low-level systems, AI, and creative web experiences.  
-          I enjoy understanding how things work beneath the surface and turning ideas into elegant code.
+    <section className="flex items-center justify-center w-full h-screen px-6 text-black bg-[#fcfaf0]">
+      <div className="text-center space-y-14 max-w-7xl">
+        <p className="text-4xl leading-relaxed text-gray-800">
+          I’m Kavyan, a developer specializing in  low-level systems, and exploring AI/ML, and creative web experiences.  
+          I enjoy understanding and building how things work beneath the surface and turning ideas into code.
         </p>
-        <p className="text-lg leading-relaxed text-gray-400 md:text-xl">
-          Currently, I’m building interactive web projects that combine smooth animations, AI, and user-friendly design.
+        <p className="text-3xl font-light leading-relaxed text-gray-600">
+          I specialize in low-level systems and performance-driven engineering, and I’m expanding into full-stack development and AI/ML to build smarter, interactive digital experiences.
         </p>
       </div>
     </section>

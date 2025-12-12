@@ -16,6 +16,8 @@ export default {
 
       fontFamily: {
         amidone: ["AmidoneGrotesk", "sans-serif"],
+        montserrat: ["Montserrat", "sans-serif"],
+        inter: ["Inter", "sans-serif"],
       },
     },
   },
