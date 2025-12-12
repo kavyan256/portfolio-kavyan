@@ -5,6 +5,7 @@ import logo from "../../public/assets/images/logo.svg";
 import github from "../../public/assets/images/github.png";
 import linkedin from "../../public/assets/images/linkedIn.png";
 import whatsapp from "../../public/assets/images/Whatsapp.png";
+import TubesCursor from "./TubesCursor";
 
 const Hero = () => {
 
@@ -61,9 +62,10 @@ const Hero = () => {
   return (
     
     <section className="relative w-full h-screen bg-black text-[#fffce1] font-amidone flex items-center justify-center">
+      <TubesCursor/>
         <div>
           <div className="flex items-center justify-center w-full" style={{ fontFamily: "Amidone" }}>
-            <div id="name-container" className="flex text-9xl">
+            <div id="name-container" className="flex shadow-2xl text-9xl">
               <span id="K">K</span>
               <span className="relative w-[1ch] inline-block">
                 <span id="fake-a1" className="absolute top-0 left-0 w-full text-center">n</span>
@@ -87,7 +89,7 @@ const Hero = () => {
             </div>
           </div>
     
-        <div className="flex items-center justify-center text-center text-xl text-[#fffce1] mt-4">
+        <div className="flex items-center justify-center text-center text-xl text-[#fffce1] mt-4 shadow-2xl">
           <p id="subtitle" className="opacity-0 w-[45dvw] mx-8 font-light tracking-wide leading-relaxed">
             Full-Stack Developer • Systems Design Engineer • AI/ML Engineer <br />
           </p>
