@@ -5,10 +5,12 @@ import ScrollSvg from "./scrollAnimation.jsx";
 
 export default function About() {
   return (
-    <section className="w-full px-6 text-black bg-[#fcfaf0]">
+    <section className="w-full text-black bg-[#fcfaf0]">
+
+      <ScrollSvg />
       
       {/* Top text */}
-      <div className="flex items-center justify-center min-h-screen">
+      <div className="flex items-center justify-center h-screen">
         <div className="text-center space-y-14 max-w-7xl">
           <p className="text-4xl leading-relaxed text-gray-800">
             I’m Kavyan, a developer specializing in low-level systems, and exploring AI/ML, and creative web experiences.  
@@ -19,8 +21,6 @@ export default function About() {
           </p>
         </div>
       </div>
-
-      <ScrollSvg />
 
       <MarqueeGSAP />
 

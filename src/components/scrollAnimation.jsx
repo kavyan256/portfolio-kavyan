@@ -2,47 +2,61 @@ import React, { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-console.log("ScrollTrigger:", ScrollTrigger);
-
 export default function ScrollSvg() {
-  const svgRef = useRef(null);
+  const pathRef = useRef(null);
   const wrapperRef = useRef(null);
 
   useEffect(() => {
     const scrollContainer = document.querySelector(".hide-scrollbar");
-    
-    gsap.to(svgRef.current, {
-      x: 200,
+
+    const curve = { cY: 50 };
+
+    gsap.to(curve, {
+      cY: -70,
       ease: "none",
       scrollTrigger: {
         trigger: wrapperRef.current,
         scroller: scrollContainer || window,
-        start: "top center",
-        end: "bottom center",
+        start: "top bottom",
+        end: "top center",
         scrub: true,
-        markers: false,
+      },
+      onUpdate: () => {
+        pathRef.current.setAttribute(
+          "d",
+          `
+            M 0 50
+            Q 50 ${curve.cY} 100 50
+            L 100 100
+            L 0 100
+            Z
+          `
+        );
       },
     });
   }, []);
 
   return (
-    <div
-      ref={wrapperRef}
-      className="flex justify-center w-full py-32 overflow-hidden"
-    >
+    <div ref={wrapperRef} className="w-full overflow-hidden">
       <svg
-        ref={svgRef}
-        width="200"
-        height="40"
-        viewBox="0 0 200 40"
+        className="w-screen h-40"
+        viewBox="0 -80 100 180" 
+        preserveAspectRatio="none"
       >
-        <line
-          x1="0"
-          y1="20"
-          x2="200"
-          y2="20"
-          stroke="black"
-          strokeWidth="2"
+        {/* background */}
+        <rect x="0" y="-80" width="100" height="180" fill="black" />
+
+        {/* animated curve */}
+        <path
+          ref={pathRef}
+          d="
+            M 0 50
+            Q 50 50 100 50
+            L 100 100
+            L 0 100
+            Z
+          "
+          fill="#fcfaf0"
         />
       </svg>
     </div>
