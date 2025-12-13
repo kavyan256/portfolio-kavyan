@@ -41,22 +41,6 @@ const Hero = () => {
       { opacity: 1, y: 0, ease: "power3.out", duration: 1.5 },
       "start+=2"
     )
-    tl.fromTo("#coder", { opacity: 0 }, { opacity: 1, duration: 1, ease: "power2.out" }, "start+=2")
-      .fromTo("#designer", { opacity: 0 }, { opacity: 1, duration: 1, ease: "power2.out" }, "start+=2.5")
-      .fromTo("#artist", { opacity: 0 }, { opacity: 1, duration: 1, ease: "power2.out" }, "start+=3");
-
-    gsap.fromTo(".random-shape", 
-      { opacity: 0, scale: 0, y: 50 }, 
-      { opacity: 1, scale: 1, y: 0, ease: "elastic.out(1, 0.5)", duration: 1.5, stagger: 0.5 }
-    )
-
-    gsap.to(".random-shape.flip-shape", {
-      rotateY: 360,
-      duration: 1,
-      repeat: -1,
-      ease: "power2.inOut",
-      repeatDelay: 3 // Total cycle = 1s animation + 3s delay = 4s loop
-    });
   }, []);
 
   return (
