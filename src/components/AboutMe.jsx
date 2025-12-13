@@ -1,6 +1,7 @@
 // About.jsx
 import React from "react";
 import MarqueeGSAP from "./FrameworkMarquee.jsx";
+import ScrollSvg from "./scrollAnimation.jsx";
 
 export default function About() {
   return (
@@ -18,6 +19,8 @@ export default function About() {
           </p>
         </div>
       </div>
+
+      <ScrollSvg />
 
       <MarqueeGSAP />
 
