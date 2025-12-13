@@ -3,7 +3,7 @@ import NavItem from "./NavItem";
 import DropdownPanel from "./DropdownPanel";
 
 const navItems = [
-  { name: "Home", href: "#landingpage" },
+  { name: "Home", href: "#hero" },
 
   {
     name: "Projects",
@@ -21,8 +21,13 @@ const navItems = [
   {
     name: "About",
     href: "#about",
-    dropdown: [],
-    description: "Learn more about me, my background, skills, and interests.",
+    dropdown: [
+      { name: "Background", href: "#background" },
+      { name: "Skills", href: "#skills" },
+      { name: "Experience", href: "#experience" },
+      { name: "Interests", href: "#interests" },
+    ],
+    description: "Learn more about me, my background, skills, and interests. I specialize in low-level systems, AI/ML, and creating innovative web experiences.",
   },
 
   {
@@ -52,8 +57,11 @@ export default function Navbar() {
   const handleContainerMouseLeave = () => setShowWhiteRect(false);
 
   const handleItemClick = (index) => {
-    setHoverIndex(index);
-    setShowWhiteRect(true);
+    // Only show dropdown if the item has dropdown items
+    if (navItems[index].dropdown && navItems[index].dropdown.length > 0) {
+      setHoverIndex(index);
+      setShowWhiteRect(true);
+    }
   };
 
   return (

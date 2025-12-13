@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar/Navbar";
 import Hero from "../components/Hero";
 import About from "../components/AboutMe";
 import FeaturedProjects from "../components/MyProjects";
+import Contacts from "../components/contact";
 
 const LandingPage = () => {
   return (
@@ -12,6 +13,7 @@ const LandingPage = () => {
         <Hero />
         <About />
         <FeaturedProjects />
+        <Contacts />
       </div>
     </div>
   );

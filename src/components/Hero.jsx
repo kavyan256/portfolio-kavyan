@@ -45,7 +45,7 @@ const Hero = () => {
 
   return (
     
-    <section className="relative w-full h-screen bg-black text-[#fffce1] font-amidone flex items-center justify-center">
+    <section id="hero" className="relative w-full h-screen bg-black text-[#fffce1] font-amidone flex items-center justify-center">
       <TubesCursor/>
         <div>
           <div className="flex items-center justify-center w-full" style={{ fontFamily: "Amidone" }}>
