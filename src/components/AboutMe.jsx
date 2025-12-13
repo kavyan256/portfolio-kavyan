@@ -21,9 +21,10 @@ export default function About() {
           </p>
         </div>
       </div>
-
-      <MarqueeGSAP />
-
+      <div>
+        <p className="flex justify-center mb-12 text-3xl font-light">Languages and Frameworks I am familiar with ...</p>
+        <MarqueeGSAP />
+      </div>
     </section>
   );
 }
