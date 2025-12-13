@@ -71,10 +71,7 @@ const App = () => {
           <LandingPage />
           <FollowCursor />
           <div id="music" className="fixed flex items-center justify-center w-12 h-12 bottom-8 right-8">
-            <button
-              onClick={toggleAudio}
-              className="flex items-center justify-center w-12 h-12 transition bg-white rounded-full bg-opacity-20 backdrop-blur-lg hover:bg-opacity-40"
-            >
+            <button onClick={toggleAudio} className="flex items-center justify-center w-12 h-12 transition border-2 border-gray-400 rounded-full bg-gray-00 hover:scale-105 hover:border-gray-600">
               {/* Mini Squiggly Animation */}
               <svg
                 width="30"
@@ -86,10 +83,11 @@ const App = () => {
               >
                 <path
                   d="M2 6 Q6 2, 10 6 T 18 6 T 26 6"
-                  stroke="white"
+                  stroke="currentColor"
                   strokeWidth="2"
                   fill="none"
                   strokeLinecap="round"
+                  className="text-gray-400"
                 />
               </svg>
             </button>

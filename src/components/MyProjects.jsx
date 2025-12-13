@@ -1,6 +1,8 @@
 import React from "react";
 import redisImage from "../assets/images/redis_mockup.png";
 import orangeRedis from "../assets/images/orange_redis.png";
+import project3 from "../assets/images/project3.png";
+import project4 from "../assets/images/project4.png";
 
 const projects = [
   {
@@ -14,12 +16,12 @@ const projects = [
     subtitle: "Learning systems that adapt",
   },
   {
-    image: redisImage,
+    image: project3,
     title: "Creative Web",
     subtitle: "Motion, interaction, and feel",
   },
   {
-    image: orangeRedis,
+    image: project4,
     title: "Experimental Projects",
     subtitle: "Ideas, prototypes, and research",
   },
