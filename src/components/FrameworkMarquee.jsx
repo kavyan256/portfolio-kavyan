@@ -97,7 +97,7 @@ function TileSet() {
           key={`${icon}-${i}`}
           className="
             w-56 h-32
-            rounded-lg
+            rounded-md
             border-2 border-[#1b2aa6]
             bg-transparent
             flex items-center justify-center
