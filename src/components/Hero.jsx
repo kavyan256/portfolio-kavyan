@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import gsap from "gsap";
 import VerticalLineSVG from "../components/lineSVG";
 import logo from "../assets/images/logo.svg";
@@ -8,6 +8,7 @@ import whatsapp from "../assets/images/Whatsapp.png";
 import TubesCursor from "./TubesCursor";
 
 const Hero = () => {
+  const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
     const tl = gsap.timeline({ defaults: { ease: "power2.out", duration: 1.0 } });
@@ -102,6 +103,37 @@ const Hero = () => {
           <a className="flex justify-center" href="https://wa.me/917909069340" target="_blank" rel="noopener noreferrer">
             <img src={whatsapp} alt="whatsapp" className="w-10 h-10 transition-transform duration-300 hover:scale-110" />
           </a>
+      </div>
+
+      {/* Like Button - Bottom Right */}
+      <button onClick={() => setIsLiked(!isLiked)} className="absolute flex items-center justify-center w-12 h-12 transition border-2 border-gray-400 rounded-full bottom-24 right-8 hover:scale-105 hover:border-gray-600">
+        <span className={`text-xl transition-transform duration-300 ${isLiked ? "scale-110" : "scale-100"}`}>
+          {isLiked ? "♥" : "♡"}
+        </span>
+      </button>
+
+      <div id="analytics" className="absolute right-5 top-4 flex flex-col gap-4 text-[#fffce1] font-inter">
+        {/* Views */}
+        <div className="flex items-center gap-3">
+          <div className="flex items-center justify-center w-8 h-8 border border-[#fffce1] rounded-full">
+            <span className="text-xs">👁</span>
+          </div>
+          <div className="flex flex-col">
+            <span className="text-xs tracking-widest uppercase opacity-70">Views</span>
+            <span className="text-sm font-semibold">1,234</span>
+          </div>
+        </div>
+
+        {/* Likes */}
+        <div className="flex items-center gap-3">
+          <div className="flex items-center justify-center w-8 h-8 border border-[#fffce1] rounded-full">
+            <span className="text-xs">♡</span>
+          </div>
+          <div className="flex flex-col">
+            <span className="text-xs tracking-widest uppercase opacity-70">Likes</span>
+            <span className="text-sm font-semibold">450</span>
+          </div>
+        </div>
       </div>
     </section>
   );

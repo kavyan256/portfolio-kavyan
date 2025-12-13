@@ -70,7 +70,8 @@ const App = () => {
         <div className="absolute inset-0">
           <LandingPage />
           <FollowCursor />
-          <div id="music" className="fixed flex items-center justify-center w-12 h-12 bottom-8 right-8">
+          <div className="fixed flex flex-col gap-4 bottom-8 right-8">
+            {/* Music Button */}
             <button onClick={toggleAudio} className="flex items-center justify-center w-12 h-12 transition border-2 border-gray-400 rounded-full bg-gray-00 hover:scale-105 hover:border-gray-600">
               {/* Mini Squiggly Animation */}
               <svg
