@@ -73,9 +73,9 @@ function ProjectCard({ image, title, subtitle }) {
         />
 
         {/* Hover overlay */}
-        <div className="absolute inset-0 flex items-end transition-colors duration-500 bg-black/0 group-hover:bg-black/40">
-          <div className="p-8 transition-all duration-500 transform translate-y-6 opacity-0 group-hover:translate-y-0 group-hover:opacity-100">
-            <p className="text-2xl font-medium text-white">
+        <div className="absolute inset-0 flex items-center justify-center transition-colors duration-500 bg-black/0 group-hover:bg-black/40">
+          <div className="transition-all duration-500 transform opacity-0 group-hover:opacity-100">
+            <p className="text-2xl font-medium text-center text-white">
               {title}
             </p>
           </div>
