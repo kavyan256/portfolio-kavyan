@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import gsap from "gsap";
 import VerticalLineSVG from "../components/lineSVG";
 import logo from "../assets/images/logo.svg";
@@ -6,11 +6,48 @@ import github from "../assets/images/github.png";
 import linkedin from "../assets/images/linkedIn.png";
 import whatsapp from "../assets/images/Whatsapp.png";
 import TubesCursor from "./TubesCursor";
+import { initSocket, recordView, recordLike, getAnalytics, isBackendConnected } from "../utils/analyticsApi";
 
 const Hero = () => {
   const [isLiked, setIsLiked] = useState(false);
+  const [views, setViews] = useState(0);
+  const [likes, setLikes] = useState(0);
+  const [isConnected, setIsConnected] = useState(false);
+  const viewRecordedRef = useRef(false);
+  const connectionCheckRef = useRef(null);
 
   useEffect(() => {
+    // Fetch initial analytics and setup socket listener
+    const setupAnalytics = async () => {
+      try {
+        const data = await getAnalytics();
+        setViews(data.views);
+        setLikes(data.likes);
+      } catch (err) {
+        console.error("Failed to fetch analytics:", err);
+      }
+
+      // Initialize Socket.io listener for real-time updates
+      initSocket((data) => {
+        setViews(data.views);
+        setLikes(data.likes);
+      });
+    };
+
+    setupAnalytics();
+
+    // Record view only once on component mount
+    if (!viewRecordedRef.current) {
+      recordView();
+      viewRecordedRef.current = true;
+    }
+
+    // Check connection status periodically
+    connectionCheckRef.current = setInterval(() => {
+      setIsConnected(isBackendConnected());
+    }, 1000);
+
+    // GSAP animations
     const tl = gsap.timeline({ defaults: { ease: "power2.out", duration: 1.0 } });
 
     // Name Animation (Existing Code)
@@ -42,6 +79,12 @@ const Hero = () => {
       { opacity: 1, y: 0, ease: "power3.out", duration: 1.5 },
       "start+=2"
     )
+
+    return () => {
+      if (connectionCheckRef.current) {
+        clearInterval(connectionCheckRef.current);
+      }
+    }
   }, []);
 
   return (
@@ -105,12 +148,17 @@ const Hero = () => {
           </a>
       </div>
 
-      {/* Like Button - Bottom Right */}
-      <button onClick={() => setIsLiked(!isLiked)} className="absolute flex items-center justify-center w-12 h-12 transition border-2 border-gray-400 rounded-full bottom-24 right-8 hover:scale-105 hover:border-gray-600">
-        <span className={`text-xl transition-transform duration-300 ${isLiked ? "scale-110" : "scale-100"}`}>
-          {isLiked ? "♥" : "♡"}
-        </span>
-      </button>
+      {/* Like Button - Bottom Right (Only show when connected) */}
+      {isConnected && (
+        <button onClick={() => {
+          setIsLiked(!isLiked);
+          recordLike();
+        }} className="absolute flex items-center justify-center w-12 h-12 transition border-2 border-gray-400 rounded-full bottom-24 right-8 hover:scale-105 hover:border-gray-600">
+          <span className={`text-xl transition-transform duration-300 ${isLiked ? "scale-110" : "scale-100"}`}>
+            {isLiked ? "♥" : "♡"}
+          </span>
+        </button>
+      )}
 
       <div id="analytics" className="absolute right-5 top-4 flex flex-col gap-4 text-[#fffce1] font-inter">
         {/* Views */}
@@ -120,7 +168,7 @@ const Hero = () => {
           </div>
           <div className="flex flex-col">
             <span className="text-xs tracking-widest uppercase opacity-70">Views</span>
-            <span className="text-sm font-semibold">1,234</span>
+            <span className="text-sm font-semibold">{views.toLocaleString()}</span>
           </div>
         </div>
 
@@ -131,9 +179,22 @@ const Hero = () => {
           </div>
           <div className="flex flex-col">
             <span className="text-xs tracking-widest uppercase opacity-70">Likes</span>
-            <span className="text-sm font-semibold">450</span>
+            <span className="text-sm font-semibold">{likes.toLocaleString()}</span>
           </div>
         </div>
+
+        {/* Server Status */}
+        {!isConnected && (
+          <div className="flex items-center gap-3 mt-4 pt-4 border-t border-[#fffce1] border-opacity-20 animate-pulse">
+            <div className="flex items-center justify-center w-8 h-8 border border-red-400 rounded-full">
+              <span className="text-xs">⚠</span>
+            </div>
+            <div className="flex flex-col">
+              <span className="text-xs tracking-widest uppercase opacity-70 text-red-400">Server</span>
+              <span className="text-xs font-semibold text-red-400">Offline</span>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
