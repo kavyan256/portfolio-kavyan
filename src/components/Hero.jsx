@@ -19,26 +19,36 @@ const Hero = () => {
   useEffect(() => {
     // Fetch initial analytics and setup socket listener
     const setupAnalytics = async () => {
+      let isServerAvailable = false;
       try {
         const data = await getAnalytics();
         setViews(data.views);
         setLikes(data.likes);
+        isServerAvailable = true;
       } catch (err) {
         console.error("Failed to fetch analytics:", err);
+        isServerAvailable = false;
       }
 
-      // Initialize Socket.io listener for real-time updates
-      initSocket((data) => {
-        setViews(data.views);
-        setLikes(data.likes);
-      });
+      // Only initialize Socket if analytics fetch succeeded
+      if (isServerAvailable) {
+        initSocket((data) => {
+          setViews(data.views);
+          setLikes(data.likes);
+        });
+      }
+
+      setIsConnected(isServerAvailable);
     };
 
     setupAnalytics();
 
-    // Record view only once on component mount
+    // Record view only once on component mount (don't fail silently)
     if (!viewRecordedRef.current) {
-      recordView();
+      recordView().catch((err) => {
+        console.error("Failed to record view:", err);
+        setIsConnected(false);
+      });
       viewRecordedRef.current = true;
     }
 
@@ -161,36 +171,37 @@ const Hero = () => {
       )}
 
       <div id="analytics" className="absolute right-5 top-4 flex flex-col gap-4 text-[#fffce1] font-inter">
-        {/* Views */}
-        <div className="flex items-center gap-3">
-          <div className="flex items-center justify-center w-8 h-8 border border-[#fffce1] rounded-full">
-            <span className="text-xs">👁</span>
-          </div>
-          <div className="flex flex-col">
-            <span className="text-xs tracking-widest uppercase opacity-70">Views</span>
-            <span className="text-sm font-semibold">{views.toLocaleString()}</span>
-          </div>
-        </div>
+        {isConnected ? (
+          <>
+            {/* Views */}
+            <div className="flex items-center gap-3">
+              <div className="flex items-center justify-center w-8 h-8 border border-[#fffce1] rounded-full">
+                <span className="text-xs">👁</span>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-xs tracking-widest uppercase opacity-70">Views</span>
+                <span className="text-sm font-semibold">{views.toLocaleString()}</span>
+              </div>
+            </div>
 
-        {/* Likes */}
-        <div className="flex items-center gap-3">
-          <div className="flex items-center justify-center w-8 h-8 border border-[#fffce1] rounded-full">
-            <span className="text-xs">♡</span>
-          </div>
-          <div className="flex flex-col">
-            <span className="text-xs tracking-widest uppercase opacity-70">Likes</span>
-            <span className="text-sm font-semibold">{likes.toLocaleString()}</span>
-          </div>
-        </div>
-
-        {/* Server Status */}
-        {!isConnected && (
-          <div className="flex items-center gap-3 mt-4 pt-4 border-t border-[#fffce1] border-opacity-20 animate-pulse">
+            {/* Likes */}
+            <div className="flex items-center gap-3">
+              <div className="flex items-center justify-center w-8 h-8 border border-[#fffce1] rounded-full">
+                <span className="text-xs">♡</span>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-xs tracking-widest uppercase opacity-70">Likes</span>
+                <span className="text-sm font-semibold">{likes.toLocaleString()}</span>
+              </div>
+            </div>
+          </>
+        ) : (
+          <div className="flex items-center gap-3 animate-pulse">
             <div className="flex items-center justify-center w-8 h-8 border border-red-400 rounded-full">
               <span className="text-xs">⚠</span>
             </div>
             <div className="flex flex-col">
-              <span className="text-xs tracking-widest uppercase opacity-70 text-red-400">Server</span>
+              <span className="text-xs tracking-widest text-red-400 uppercase opacity-70">Server</span>
               <span className="text-xs font-semibold text-red-400">Offline</span>
             </div>
           </div>

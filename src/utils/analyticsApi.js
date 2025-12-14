@@ -1,6 +1,7 @@
 import { io } from "socket.io-client";
 
 const API_URL = "http://localhost:3001";
+const API_TIMEOUT = 5000; // 5 second timeout
 
 // Socket.io connection for real-time updates
 let socket = null;
@@ -36,63 +37,87 @@ export const initSocket = (callback) => {
   });
 };
 
+// Helper function to add timeout to fetch
+const fetchWithTimeout = (url, options = {}) => {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), API_TIMEOUT);
+
+  return fetch(url, { ...options, signal: controller.signal })
+    .finally(() => clearTimeout(timeoutId));
+};
+
 // Get current analytics
 export const getAnalytics = async () => {
   try {
-    const response = await fetch(`${API_URL}/api/analytics`);
+    const response = await fetchWithTimeout(`${API_URL}/api/analytics`);
+    if (!response.ok) {
+      throw new Error(`Server error: ${response.status}`);
+    }
     const data = await response.json();
     return data;
   } catch (error) {
     console.error("Error fetching analytics:", error);
-    return { views: 0, likes: 0 };
+    throw error;
   }
 };
 
 // Increment views
 export const recordView = async () => {
   try {
-    const response = await fetch(`${API_URL}/api/views`, {
+    const response = await fetchWithTimeout(`${API_URL}/api/views`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
     });
+    if (!response.ok) {
+      throw new Error(`Server error: ${response.status}`);
+    }
     const data = await response.json();
     return data;
   } catch (error) {
     console.error("Error recording view:", error);
+    throw error;
   }
 };
 
 // Increment likes
 export const recordLike = async () => {
   try {
-    const response = await fetch(`${API_URL}/api/likes`, {
+    const response = await fetchWithTimeout(`${API_URL}/api/likes`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
     });
+    if (!response.ok) {
+      throw new Error(`Server error: ${response.status}`);
+    }
     const data = await response.json();
     return data;
   } catch (error) {
     console.error("Error recording like:", error);
+    throw error;
   }
 };
 
 // Reset analytics
 export const resetAnalytics = async () => {
   try {
-    const response = await fetch(`${API_URL}/api/reset`, {
+    const response = await fetchWithTimeout(`${API_URL}/api/reset`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
     });
+    if (!response.ok) {
+      throw new Error(`Server error: ${response.status}`);
+    }
     const data = await response.json();
     return data;
   } catch (error) {
     console.error("Error resetting analytics:", error);
+    throw error;
   }
 };
 

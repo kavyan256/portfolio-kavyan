@@ -18,6 +18,9 @@ app.use(cors());
 app.use(express.json());
 
 // Redis Client Setup
+let redisAvailable = false;
+let analyticsCache = { views: 0, likes: 0 };
+
 const client = redis.createClient({
   socket: {
     host: "localhost",
@@ -32,19 +35,26 @@ const client = redis.createClient({
   },
 });
 
-client.on("error", (err) => {
-  console.error("Redis Client Error:", err);
-  console.log("Make sure Redis is running on localhost:6379");
+client.on("connect", () => {
+  redisAvailable = true;
+  console.log("✓ Connected to Redis");
 });
 
-client.on("connect", () => {
-  console.log("✓ Connected to Redis");
+client.on("end", () => {
+  redisAvailable = false;
+  console.log("Redis disconnected");
+});
+
+client.on("error", (err) => {
+  redisAvailable = false;
+  console.error("Redis Client Error:", err.message);
 });
 
 // Connect to Redis
 (async () => {
   try {
     await client.connect();
+    redisAvailable = true;
     console.log("Redis connection successful");
 
     // Initialize analytics counters if they don't exist
@@ -59,12 +69,18 @@ client.on("connect", () => {
       await client.set("portfolio:likes", "0");
       console.log("Initialized likes counter");
     }
+
+    // Load into cache
+    analyticsCache.views = parseInt(views) || 0;
+    analyticsCache.likes = parseInt(likes) || 0;
   } catch (err) {
+    redisAvailable = false;
     console.error("Failed to connect to Redis:", err.message);
-    console.log("\nPlease start Redis server:");
+    console.log("\nRunning in fallback mode without Redis");
+    console.log("To enable Redis, start it with:");
     console.log("  Windows (Docker): docker run -d -p 6379:6379 redis");
     console.log("  macOS: brew services start redis");
-    console.log("  Linux: sudo service redis-server start");
+    console.log("  Linux: sudo service redis-server start\n");
   }
 })();
 
@@ -72,14 +88,17 @@ client.on("connect", () => {
 
 // Get current analytics
 app.get("/api/analytics", async (req, res) => {
+  if (!redisAvailable) {
+    return res.status(503).json({ error: "Redis unavailable" });
+  }
+
   try {
     const views = await client.get("portfolio:views");
     const likes = await client.get("portfolio:likes");
+    analyticsCache.views = parseInt(views) || 0;
+    analyticsCache.likes = parseInt(likes) || 0;
 
-    res.json({
-      views: parseInt(views) || 0,
-      likes: parseInt(likes) || 0,
-    });
+    res.json(analyticsCache);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -87,17 +106,19 @@ app.get("/api/analytics", async (req, res) => {
 
 // Increment views
 app.post("/api/views", async (req, res) => {
+  if (!redisAvailable) {
+    return res.status(503).json({ error: "Redis unavailable" });
+  }
+
   try {
-    const views = await client.incr("portfolio:views");
-    const likes = await client.get("portfolio:likes");
+    analyticsCache.views = await client.incr("portfolio:views");
+    analyticsCache.likes = await client.get("portfolio:likes");
+    analyticsCache.likes = parseInt(analyticsCache.likes) || 0;
 
-    // Emit to all connected clients
-    io.emit("analytics-update", {
-      views: views,
-      likes: parseInt(likes) || 0,
-    });
+    // Fire and forget - don't wait for emit
+    io.emit("analytics-update", { ...analyticsCache });
 
-    res.json({ views, message: "View counted" });
+    res.json({ views: analyticsCache.views, message: "View counted" });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -105,17 +126,19 @@ app.post("/api/views", async (req, res) => {
 
 // Increment likes
 app.post("/api/likes", async (req, res) => {
+  if (!redisAvailable) {
+    return res.status(503).json({ error: "Redis unavailable" });
+  }
+
   try {
-    const likes = await client.incr("portfolio:likes");
-    const views = await client.get("portfolio:views");
+    analyticsCache.likes = await client.incr("portfolio:likes");
+    analyticsCache.views = await client.get("portfolio:views");
+    analyticsCache.views = parseInt(analyticsCache.views) || 0;
 
-    // Emit to all connected clients
-    io.emit("analytics-update", {
-      views: parseInt(views) || 0,
-      likes: likes,
-    });
+    // Fire and forget - don't wait for emit
+    io.emit("analytics-update", { ...analyticsCache });
 
-    res.json({ likes, message: "Like counted" });
+    res.json({ likes: analyticsCache.likes, message: "Like counted" });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -123,14 +146,17 @@ app.post("/api/likes", async (req, res) => {
 
 // Reset analytics (optional)
 app.post("/api/reset", async (req, res) => {
+  if (!redisAvailable) {
+    return res.status(503).json({ error: "Redis unavailable" });
+  }
+
   try {
     await client.set("portfolio:views", "0");
     await client.set("portfolio:likes", "0");
+    analyticsCache = { views: 0, likes: 0 };
 
-    io.emit("analytics-update", {
-      views: 0,
-      likes: 0,
-    });
+    // Fire and forget - don't wait for emit
+    io.emit("analytics-update", { ...analyticsCache });
 
     res.json({ message: "Analytics reset" });
   } catch (error) {
