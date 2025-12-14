@@ -1,6 +1,6 @@
 import { io } from "socket.io-client";
 
-const API_URL = "http://localhost:3001";
+const API_URL = "https://pockets-reflects-powered-appreciated.trycloudflare.com";
 const API_TIMEOUT = 5000; // 5 second timeout
 
 // Socket.io connection for real-time updates
@@ -19,21 +19,22 @@ export const initSocket = (callback) => {
 
   socket.on("connect", () => {
     isConnected = true;
-    console.log("Connected to backend");
+    console.log("✓ Socket connected to backend");
   });
 
   socket.on("analytics-update", (data) => {
+    console.log("✓ Analytics update received:", data);
     if (callback) callback(data);
   });
 
   socket.on("disconnect", () => {
     isConnected = false;
-    console.log("Disconnected from backend");
+    console.log("✗ Socket disconnected from backend");
   });
 
   socket.on("connect_error", () => {
     isConnected = false;
-    console.log("Failed to connect to backend");
+    console.log("✗ Socket connection error");
   });
 };
 

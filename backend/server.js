@@ -8,13 +8,16 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: "http://kavyan.fun",
     methods: ["GET", "POST"],
   },
 });
 
 // Middleware
-app.use(cors());
+app.use(cors({ 
+    origin: "http://kavyan.fun" ,
+    methods: ["GET", "POST"]
+}));
 app.use(express.json());
 
 // Redis Client Setup

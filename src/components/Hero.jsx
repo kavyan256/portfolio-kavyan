@@ -25,8 +25,9 @@ const Hero = () => {
         setViews(data.views);
         setLikes(data.likes);
         isServerAvailable = true;
+        console.log("✓ Connected to backend - Redis running");
       } catch (err) {
-        console.error("Failed to fetch analytics:", err);
+        console.error("✗ Disconnected backend - Redis unavailable");
         isServerAvailable = false;
       }
 
@@ -45,10 +46,14 @@ const Hero = () => {
 
     // Record view only once on component mount (don't fail silently)
     if (!viewRecordedRef.current) {
-      recordView().catch((err) => {
-        console.error("Failed to record view:", err);
-        setIsConnected(false);
-      });
+      recordView()
+        .then(() => {
+          console.log("✓ View recorded");
+        })
+        .catch((err) => {
+          console.error("✗ Failed to record view:", err);
+          setIsConnected(false);
+        });
       viewRecordedRef.current = true;
     }
 
@@ -56,6 +61,18 @@ const Hero = () => {
     connectionCheckRef.current = setInterval(() => {
       setIsConnected(isBackendConnected());
     }, 1000);
+
+    // Health checkpoint every 1 minute
+    const healthCheckRef = setInterval(async () => {
+      try {
+        await getAnalytics();
+        console.log("✓ Health check passed - Backend & Redis OK");
+        setIsConnected(true);
+      } catch (err) {
+        console.error("✗ Health check failed - Backend or Redis unavailable");
+        setIsConnected(false);
+      }
+    }, 1 * 60 * 1000); // 1 minute
 
     // GSAP animations
     const tl = gsap.timeline({ defaults: { ease: "power2.out", duration: 1.0 } });
@@ -93,6 +110,9 @@ const Hero = () => {
     return () => {
       if (connectionCheckRef.current) {
         clearInterval(connectionCheckRef.current);
+      }
+      if (healthCheckRef) {
+        clearInterval(healthCheckRef);
       }
     }
   }, []);
@@ -162,7 +182,13 @@ const Hero = () => {
       {isConnected && (
         <button onClick={() => {
           setIsLiked(!isLiked);
-          recordLike();
+          recordLike()
+            .then(() => {
+              console.log("✓ Like registered");
+            })
+            .catch((err) => {
+              console.error("✗ Failed to register like:", err);
+            });
         }} className="absolute flex items-center justify-center w-12 h-12 transition border-2 border-gray-400 rounded-full bottom-24 right-8 hover:scale-105 hover:border-gray-600">
           <span className={`text-xl transition-transform duration-300 ${isLiked ? "scale-110" : "scale-100"}`}>
             {isLiked ? "♥" : "♡"}
