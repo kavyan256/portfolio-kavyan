@@ -8,16 +8,17 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: "https://kavyan.fun",
+    origin: ["https://www.kavyan.fun", "https://kavyan.fun"],
     methods: ["GET", "POST"],
   },
 });
 
 // Middleware
 app.use(cors({ 
-    origin: "http://kavyan.fun" ,
+    origin: ["https://www.kavyan.fun", "https://kavyan.fun", "http://localhost:5173"],
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"],
+    credentials: true,
 }));
 app.options("*", cors());
 app.use(express.json());
