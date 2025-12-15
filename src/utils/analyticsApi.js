@@ -1,5 +1,4 @@
 import { io } from "socket.io-client";
-import cors from "cors";
 
 const API_URL = "https://immediate-newfoundland-peripheral-latex.trycloudflare.com/";
 const API_TIMEOUT = 5000; // 5 second timeout
