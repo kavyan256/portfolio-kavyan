@@ -1,6 +1,6 @@
 import { io } from "socket.io-client";
 
-const API_URL = "https://pockets-reflects-powered-appreciated.trycloudflare.com";
+const API_URL = "https://immediate-newfoundland-peripheral-latex.trycloudflare.com/";
 const API_TIMEOUT = 5000; // 5 second timeout
 
 // Socket.io connection for real-time updates
