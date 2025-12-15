@@ -16,8 +16,10 @@ const io = socketIo(server, {
 // Middleware
 app.use(cors({ 
     origin: "http://kavyan.fun" ,
-    methods: ["GET", "POST"]
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type"],
 }));
+app.options("*", cors());
 app.use(express.json());
 
 // Redis Client Setup
