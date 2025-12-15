@@ -69,3 +69,414 @@ html, body, #root {
   width: 0;
   height: 0;
 }
+
+/* ============================================
+   PHONE/MOBILE SPECIFIC MEDIA QUERIES
+   ============================================ */
+
+/* Extra Small Devices - Phones (max 480px) */
+@media (max-width: 480px) {
+  /* Hero Section */
+  #hero {
+    padding: 0 0.5rem;
+    margin-bottom: -2rem;
+  }
+
+  #hero #name-container {
+    font-size: 2rem;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    gap: 0rem;
+  }
+
+  #hero #name-container > span:nth-child(6) {
+    padding-left: 0.25rem !important;
+  }
+
+  #hero #subtitle {
+    width: auto !important;
+    max-width: 95vw;
+    font-size: 0.75rem;
+    line-height: 1.3;
+    letter-spacing: 0.3px;
+  }
+
+  /* Logo */
+  #hero .absolute.p-2 {
+    padding: 0.375rem;
+    top: 0.5rem;
+    left: 0.5rem;
+  }
+
+  #hero .absolute.p-2 img {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  /* Social Icons */
+  #hero .flex.flex-col.gap-8 {
+    gap: 0.875rem;
+    left: 0.5rem;
+    bottom: 1.5rem;
+  }
+
+  #hero .flex.flex-col.gap-8 img {
+    width: 2.5rem;
+    height: 2.5rem;
+    transition: transform 0.3s ease;
+  }
+
+  #hero .flex.flex-col.gap-8 img:active {
+    transform: scale(1.15);
+  }
+
+  /* Like Button */
+  #hero button.absolute {
+    width: 1.75rem;
+    height: 1.75rem;
+    bottom: 5.5rem;
+    right: 0.5rem;
+    border-width: 1px;
+  }
+
+  #hero button.absolute span {
+    font-size: 0.75rem;
+  }
+
+  /* Analytics Display */
+  #analytics {
+    right: 0.5rem;
+    top: 0.5rem;
+    gap: 0.375rem;
+    font-size: 0.625rem;
+  }
+
+  #analytics > div {
+    gap: 0.375rem;
+    padding: 0.375rem;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 0.375rem;
+  }
+
+  #analytics .w-8.h-8 {
+    width: 1.25rem;
+    height: 1.25rem;
+    font-size: 0.5rem;
+  }
+
+  #analytics .flex.flex-col > span:first-child {
+    font-size: 0.5rem;
+    letter-spacing: 0.5px;
+  }
+
+  #analytics .flex.flex-col > span:last-child {
+    font-size: 0.625rem;
+  }
+
+  /* Vertical Line SVG - Hide on mobile */
+  #hero .absolute.z-10.left-5 {
+    display: none;
+  }
+
+  /* About Section */
+  section.bg-\[\#fcfaf0\]:nth-of-type(1) {
+    min-height: auto;
+    padding: 1.5rem 1rem;
+  }
+
+  section.bg-\[\#fcfaf0\]:nth-of-type(1) .text-center {
+    gap: 1.25rem;
+  }
+
+  section.bg-\[\#fcfaf0\]:nth-of-type(1) .max-w-7xl {
+    padding: 0;
+  }
+
+  /* Marquee text */
+  section.bg-\[\#fcfaf0\] p.flex.justify-center {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    font-weight: 300;
+  }
+
+  /* Projects Section */
+  section.flex.flex-col.gap-24 {
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+  }
+
+  section.flex.flex-col.gap-24 .max-w-6xl {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  section.flex.flex-col.gap-24 .text-6xl {
+    font-size: 1.25rem;
+    line-height: 1.3;
+    font-weight: 600;
+  }
+
+  section.flex.flex-col.gap-24 .grid.w-full {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    gap: 0.75rem;
+    grid-template-columns: 1fr;
+  }
+
+  /* Project Cards */
+  section.flex.flex-col.gap-24 .flex.flex-col.gap-4 {
+    gap: 0.5rem;
+  }
+
+  section.flex.flex-col.gap-24 .flex.flex-col.gap-4 > div {
+    height: 200px !important;
+    border-radius: 0.5rem;
+  }
+
+  section.flex.flex-col.gap-24 .text-sm.tracking-wide {
+    font-size: 0.7rem;
+    letter-spacing: 0.8px;
+    opacity: 0.7;
+  }
+
+  section.flex.flex-col.gap-24 .text-2xl.font-medium {
+    font-size: 1rem;
+    letter-spacing: -0.01em;
+  }
+
+  /* Contact Section */
+  section.w-full.bg-\[\#fcfaf0\].text-black {
+    padding: 1.5rem 0;
+  }
+
+  section.w-full.bg-\[\#fcfaf0\].text-black .max-w-6xl {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  section.w-full.bg-\[\#fcfaf0\].text-black .space-y-20 {
+    gap: 1.5rem;
+  }
+
+  section.w-full.bg-\[\#fcfaf0\].text-black .space-y-6 {
+    gap: 0.5rem;
+  }
+
+  section.w-full.bg-\[\#fcfaf0\].text-black .flex.flex-col.gap-2 {
+    gap: 0.25rem !important;
+  }
+
+  section.w-full.bg-\[\#fcfaf0\].text-black .text-5xl {
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  section.w-full.bg-\[\#fcfaf0\].text-black .text-xl {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  section.w-full.bg-\[\#fcfaf0\].text-black .text-lg {
+    font-size: 0.875rem;
+  }
+
+  section.w-full.bg-\[\#fcfaf0\].text-black .pt-24 {
+    padding-top: 1.5rem;
+  }
+
+  section.w-full.bg-\[\#fcfaf0\].text-black .text-sm {
+    font-size: 0.75rem;
+  }
+
+  section.w-full.bg-\[\#fcfaf0\].text-black a {
+    word-break: break-word;
+  }
+
+  /* Navbar */
+  nav.relative.z-20.flex {
+    height: 3rem;
+  }
+
+  nav.relative.z-20.flex .flex.justify-center > a {
+    padding-left: 0.375rem;
+    padding-right: 0.375rem;
+    font-size: 0.625rem;
+    font-weight: 400;
+    letter-spacing: 0.3px;
+  }
+
+  /* Framework Marquee */
+  div.relative.w-full.py-2 {
+    padding: 0.75rem 0;
+  }
+
+  div.relative.w-full.py-2 > div > div {
+    width: 5rem;
+    height: 3.5rem;
+    gap: 0.375rem;
+    border-radius: 0.375rem;
+  }
+
+  div.relative.w-full.py-2 .text-6xl {
+    font-size: 1.25rem;
+  }
+
+  div.relative.w-full.py-2 .border-2 {
+    border-width: 1px;
+  }
+
+  /* Loading Page */
+  .flex.flex-col.items-center.justify-center.min-h-screen.text-2xl {
+    font-size: 0.9rem;
+    padding: 1rem;
+  }
+
+  .flex.flex-col.items-center.justify-center.min-h-screen.text-2xl p {
+    font-size: 1.25rem;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+  }
+
+  .flex.flex-col.items-center.justify-center.min-h-screen.text-2xl .relative.flex {
+    padding: 1rem;
+  }
+
+  /* SVG Icons in Loading Page */
+  .w-24.h-24 {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+
+  .w-14.h-14 {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .w-16.h-16 {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}
+
+/* Small Devices - Larger Phones (481px - 640px) */
+@media (min-width: 481px) and (max-width: 640px) {
+  /* Hero Section */
+  #hero #name-container {
+    font-size: 2.75rem;
+  }
+
+  #hero #subtitle {
+    font-size: 0.9rem;
+    max-width: 92vw;
+  }
+
+  #hero .absolute.p-2 img {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  /* Social Icons */
+  #hero .flex.flex-col.gap-8 {
+    gap: 1.125rem;
+    left: 0.75rem;
+    bottom: 2rem;
+  }
+
+  #hero .flex.flex-col.gap-8 img {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  /* Like Button */
+  #hero button.absolute {
+    width: 2rem;
+    height: 2rem;
+    bottom: 6rem;
+    right: 1rem;
+  }
+
+  /* Analytics */
+  #analytics {
+    right: 0.75rem;
+    top: 0.75rem;
+    gap: 0.5rem;
+  }
+
+  #analytics > div {
+    gap: 0.5rem;
+  }
+
+  /* About Section */
+  section.bg-\[\#fcfaf0\]:nth-of-type(1) {
+    padding: 2rem 1.25rem;
+  }
+
+  section.bg-\[\#fcfaf0\]:nth-of-type(1) .text-4xl {
+    font-size: 1.5rem;
+    line-height: 1.4;
+  }
+
+  section.bg-\[\#fcfaf0\]:nth-of-type(1) .text-3xl {
+    font-size: 1.125rem;
+  }
+
+  /* Projects Section */
+  section.flex.flex-col.gap-24 {
+    gap: 2rem;
+    padding: 2rem 0;
+  }
+
+  section.flex.flex-col.gap-24 .text-6xl {
+    font-size: 1.75rem;
+  }
+
+  section.flex.flex-col.gap-24 .grid.w-full {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    gap: 1rem;
+  }
+
+  section.flex.flex-col.gap-24 .flex.flex-col.gap-4 > div {
+    height: 300px !important;
+  }
+
+  /* Contact Section */
+  section.w-full.bg-\[\#fcfaf0\].text-black {
+    padding: 2rem 0;
+  }
+
+  section.w-full.bg-\[\#fcfaf0\].text-black .max-w-6xl {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  section.w-full.bg-\[\#fcfaf0\].text-black .text-5xl {
+    font-size: 1.75rem;
+  }
+
+  section.w-full.bg-\[\#fcfaf0\].text-black .text-xl {
+    font-size: 1rem;
+  }
+
+  /* Framework Marquee */
+  div.relative.w-full.py-2 > div > div {
+    width: 6rem;
+    height: 4rem;
+  }
+
+  /* Loading Page */
+  .w-24.h-24 {
+    width: 4rem;
+    height: 4rem;
+  }
+
+  .w-14.h-14 {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .w-16.h-16 {
+    width: 3rem;
+    height: 3rem;
+  }
+}
