@@ -17,7 +17,7 @@ const io = socketIo(server, {
 app.use(cors({ 
     origin: ["https://www.kavyan.fun", "https://kavyan.fun", "http://localhost:5173"],
     methods: ["GET", "POST"],
-    allowedHeaders: ["Content-Type"],
+    allowedHeaders: ["Content-Type", "x-client-id"],
     credentials: true,
 }));
 app.options("*", cors());
