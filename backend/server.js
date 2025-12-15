@@ -8,7 +8,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: "http://kavyan.fun",
+    origin: "https://kavyan.fun",
     methods: ["GET", "POST"],
   },
 });
