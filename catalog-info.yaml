@@ -5,6 +5,6 @@ metadata:
   annotations:
     github.com/project-slug: kavyan256/portfolio-kavyan
 spec:
-  type: other
-  lifecycle: unknown
+  type: service
+  lifecycle: production
   owner: user:kavyan256
