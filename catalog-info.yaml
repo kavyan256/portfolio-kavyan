@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: portfolio-kavyan
+  annotations:
+    github.com/project-slug: kavyan256/portfolio-kavyan
+spec:
+  type: other
+  lifecycle: unknown
+  owner: "user: kavyan256"
