@@ -1,15 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
 import LoadingPage from "./pages/LoadingPage";
 import LandingPage from "./pages/landingPage";
+import ProjectsPage from "./pages/ProjectsPage";
 import gsap from "gsap";
 import FollowCursor from "./components/FollowCursor";
 import bg_music from "./assets/music/bg_music.mp3";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 
 const App = () => {
   const [showLoading, setShowLoading] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isAudioOn, setIsAudioOn] = useState(true);
   const audioRef = useRef(null);
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
 
   const toggleAudio = () => {
     if (isAudioOn) {
@@ -64,16 +68,19 @@ const App = () => {
   };
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-black">
-      {/* Landing page - shown after loading is complete */}
+    <main className="relative min-h-screen overflow-x-hidden bg-black">
       {!showLoading && (
-        <div className="absolute inset-0">
-          <LandingPage />
-          <FollowCursor />
-          <div className="fixed flex flex-col gap-4 bottom-8 right-8">
-            {/* Music Button */}
+        <div className="relative w-full">
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/projects" element={<ProjectsPage />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+
+          {isHomePage && <FollowCursor />}
+
+          <div className="fixed flex flex-col gap-4 bottom-8 right-8 z-30">
             <button onClick={toggleAudio} className="flex items-center justify-center w-12 h-12 transition border-2 border-gray-400 rounded-full bg-gray-00 hover:scale-105 hover:border-gray-600">
-              {/* Mini Squiggly Animation */}
               <svg
                 width="30"
                 height="12"
