@@ -31,3 +31,6 @@ dist-ssr
 !.dev.vars.example
 .env*
 !.env.example
+
+# Claude Code project guide (local-only)
+CLAUDE.md
