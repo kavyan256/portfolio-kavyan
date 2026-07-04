@@ -11,14 +11,16 @@ const projects = [
     description:
       "Benchmarks, runtime experiments, and tools that make the invisible parts of software easier to understand.",
     tags: ["C++", "Profiling", "Systems"],
+    path: "/projects/low-level-systems-lab",
   },
   {
     image: orangeRedis,
-    title: "AI / ML Experiments",
-    subtitle: "Learning systems that adapt",
+    title: "DevOps Experiments",
+    subtitle: "Deployment, automation, and workflows",
     description:
-      "Small, iterative studies around models, workflows, and practical uses of machine learning.",
-    tags: ["ML", "Automation", "Research"],
+      "Small, iterative studies around deployment workflows, automation, and practical infrastructure.",
+    tags: ["DevOps", "Automation", "Infrastructure"],
+    path: "/projects/devops-experiments",
   },
   {
     image: project3,
@@ -27,6 +29,7 @@ const projects = [
     description:
       "Browser-led work focused on motion design, transitions, and interfaces that feel alive.",
     tags: ["React", "Motion", "UI"],
+    path: "/projects/creative-web",
   },
   {
     image: project4,
@@ -35,6 +38,7 @@ const projects = [
     description:
       "Early-stage concepts and visual experiments that test new ideas before they become full projects.",
     tags: ["Prototype", "Design", "Exploration"],
+    path: "/projects/experimental-projects",
   },
 ];
 

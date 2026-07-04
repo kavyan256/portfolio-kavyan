@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function ProjectCard({ project, linkTo = "/projects" }) {
+export default function ProjectCard({ project, linkTo }) {
+  const destination = linkTo ?? project.path;
   const cardContent = (
     <article className="group overflow-hidden rounded-[2rem] border border-white/8 bg-[#0d0d0d] transition-transform duration-500 hover:-translate-y-1">
       <div className="relative aspect-[4/3] overflow-hidden">
@@ -41,12 +42,12 @@ export default function ProjectCard({ project, linkTo = "/projects" }) {
     </article>
   );
 
-  if (!linkTo) {
+  if (!destination) {
     return cardContent;
   }
 
   return (
-    <Link to={linkTo} className="block outline-none" aria-label={`Open projects page from ${project.title}`}>
+    <Link to={destination} className="block outline-none" aria-label={`Open project page for ${project.title}`}>
       {cardContent}
     </Link>
   );

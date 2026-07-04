@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import LoadingPage from "./pages/LoadingPage";
 import LandingPage from "./pages/landingPage";
-import ProjectsPage from "./pages/ProjectsPage";
+import LowLevelSystemsLab from "./pages/projects/LowLevelSystemsLab";
+import DevOpsExperiments from "./pages/projects/DevOpsExperiments";
+import CreativeWeb from "./pages/projects/CreativeWeb";
+import ExperimentalProjects from "./pages/projects/ExperimentalProjects";
 import gsap from "gsap";
 import FollowCursor from "./components/FollowCursor";
 import bg_music from "./assets/music/bg_music.mp3";
@@ -17,17 +20,14 @@ const App = () => {
 
   const toggleAudio = () => {
     if (isAudioOn) {
-      // Pause the audio
       audioRef.current.pause();
     } else {
-      // Play the audio
       audioRef.current.play().catch(err => console.log("Playback error:", err));
     }
     setIsAudioOn(!isAudioOn);
   };
 
   useEffect(() => {
-    // Auto-play audio when landing page appears
     if (!showLoading && audioRef.current) {
       audioRef.current.volume = 0.3;
       audioRef.current.loop = true;
@@ -37,27 +37,23 @@ const App = () => {
 
   const handleLoadingComplete = () => {
     setIsTransitioning(true);
-    
-    // Hide loading page immediately to show landing page behind
     setShowLoading(false);
-    
-    // Create diagonal wipe overlay that covers the landing page
+
     const wipeOverlay = document.createElement('div');
     wipeOverlay.style.position = 'fixed';
     wipeOverlay.style.top = '0';
     wipeOverlay.style.left = '0';
     wipeOverlay.style.width = '100vw';
     wipeOverlay.style.height = '100vh';
-    wipeOverlay.style.background = 'white'; // Same as loading page background
+    wipeOverlay.style.background = 'white';
     wipeOverlay.style.zIndex = '9999';
     wipeOverlay.style.transformOrigin = 'top left';
-    wipeOverlay.style.clipPath = 'polygon(0 0, 100% 0, 100% 100%, 0 100%)'; // Full coverage initially
-    
+    wipeOverlay.style.clipPath = 'polygon(0 0, 100% 0, 100% 100%, 0 100%)';
+
     document.body.appendChild(wipeOverlay);
 
-    // Animate diagonal wipe to reveal landing page
     gsap.to(wipeOverlay, {
-      clipPath: 'polygon(100% 0, 100% 0, 100% 100%, 100% 100%)', // Sweep away diagonally
+      clipPath: 'polygon(100% 0, 100% 0, 100% 100%, 100% 100%)',
       duration: 1.2,
       ease: "power2.inOut",
       onComplete: () => {
@@ -73,7 +69,10 @@ const App = () => {
         <div className="relative w-full">
           <Routes>
             <Route path="/" element={<LandingPage />} />
-            <Route path="/projects" element={<ProjectsPage />} />
+            <Route path="/projects/low-level-systems-lab" element={<LowLevelSystemsLab />} />
+            <Route path="/projects/devops-experiments" element={<DevOpsExperiments />} />
+            <Route path="/projects/creative-web" element={<CreativeWeb />} />
+            <Route path="/projects/experimental-projects" element={<ExperimentalProjects />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
 
@@ -102,15 +101,13 @@ const App = () => {
           </div>
         </div>
       )}
-      
-      {/* Loading page on top */}
+
       {showLoading && (
         <div className="absolute inset-0 z-20">
           <LoadingPage onLoadingComplete={handleLoadingComplete} />
         </div>
       )}
 
-      {/* Background audio element */}
       <audio
         ref={audioRef}
         src={bg_music}
