@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import LoadingPage from "./pages/LoadingPage";
-import LandingPage from "./pages/landingPage";
+import LandingPage from "./pages/LandingPage";
 import LowLevelSystemsLab from "./pages/projects/LowLevelSystemsLab";
 import DevOpsExperiments from "./pages/projects/DevOpsExperiments";
-import CreativeWeb from "./pages/projects/CreativeWeb";
-import ExperimentalProjects from "./pages/projects/ExperimentalProjects";
+import Redix from "./pages/projects/details/Redix";
+// import CreativeWeb from "./pages/projects/CreativeWeb";
+// import ExperimentalProjects from "./pages/projects/ExperimentalProjects";
 import gsap from "gsap";
-import FollowCursor from "./components/FollowCursor";
+import FollowCursor from "./components/effects/FollowCursor";
 import bg_music from "./assets/music/bg_music.mp3";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 
@@ -71,8 +72,9 @@ const App = () => {
             <Route path="/" element={<LandingPage />} />
             <Route path="/projects/low-level-systems-lab" element={<LowLevelSystemsLab />} />
             <Route path="/projects/devops-experiments" element={<DevOpsExperiments />} />
-            <Route path="/projects/creative-web" element={<CreativeWeb />} />
-            <Route path="/projects/experimental-projects" element={<ExperimentalProjects />} />
+            {/* <Route path="/projects/creative-web" element={<CreativeWeb />} /> */}
+            {/* <Route path="/projects/experimental-projects" element={<ExperimentalProjects />} /> */}
+            <Route path="/projects/redix" element={<Redix />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
 

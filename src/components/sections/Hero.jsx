@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
 import gsap from "gsap";
-import VerticalLineSVG from "../components/lineSVG";
-import logo from "../assets/images/logo.svg";
-import github from "../assets/images/github.png";
-import linkedin from "../assets/images/linkedIn.png";
-import whatsapp from "../assets/images/Whatsapp.png";
-import TubesCursor from "./TubesCursor";
-import { initSocket, recordView, recordLike, getAnalytics, isBackendConnected } from "../utils/analyticsApi";
+import VerticalLineSVG from "../effects/VerticalLine";
+import logo from "../../assets/images/logo.svg";
+import github from "../../assets/images/github.png";
+import linkedin from "../../assets/images/linkedIn.png";
+import whatsapp from "../../assets/images/Whatsapp.png";
+import TubesCursor from "../effects/TubesCursor";
+import { initSocket, recordView, recordLike, getAnalytics, isBackendConnected } from "../../utils/analyticsApi";
 
 const Hero = () => {
   const [isLiked, setIsLiked] = useState(false);

@@ -5,12 +5,15 @@ export default function TubesCursor() {
 
   useEffect(() => {
     let app = null;
+    let cancelled = false;
 
     async function loadCursor() {
       const module = await import(
         "https://cdn.jsdelivr.net/npm/threejs-components@0.0.19/build/cursors/tubes1.min.js"
       );
       const TubesCursor = module.default;
+
+      if (cancelled) return;
 
       app = TubesCursor(canvasRef.current, {
         tubes: {
@@ -21,6 +24,19 @@ export default function TubesCursor() {
           }
         }
       });
+
+      if (cancelled) {
+        // Unmounted while the module/scene was still loading — tear it down immediately.
+        app.dispose();
+        return;
+      }
+
+      // The library forces a fixed 2x render resolution regardless of the
+      // actual screen; clamp it back down so the full-viewport canvas isn't
+      // rendered at an unnecessarily high pixel density on standard displays.
+      app.three.minPixelRatio = 1;
+      app.three.maxPixelRatio = Math.min(window.devicePixelRatio || 1, 1.5);
+      app.three.resize();
     }
 
     loadCursor();
@@ -49,7 +65,12 @@ export default function TubesCursor() {
     document.body.addEventListener("click", handleClick);
 
     return () => {
+      cancelled = true;
       document.body.removeEventListener("click", handleClick);
+      if (app) {
+        app.dispose();
+        app = null;
+      }
     };
   }, []);
 

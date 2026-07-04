@@ -1,9 +1,9 @@
 import React from "react";
 import Navbar from "../components/Navbar/Navbar";
-import Hero from "../components/Hero";
-import About from "../components/AboutMe";
-import FeaturedProjects from "../components/MyProjects";
-import Contacts from "../components/contact";
+import Hero from "../components/sections/Hero";
+import About from "../components/sections/AboutMe";
+import FeaturedProjects from "../components/sections/MyProjects";
+import Contacts from "../components/sections/Contact";
 
 const LandingPage = () => {
   return (

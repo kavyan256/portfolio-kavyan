@@ -1,11 +1,11 @@
 import React, { useRef, useEffect } from "react";
-import Line from "../components/svg";
+import Line from "../components/effects/HorizontalLine";
 import gsap from "gsap";
-import EyeIcon from "../svg/eye.svg?react";
-import RamenIcon from "../svg/ramen.svg?react";
-import RocketIcon from "../svg/rocket.svg?react";
-import CompassIcon from "../svg/compass.svg?react";
-import CurvedCursorText from "../components/CurvedCursorText";
+import EyeIcon from "../assets/icons/eye.svg?react";
+import RamenIcon from "../assets/icons/ramen.svg?react";
+import RocketIcon from "../assets/icons/rocket.svg?react";
+import CompassIcon from "../assets/icons/compass.svg?react";
+import CurvedCursorText from "../components/effects/CurvedCursorText";
 
 const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+<>?:|{}[]'/.,";
 

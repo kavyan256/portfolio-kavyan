@@ -1,7 +1,7 @@
 // About.jsx
 import React from "react";
-import MarqueeGSAP from "./FrameworkMarquee.jsx";
-import ScrollSvg from "./scrollAnimation.jsx";
+import MarqueeGSAP from "../effects/FrameworkMarquee.jsx";
+import ScrollSvg from "../effects/ScrollCurveDivider.jsx";
 
 export default function About() {
   return (
