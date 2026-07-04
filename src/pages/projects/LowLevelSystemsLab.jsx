@@ -4,44 +4,22 @@ import { Link } from "react-router-dom";
 export default function LowLevelSystemsLab() {
   const projects = [
     {
-      id: "kernel-traces",
-      name: "Kernel Traces",
+      id: "redix",
+      name: "Redix - High-Performance Key-Value Store",
       description:
-        "Inspecting system events and timing patterns to understand low-level behavior.",
-      detail:
-        "A dummy study of event traces, scheduler timing, and how small runtime changes affect the system path.",
+        "A high-performance, Redis-compatible key-value store built in Go with AOF persistence and pub/sub messaging.",
     },
     {
-      id: "cache-paths",
-      name: "Cache Paths",
+      id: "bmos-shell",
+      name: "BMOS Shell - Rust powered custom Unix shell",
       description:
-        "A focused look at memory access patterns, latency, and cache-aware design.",
-      detail:
-        "A dummy experiment exploring memory locality, cache misses, and ways to make data access predictable.",
+        "A custom Unix-like shell built from scratch in Rust, supporting command execution, piping, and I/O redirection",
     },
     {
-      id: "perf-profiles",
-      name: "Perf Profiles",
+      id: "kaos",
+      name: "KaOS - Educational Operating System",
       description:
-        "Profiling tools and quick benchmarks used to compare performance tradeoffs.",
-      detail:
-        "A dummy toolkit for collecting benchmark snapshots and comparing hotspots across builds.",
-    },
-    {
-      id: "runtime-hooks",
-      name: "Runtime Hooks",
-      description:
-        "Lightweight hooks for observing execution without changing the core flow.",
-      detail:
-        "A dummy prototype for instrumentation points, logging, and tracing that stays out of the way.",
-    },
-    {
-      id: "allocator-notes",
-      name: "Allocator Notes",
-      description:
-        "Explorations around allocation patterns, fragmentation, and memory pressure.",
-      detail:
-        "A dummy research log for allocator behavior, fragmentation patterns, and tuning ideas.",
+        "A minimal RISC-V operating system built from scratch in C, featuring paged virtual memory, multiprocessing, and a persistent file system",
     },
   ];
 
@@ -56,6 +34,7 @@ export default function LowLevelSystemsLab() {
             <span className="text-lg leading-none">←</span>
             Back home
           </Link>
+
           <span className="text-xs uppercase tracking-[0.35em] text-black/35">
             Low-level systems lab
           </span>
@@ -66,43 +45,45 @@ export default function LowLevelSystemsLab() {
             <p className="text-sm uppercase tracking-[0.35em] text-black/40">
               Project file
             </p>
-            <h1 className="text-5xl font-semibold tracking-tight text-[#1d1a16] sm:text-6xl lg:text-7xl">
+
+            <h1 className="text-5xl font-semibold tracking-tight sm:text-6xl lg:text-7xl">
               Low-Level Systems Lab
             </h1>
+
             <p className="max-w-2xl text-base leading-8 text-black/65 sm:text-lg">
-              A set of dummy experiments presented as broad clickable cards. Each card opens to a short detail panel on the page.
+              Click a project to view its complete documentation, architecture,
+              benchmarks, and implementation details.
             </p>
           </div>
         </section>
 
         <section className="mx-auto flex w-full max-w-5xl flex-col gap-6 pb-16">
           {projects.map((project) => (
-            <details
+            <Link
               key={project.id}
-              className="group rounded-[2rem] border border-black/10 bg-[#f5eddd] p-6 shadow-[0_0_0_1px_rgba(0,0,0,0.03)] transition hover:border-black/15 hover:bg-[#efe3cc] sm:p-8"
+              to={`/projects/${project.id}`}
+              className="group block rounded-[2rem] border border-black/10 bg-[#f5eddd] p-6 shadow-[0_0_0_1px_rgba(0,0,0,0.03)] transition hover:border-black/15 hover:bg-[#efe3cc] sm:p-8"
             >
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-6 outline-none">
+              <div className="flex items-center justify-between gap-6">
                 <div className="min-w-0">
                   <p className="text-xs uppercase tracking-[0.32em] text-black/35">
-                    Dummy project
+                    Personal Project
                   </p>
-                  <h2 className="mt-2 text-2xl font-semibold tracking-tight text-[#1d1a16] sm:text-3xl">
+
+                  <h2 className="mt-2 text-2xl font-semibold tracking-tight sm:text-3xl">
                     {project.name}
                   </h2>
+
                   <p className="mt-3 max-w-3xl text-sm leading-7 text-black/65 sm:text-base">
                     {project.description}
                   </p>
                 </div>
 
-                <span className="shrink-0 rounded-full border border-black/10 bg-white/50 px-4 py-2 text-xs uppercase tracking-[0.28em] text-black/55 transition group-open:bg-white/70 group-open:text-black">
-                  Click
+                <span className="shrink-0 rounded-full border border-black/10 bg-white/50 px-4 py-2 text-xs uppercase tracking-[0.28em] text-black/55 transition group-hover:bg-white group-hover:text-black">
+                  View →
                 </span>
-              </summary>
-
-              <div className="mt-6 border-t border-black/10 pt-6 text-sm leading-7 text-black/70 sm:text-base">
-                {project.detail}
               </div>
-            </details>
+            </Link>
           ))}
         </section>
       </div>

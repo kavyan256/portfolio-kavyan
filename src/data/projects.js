@@ -22,6 +22,7 @@ const projects = [
     tags: ["DevOps", "Automation", "Infrastructure"],
     path: "/projects/devops-experiments",
   },
+  /*
   {
     image: project3,
     title: "Creative Web",
@@ -29,7 +30,7 @@ const projects = [
     description:
       "Browser-led work focused on motion design, transitions, and interfaces that feel alive.",
     tags: ["React", "Motion", "UI"],
-    path: "/projects/creative-web",
+    // path: "/projects/creative-web",
   },
   {
     image: project4,
@@ -40,6 +41,7 @@ const projects = [
     tags: ["Prototype", "Design", "Exploration"],
     path: "/projects/experimental-projects",
   },
+  */
 ];
 
 export default projects;

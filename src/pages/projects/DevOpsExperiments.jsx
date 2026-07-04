@@ -4,44 +4,20 @@ import { Link } from "react-router-dom";
 export default function DevOpsExperiments() {
   const projects = [
     {
-      id: "pipeline-ops",
-      name: "Pipeline Ops",
+      id: "homelab",
+      name: "Personal Kubernetes Homelab",
       description:
-        "A dummy project about build stages, automated checks, and predictable delivery paths.",
+        "Built and operate a 3-node k3s cluster on repurposed laptops, hosting production grade workloads and serve as a playground for experimentation before actual deployment.",
       detail:
-        "A short mock study of CI configuration, deployment gates, and release reliability.",
+        "Deployed k3s across repurposed hardware (4GB/4GB/8GB RAM, 256GB/256GB/128GB storage) instead of full Kubernetes to minimize resource overhead, running containerized services via Docker with hands-on ownership of cluster networking, storage, and workload scheduling.",
     },
     {
-      id: "infra-notes",
-      name: "Infra Notes",
+      id: "idp",
+      name: "Internal Developer Platform (IDP)",
       description:
-        "A lightweight project for documenting infrastructure patterns and repeatable setup steps.",
+        "A Backstage-powered developer portal providing self-service project scaffolding, service catalog management, and centralized documentation.",
       detail:
-        "A dummy notes workspace covering environments, provisioning, and maintenance decisions.",
-    },
-    {
-      id: "deploy-scripts",
-      name: "Deploy Scripts",
-      description:
-        "Small scripts that automate release tasks and reduce manual repetition.",
-      detail:
-        "A dummy bundle of scripts for service rollout, validation, and rollback safety.",
-    },
-    {
-      id: "monitoring-view",
-      name: "Monitoring View",
-      description:
-        "A simple monitoring concept for watching service health and alert signals.",
-      detail:
-        "A dummy dashboard idea for metrics, logs, and incident awareness during releases.",
-    },
-    {
-      id: "release-checklist",
-      name: "Release Checklist",
-      description:
-        "A checklist-driven approach to ship work with fewer surprises.",
-      detail:
-        "A dummy checklist for approvals, versioning, and final verification before shipping.",
+        "Deployed a production Backstage instance on Kubernetes, provisioned via Terraform, enabling developers to scaffold new services from templates, discover existing services through a centralized catalog, and access auto-generated documentation — reducing manual setup overhead for new projects",
     },
   ];
 
