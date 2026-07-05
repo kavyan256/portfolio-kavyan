@@ -4,6 +4,8 @@ import LandingPage from "./pages/LandingPage";
 import LowLevelSystemsLab from "./pages/projects/LowLevelSystemsLab";
 import DevOpsExperiments from "./pages/projects/DevOpsExperiments";
 import Redix from "./pages/projects/details/Redix";
+import Bmos from "./pages/projects/details/Bmos";
+import Kaos from "./pages/projects/details/Kaos";
 // import CreativeWeb from "./pages/projects/CreativeWeb";
 // import ExperimentalProjects from "./pages/projects/ExperimentalProjects";
 import gsap from "gsap";
@@ -75,6 +77,8 @@ const App = () => {
             {/* <Route path="/projects/creative-web" element={<CreativeWeb />} /> */}
             {/* <Route path="/projects/experimental-projects" element={<ExperimentalProjects />} /> */}
             <Route path="/projects/redix" element={<Redix />} />
+            <Route path="/projects/bmos-shell" element={<Bmos />} />
+            <Route path="/projects/kaos" element={<Kaos />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
 
