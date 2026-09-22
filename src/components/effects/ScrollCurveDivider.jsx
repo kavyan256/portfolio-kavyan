@@ -11,7 +11,7 @@ export default function ScrollSvg() {
 
     const curve = { cY: 50 };
 
-    gsap.to(curve, {
+    const tween = gsap.to(curve, {
       cY: -70,
       ease: "none",
       scrollTrigger: {
@@ -22,7 +22,7 @@ export default function ScrollSvg() {
         scrub: true,
       },
       onUpdate: () => {
-        pathRef.current.setAttribute(
+        pathRef.current?.setAttribute(
           "d",
           `
             M 0 50
@@ -34,6 +34,13 @@ export default function ScrollSvg() {
         );
       },
     });
+
+    // Kill the tween and its ScrollTrigger on unmount; otherwise a later
+    // ScrollTrigger.refresh() on another page fires onUpdate on a dead node.
+    return () => {
+      tween.scrollTrigger?.kill();
+      tween.kill();
+    };
   }, []);
 
   return (

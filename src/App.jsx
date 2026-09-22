@@ -6,6 +6,7 @@ import DevOpsExperiments from "./pages/projects/DevOpsExperiments";
 import Redix from "./pages/projects/details/Redix";
 import Bmos from "./pages/projects/details/Bmos";
 import Kaos from "./pages/projects/details/Kaos";
+import Slate from "./pages/projects/details/Slate";
 // import CreativeWeb from "./pages/projects/CreativeWeb";
 // import ExperimentalProjects from "./pages/projects/ExperimentalProjects";
 import gsap from "gsap";
@@ -79,6 +80,7 @@ const App = () => {
             <Route path="/projects/redix" element={<Redix />} />
             <Route path="/projects/bmos-shell" element={<Bmos />} />
             <Route path="/projects/kaos" element={<Kaos />} />
+            <Route path="/projects/slate" element={<Slate />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
 

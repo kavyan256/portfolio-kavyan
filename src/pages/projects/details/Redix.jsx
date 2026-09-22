@@ -1,12 +1,31 @@
-import React, { useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import React from "react";
+import {
+  ProjectPage,
+  Section,
+  StatRow,
+  StatTile,
+  Code,
+  Bullet,
+  BulletList,
+  CARD,
+  CardTrim,
+} from "../../../components/project/ProjectKit";
+import {
+  TEXT,
+  SURFACE,
+  ON_ACCENT,
+  GRIDLINE,
+  SUBTLE,
+  BOUNDARY,
+  BASELINE,
+  OUTLINE,
+  GREEN,
+  AMBER,
+  VIOLET,
+  NEON,
+} from "../../../theme/palette";
 
-const INK = "#1d1a16";
-const GRIDLINE = "rgba(29, 26, 22, 0.12)";
-const BASELINE = "rgba(29, 26, 22, 0.28)";
-const SERIES_1 = "#2a78d6";
+const ACCENT = NEON.magenta;
 
 const architecture = [
   {
@@ -98,92 +117,6 @@ const concurrencyScaling = [
   { clients: 400, opsPerSec: 118203 },
 ];
 
-function SectionHeading({ number, children }) {
-  return (
-    <div className="flex items-baseline gap-3">
-      <span className="font-mono text-xs text-black/30">{number}</span>
-      <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-        {children}
-      </h2>
-    </div>
-  );
-}
-
-function Reveal({ children, className = "" }) {
-  const ref = useRef(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        el,
-        { opacity: 0, y: 28 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.7,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: el,
-            start: "top 85%",
-          },
-        }
-      );
-    }, ref);
-    return () => ctx.revert();
-  }, []);
-
-  return (
-    <div ref={ref} className={className}>
-      {children}
-    </div>
-  );
-}
-
-function StatTile({ label, value, suffix, format }) {
-  const valueRef = useRef(null);
-
-  useEffect(() => {
-    const el = valueRef.current;
-    const proxy = { n: 0 };
-    const ctx = gsap.context(() => {
-      gsap.to(proxy, {
-        n: value,
-        duration: 1.4,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: el,
-          start: "top 90%",
-        },
-        onUpdate: () => {
-          let text;
-          if (format === "decimal") {
-            text = proxy.n.toFixed(2);
-          } else if (format === "compact") {
-            text = Math.round(proxy.n).toLocaleString();
-          } else {
-            text = Math.round(proxy.n).toString();
-          }
-          el.textContent = text;
-        },
-      });
-    });
-    return () => ctx.revert();
-  }, [value, format]);
-
-  return (
-    <div className="rounded-[1.5rem] border border-black/10 bg-[#f5eddd] p-6 transition hover:-translate-y-1 hover:border-black/15 hover:bg-[#efe3cc]">
-      <p className="text-xs uppercase tracking-[0.3em] text-black/40">{label}</p>
-      <p ref={valueRef} className="mt-3 whitespace-nowrap text-3xl font-semibold tracking-tight sm:text-4xl">
-        0
-      </p>
-      {suffix && (
-        <p className="mt-0.5 text-sm text-black/45">{suffix.trim()}</p>
-      )}
-    </div>
-  );
-}
-
 function ThroughputBarChart() {
   const width = 560;
   const height = 260;
@@ -219,7 +152,7 @@ function ThroughputBarChart() {
               y={y + 4}
               textAnchor="end"
               fontSize="11"
-              fill={INK}
+              fill={TEXT}
               opacity="0.45"
             >
               {tick === 0 ? "0" : `${tick / 1000}k`}
@@ -247,8 +180,8 @@ function ThroughputBarChart() {
               y={y}
               width={barWidth}
               height={barHeight}
-              rx="4"
-              fill={SERIES_1}
+              rx="2"
+              fill={ACCENT}
             />
             <text
               x={x + barWidth / 2}
@@ -256,7 +189,7 @@ function ThroughputBarChart() {
               textAnchor="middle"
               fontSize="12"
               fontWeight="600"
-              fill={INK}
+              fill={TEXT}
             >
               {d.value.toLocaleString()}
             </text>
@@ -265,7 +198,7 @@ function ThroughputBarChart() {
               y={padding.top + plotHeight + 20}
               textAnchor="middle"
               fontSize="12"
-              fill={INK}
+              fill={TEXT}
               opacity="0.6"
             >
               {d.label}
@@ -278,9 +211,9 @@ function ThroughputBarChart() {
 }
 
 const FAN_COLORS = {
-  storage: "#1baf7a",
-  aof: "#eda100",
-  pubsub: "#008300",
+  storage: GREEN,
+  aof: AMBER,
+  pubsub: VIOLET,
 };
 
 function FlowNode({ x, y, w, h, title, sub, condition, variant = "solid", dot }) {
@@ -299,9 +232,9 @@ function FlowNode({ x, y, w, h, title, sub, condition, variant = "solid", dot })
         y={y}
         width={w}
         height={h}
-        rx="10"
-        fill={isAccent ? SERIES_1 : isOutline ? "none" : "#f5eddd"}
-        stroke={isAccent ? SERIES_1 : isOutline ? "rgba(29, 26, 22, 0.35)" : "rgba(29, 26, 22, 0.15)"}
+        rx="2"
+        fill={isAccent ? ACCENT : isOutline ? "none" : SURFACE}
+        stroke={isAccent ? ACCENT : isOutline ? OUTLINE : SUBTLE}
         strokeWidth="1"
         strokeDasharray={isOutline ? "4 3" : undefined}
       />
@@ -314,7 +247,7 @@ function FlowNode({ x, y, w, h, title, sub, condition, variant = "solid", dot })
         textAnchor={dot ? "start" : "middle"}
         fontSize="12.5"
         fontWeight="600"
-        fill={isAccent ? "#fcfaf0" : INK}
+        fill={isAccent ? ON_ACCENT : TEXT}
       >
         {title}
       </text>
@@ -324,9 +257,9 @@ function FlowNode({ x, y, w, h, title, sub, condition, variant = "solid", dot })
           x={x + w / 2}
           y={textY + 15}
           textAnchor="middle"
-          fontFamily="monospace"
+          fontFamily="JetBrains Mono, ui-monospace, monospace"
           fontSize="9.5"
-          fill={isAccent ? "#fcfaf0" : INK}
+          fill={isAccent ? ON_ACCENT : TEXT}
           opacity={isAccent ? 0.85 : 0.5}
         >
           {sub}
@@ -340,7 +273,7 @@ function FlowNode({ x, y, w, h, title, sub, condition, variant = "solid", dot })
           textAnchor="middle"
           fontSize="9.5"
           fontStyle="italic"
-          fill={dot || INK}
+          fill={dot || TEXT}
           opacity="0.75"
         >
           {condition}
@@ -357,7 +290,7 @@ function FlowLegend() {
     { color: FAN_COLORS.pubsub, label: "Pub/Sub" },
   ];
   return (
-    <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-black/55">
+    <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-bone/80">
       {items.map((item) => (
         <span key={item.label} className="inline-flex items-center gap-2">
           <span
@@ -447,13 +380,13 @@ function RequestFlowchartDesktop() {
         y={boundary.y1}
         width={boundary.x2 - boundary.x1}
         height={boundary.y2 - boundary.y1}
-        rx="14"
+        rx="3"
         fill="none"
-        stroke="rgba(29, 26, 22, 0.18)"
+        stroke={BOUNDARY}
         strokeWidth="1"
         strokeDasharray="5 4"
       />
-      <text x={boundary.x1 + 14} y={boundary.y1 + 18} fontSize="9.5" letterSpacing="1.5" fill={INK} opacity="0.4">
+      <text x={boundary.x1 + 14} y={boundary.y1 + 18} fontSize="9.5" letterSpacing="1.5" fill={TEXT} opacity="0.4">
         GO PROCESS
       </text>
 
@@ -493,7 +426,7 @@ function RequestFlowchartDesktop() {
         strokeDasharray="4 3"
         markerEnd="url(#flow-arrowhead)"
       />
-      <text x={(65 + respX + respW / 2) / 2} y="322" textAnchor="middle" fontSize="9.5" fontStyle="italic" fill={INK} opacity="0.45">
+      <text x={(65 + respX + respW / 2) / 2} y="322" textAnchor="middle" fontSize="9.5" fontStyle="italic" fill={TEXT} opacity="0.45">
         response written back to the same connection
       </text>
 
@@ -537,13 +470,13 @@ function RequestFlowchartMobile() {
         y={boundary.y1}
         width={boundary.x2 - boundary.x1}
         height={boundary.y2 - boundary.y1}
-        rx="14"
+        rx="3"
         fill="none"
-        stroke="rgba(29, 26, 22, 0.18)"
+        stroke={BOUNDARY}
         strokeWidth="1"
         strokeDasharray="5 4"
       />
-      <text x={boundary.x1 + 12} y={boundary.y1 + 16} fontSize="9" letterSpacing="1.5" fill={INK} opacity="0.4">
+      <text x={boundary.x1 + 12} y={boundary.y1 + 16} fontSize="9" letterSpacing="1.5" fill={TEXT} opacity="0.4">
         GO PROCESS
       </text>
 
@@ -664,7 +597,7 @@ function ConcurrencyLineChart() {
               y={y + 4}
               textAnchor="end"
               fontSize="11"
-              fill={INK}
+              fill={TEXT}
               opacity="0.45"
             >
               {tick === 0 ? "0" : `${tick / 1000}k`}
@@ -681,21 +614,21 @@ function ConcurrencyLineChart() {
         strokeWidth="1"
       />
 
-      <path d={linePath} fill="none" stroke={SERIES_1} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <path d={linePath} fill="none" stroke={ACCENT} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
 
       {points.map((p, i) => (
         <g key={p.clients}>
-          <circle cx={p.x} cy={p.y} r="4" fill={SERIES_1} stroke="#f5eddd" strokeWidth="2" />
-          <text x={p.x} y={padding.top + plotHeight + 20} textAnchor="middle" fontSize="12" fill={INK} opacity="0.6">
+          <circle cx={p.x} cy={p.y} r="4" fill={ACCENT} stroke={SURFACE} strokeWidth="2" />
+          <text x={p.x} y={padding.top + plotHeight + 20} textAnchor="middle" fontSize="12" fill={TEXT} opacity="0.6">
             {p.clients}
           </text>
           {i === peakIndex && (
-            <text x={p.x} y={p.y - 12} textAnchor="middle" fontSize="12" fontWeight="600" fill={INK}>
+            <text x={p.x} y={p.y - 12} textAnchor="middle" fontSize="12" fontWeight="600" fill={TEXT}>
               peak {p.opsPerSec.toLocaleString()}
             </text>
           )}
           {i === lastIndex && i !== peakIndex && (
-            <text x={p.x} y={p.y - 12} textAnchor="middle" fontSize="12" fontWeight="600" fill={INK}>
+            <text x={p.x} y={p.y - 12} textAnchor="middle" fontSize="12" fontWeight="600" fill={TEXT}>
               {p.opsPerSec.toLocaleString()}
             </text>
           )}
@@ -707,7 +640,7 @@ function ConcurrencyLineChart() {
         y={height - 4}
         textAnchor="middle"
         fontSize="11"
-        fill={INK}
+        fill={TEXT}
         opacity="0.45"
       >
         concurrent clients
@@ -717,213 +650,139 @@ function ConcurrencyLineChart() {
 }
 
 export default function Redix() {
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
-  }, []);
-
   return (
-    <main className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(120,113,108,0.12),_transparent_26%),linear-gradient(180deg,#fcfaf0_0%,#f3ecdd_100%)] font-inter text-[#1d1a16]">
-      <div className="relative mx-auto flex w-full max-w-6xl flex-col px-6 py-8 sm:px-10 lg:px-16">
-        <header className="flex items-center justify-between gap-4 border-b border-black/10 pb-6">
-          <Link
-            to="/projects/low-level-systems-lab"
-            className="inline-flex items-center gap-2 text-sm uppercase tracking-[0.3em] text-black/60 transition hover:text-black"
-          >
-            <span className="text-lg leading-none">←</span>
-            Back
-          </Link>
+    <ProjectPage
+      slug="redix"
+      tagline="A Redis-compatible key-value store written in Go. It speaks real RESP over TCP and depends on nothing outside the standard library."
+      tags={["Go", "RESP", "Concurrency", "AOF persistence", "Pub/Sub"]}
+    >
 
-          <span className="text-xs uppercase tracking-[0.35em] text-black/35">
-            Low-level systems lab
-          </span>
-        </header>
-
-        <Reveal className="grid gap-8 py-14 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
-          <div className="max-w-3xl space-y-6">
-            <p className="text-sm uppercase tracking-[0.35em] text-black/40">
-              Project file
-            </p>
-            <h1 className="text-5xl font-semibold tracking-tight sm:text-6xl lg:text-7xl">
-              Redix
-            </h1>
-            <p className="max-w-2xl text-base leading-8 text-black/65 sm:text-lg">
-              A high-performance, Redis-compatible key-value store — written in
-              Go, speaking real RESP over TCP, with zero dependencies outside
-              the standard library.
-            </p>
-            <div className="flex flex-wrap gap-2">
-              {["Go", "RESP Protocol", "Concurrency", "AOF Persistence", "Pub/Sub"].map(
-                (tag) => (
-                  <span
-                    key={tag}
-                    className="rounded-full border border-black/10 bg-white/50 px-3 py-1 text-xs uppercase tracking-[0.28em] text-black/55"
-                  >
-                    {tag}
-                  </span>
-                )
-              )}
-            </div>
-          </div>
-        </Reveal>
-
-        <Reveal className="max-w-3xl pb-14">
-          <SectionHeading number="01">Overview</SectionHeading>
-          <p className="mt-4 text-base leading-8 text-black/65 sm:text-lg">
+        <Section label="Overview" className="max-w-3xl">
+          <p className="max-w-[64ch] text-lg leading-8 text-bone [&+p]:mt-5">
             Redix is a single-binary reimplementation of Redis's server
             protocol. It speaks the real RESP wire format on port 6379, so{" "}
-            <code className="rounded bg-black/5 px-1.5 py-0.5 text-sm">
-              redis-cli
-            </code>
-            , <code className="rounded bg-black/5 px-1.5 py-0.5 text-sm">ioredis</code>,
-            and even raw <code className="rounded bg-black/5 px-1.5 py-0.5 text-sm">nc</code>{" "}
+            <Code>redis-cli</Code>
+            , <Code>ioredis</Code>,
+            and even raw <Code>nc</Code>{" "}
             all work against it unmodified — no client library ever needs to
             know it isn't talking to real Redis. The whole server is built on
             Go's standard library alone: no third-party dependencies, no code
             generation, one binary.
           </p>
-        </Reveal>
+        </Section>
 
-        <Reveal className="pb-14">
-          <SectionHeading number="02">Performance</SectionHeading>
-          <p className="mt-2 max-w-2xl text-sm leading-6 text-black/50">
+        <Section label="Performance">
+          <p className="mb-8 max-w-[62ch] text-lg leading-8 text-bone">
             Measured locally with{" "}
-            <code className="rounded bg-black/5 px-1 py-0.5 text-xs">
-              redis-benchmark -n 100000 -c 50
-            </code>{" "}
+            <Code>redis-benchmark -n 100000 -c 50</Code>{" "}
             unless noted. One quirk worth flagging: redis-benchmark's default
             ping/inline-command test doesn't work here — the RESP parser (
-            <code className="rounded bg-black/5 px-1 py-0.5 text-xs">
-              parser.go
-            </code>
+            <Code>parser.go</Code>
             ) only accepts RESP arrays, not the legacy inline protocol, so{" "}
-            <code className="rounded bg-black/5 px-1 py-0.5 text-xs">
-              ping_mbulk
-            </code>{" "}
+            <Code>ping_mbulk</Code>{" "}
             was used instead.
           </p>
 
-          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <StatRow className="mb-4">
             {statTiles.map((tile) => (
               <StatTile key={tile.label} {...tile} />
             ))}
-          </div>
+          </StatRow>
 
           <div className="mt-6 grid gap-6 lg:grid-cols-2">
-            <div className="rounded-[1.5rem] border border-black/10 bg-[#f5eddd] p-6">
-              <h3 className="text-sm font-semibold tracking-tight">
+            <div className="rounded-[2px] border border-paper/10 bg-carbon p-6">
+              <h3 className="text-sm font-medium tracking-tight">
                 Throughput by command
               </h3>
-              <p className="mt-1 text-xs text-black/45">50 concurrent clients</p>
+              <p className="mt-1 text-xs text-bone/80">50 concurrent clients</p>
               <div className="mt-4">
                 <ThroughputBarChart />
               </div>
             </div>
-            <div className="rounded-[1.5rem] border border-black/10 bg-[#f5eddd] p-6">
-              <h3 className="text-sm font-semibold tracking-tight">
+            <div className="rounded-[2px] border border-paper/10 bg-carbon p-6">
+              <h3 className="text-sm font-medium tracking-tight">
                 SET throughput vs. concurrent clients
               </h3>
-              <p className="mt-1 text-xs text-black/45">1–400 clients</p>
+              <p className="mt-1 text-xs text-bone/80">1–400 clients</p>
               <div className="mt-4">
                 <ConcurrencyLineChart />
               </div>
-              <p className="mt-2 text-xs leading-5 text-black/45">
+              <p className="mt-2 text-xs leading-5 text-bone/80">
                 Throughput saturates around 25–100 clients (~130k req/sec),
                 then degrades past 200 as latency grows — the single global{" "}
-                <code className="rounded bg-black/5 px-1 py-0.5 text-xs">
-                  mu sync.RWMutex
-                </code>{" "}
+                <Code>mu sync.RWMutex</Code>{" "}
                 serializing all DB access rather than scaling horizontally.
               </p>
             </div>
           </div>
-        </Reveal>
+        </Section>
 
-        <Reveal className="pb-14">
-          <SectionHeading number="03">How a request flows</SectionHeading>
-          <p className="mt-2 max-w-2xl text-sm leading-6 text-black/50">
-            One command, start to finish — the blue box is where routing
+        <Section label="How a request flows">
+          <p className="mb-8 max-w-[62ch] text-lg leading-8 text-bone">
+            One command, start to finish — the glowing box is where routing
             decisions happen. Not every command touches all three subsystems
-            downstream: only <code className="rounded bg-black/5 px-1 py-0.5 text-xs">PUBLISH</code>{" "}
+            downstream: only <Code>PUBLISH</Code>{" "}
             skips storage entirely, and only writes touch the AOF log.
           </p>
-          <div className="mt-6 rounded-[1.5rem] border border-black/10 bg-[#f5eddd] p-6">
+          <div className="mt-6 rounded-[2px] border border-paper/10 bg-carbon p-6">
             <RequestFlowchartDesktop />
             <RequestFlowchartMobile />
             <FlowLegend />
           </div>
-        </Reveal>
+        </Section>
 
-        <Reveal className="pb-14">
-          <SectionHeading number="04">Architecture</SectionHeading>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <Section label="Architecture">
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
             {architecture.map((item) => (
               <div
                 key={item.file}
-                className="rounded-[1.5rem] border border-black/10 bg-[#f5eddd] p-6 transition hover:-translate-y-1 hover:border-black/15 hover:bg-[#efe3cc]"
+                className={CARD}
               >
+<CardTrim />
                 <div className="flex items-center justify-between gap-2">
-                  <h3 className="text-sm font-semibold tracking-tight">
+                  <h3 className="text-sm font-medium tracking-tight">
                     {item.title}
                   </h3>
                 </div>
-                <code className="mt-1 block truncate text-xs text-black/40">
+                <code className="mt-1 block truncate text-xs text-dust">
                   {item.file}
                 </code>
-                <p className="mt-3 text-sm leading-6 text-black/65">
+                <p className="mt-3 text-sm leading-6 text-bone">
                   {item.blurb}
                 </p>
               </div>
             ))}
           </div>
-        </Reveal>
+        </Section>
 
-        <Reveal className="max-w-3xl pb-14">
-          <SectionHeading number="05">Under the hood</SectionHeading>
-          <ul className="mt-6 space-y-4 text-base leading-7 text-black/65">
-            <li className="flex gap-3">
-              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-black/40" />
-              One goroutine per client connection; no per-key locking, just
-              one global mutex guarding all 16 databases.
-            </li>
-            <li className="flex gap-3">
-              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-black/40" />
-              AOF-only persistence (no RDB) — every write is logged, flushed
-              and fsynced once a second, and replayed in full on boot.
-            </li>
-            <li className="flex gap-3">
-              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-black/40" />
-              Expiration is lazy and swept: a 10-second janitor clears expired
-              keys instead of checking on every read.
-            </li>
-            <li className="flex gap-3">
-              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-black/40" />
-              <span>
-                <code className="rounded bg-black/5 px-1.5 py-0.5 text-sm">
-                  SUBSCRIBE
-                </code>{" "}
+        <Section label="Under the hood" className="max-w-3xl">
+          <BulletList>
+            <Bullet>One goroutine per client connection; no per-key locking, just
+              one global mutex guarding all 16 databases.</Bullet>
+            <Bullet>AOF-only persistence (no RDB) — every write is logged, flushed
+              and fsynced once a second, and replayed in full on boot.</Bullet>
+            <Bullet>Expiration is lazy and swept: a 10-second janitor clears expired
+              keys instead of checking on every read.</Bullet>
+            <Bullet>
+                <Code>SUBSCRIBE</Code>{" "}
                 locks a connection into pub/sub-only mode — matching real
                 Redis behavior.
-              </span>
-            </li>
-          </ul>
-        </Reveal>
+              </Bullet>
+          </BulletList>
+        </Section>
 
-        <Reveal className="pb-14">
-          <SectionHeading number="06">Supported commands</SectionHeading>
-          <div className="mt-6 grid gap-6 sm:grid-cols-2">
+        <Section label="Supported commands">
+          <div className="grid gap-6 sm:grid-cols-2">
             {commandGroups.map((group) => (
               <div key={group.label}>
-                <p className="text-xs uppercase tracking-[0.3em] text-black/40">
+                <p className="text-xs uppercase tracking-[0.3em] text-dust">
                   {group.label}
                 </p>
                 <div className="mt-3 flex flex-wrap gap-2">
                   {group.commands.map((cmd) => (
                     <code
                       key={cmd}
-                      className="rounded-full border border-black/10 bg-white/50 px-3 py-1 text-xs text-black/60 transition hover:border-black/20 hover:bg-white hover:text-black"
+                      className="rounded-[2px] border border-paper/10 bg-paper/[0.04] px-3 py-1 text-xs text-bone transition hover:border-paper/20 hover:bg-paper/10 hover:text-paper"
                     >
                       {cmd}
                     </code>
@@ -932,66 +791,36 @@ export default function Redix() {
               </div>
             ))}
           </div>
-        </Reveal>
+        </Section>
 
-        <Reveal className="max-w-3xl pb-14">
-          <SectionHeading number="07">Engineering notes</SectionHeading>
-          <p className="mt-4 text-base leading-8 text-black/65">
+        <Section label="Engineering notes" className="max-w-3xl">
+          <p className="max-w-[64ch] text-lg leading-8 text-bone [&+p]:mt-5">
             Adding a new write command means touching three places by hand:
             the command table in{" "}
-            <code className="rounded bg-black/5 px-1.5 py-0.5 text-sm">
-              commands.go
-            </code>
+            <Code>commands.go</Code>
             , the AOF-logging switch in{" "}
-            <code className="rounded bg-black/5 px-1.5 py-0.5 text-sm">main.go</code>,
+            <Code>main.go</Code>,
             and{" "}
-            <code className="rounded bg-black/5 px-1.5 py-0.5 text-sm">
-              replayCommand
-            </code>{" "}
+            <Code>replayCommand</Code>{" "}
             in{" "}
-            <code className="rounded bg-black/5 px-1.5 py-0.5 text-sm">aof.go</code>.
+            <Code>aof.go</Code>.
             They aren't auto-synced — a known rough edge, not a hidden bug.
           </p>
-        </Reveal>
+        </Section>
 
-        <Reveal className="max-w-3xl pb-20">
-          <SectionHeading number="08">Roadmap &amp; limitations</SectionHeading>
-          <ul className="mt-6 space-y-4 text-base leading-7 text-black/65">
-            <li className="flex gap-3">
-              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-black/40" />
-              No automated test suite yet — verified manually via{" "}
-              <code className="rounded bg-black/5 px-1.5 py-0.5 text-sm">
-                redis-cli
-              </code>{" "}
-              and <code className="rounded bg-black/5 px-1.5 py-0.5 text-sm">nc</code>.
-            </li>
-            <li className="flex gap-3">
-              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-black/40" />
-              One global mutex rather than per-key locking — the concurrency
-              chart above shows exactly where that ceiling shows up.
-            </li>
-            <li className="flex gap-3">
-              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-black/40" />
-              List and Set are enum placeholders in the type system — not
-              implemented yet.
-            </li>
-            <li className="flex gap-3">
-              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-black/40" />
-              AOF only — no RDB snapshotting.
-            </li>
-          </ul>
-        </Reveal>
+        <Section label="Roadmap & limitations" className="max-w-3xl">
+          <BulletList>
+            <Bullet>No automated test suite yet — verified manually via{" "}
+              <Code>redis-cli</Code>{" "}
+              and <Code>nc</Code>.</Bullet>
+            <Bullet>One global mutex rather than per-key locking — the concurrency
+              chart above shows exactly where that ceiling shows up.</Bullet>
+            <Bullet>List and Set are enum placeholders in the type system — not
+              implemented yet.</Bullet>
+            <Bullet>AOF only — no RDB snapshotting.</Bullet>
+          </BulletList>
+        </Section>
 
-        <footer className="border-t border-black/10 py-10">
-          <Link
-            to="/"
-            className="inline-flex items-center gap-2 text-sm uppercase tracking-[0.3em] text-black/60 transition hover:text-black"
-          >
-            <span className="text-lg leading-none">←</span>
-            Back home
-          </Link>
-        </footer>
-      </div>
-    </main>
+    </ProjectPage>
   );
 }

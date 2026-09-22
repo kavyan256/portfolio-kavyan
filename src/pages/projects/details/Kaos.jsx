@@ -1,11 +1,30 @@
-import React, { useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import React from "react";
+import {
+  ProjectPage,
+  Section,
+  StatRow,
+  StatTile,
+  Code,
+  Bullet,
+  BulletList,
+  CARD,
+  CardTrim,
+} from "../../../components/project/ProjectKit";
+import {
+  TEXT,
+  SURFACE,
+  ON_ACCENT,
+  SUBTLE,
+  BOUNDARY,
+  BASELINE,
+  OUTLINE,
+  GREEN,
+  AMBER,
+  RED,
+  NEON,
+} from "../../../theme/palette";
 
-const INK = "#1d1a16";
-const BASELINE = "rgba(29, 26, 22, 0.28)";
-const SERIES_1 = "#2a78d6";
+const ACCENT = NEON.cyan;
 
 const architecture = [
   {
@@ -68,10 +87,10 @@ const statTiles = [
 ];
 
 const memoryRegions = [
-  { label: "Kernel space", detail: "identity-mapped", start: 0, width: 34, color: "#2a78d6" },
-  { label: "User space", detail: "0x1000000", start: 34, width: 38, color: "#1baf7a" },
-  { label: "User stack", detail: "0x1100000", start: 72, width: 16, color: "#eda100" },
-  { label: "VirtIO MMIO", detail: "0x10001000", start: 88, width: 12, color: "#d03b3b" },
+  { label: "Kernel space", detail: "identity-mapped", start: 0, width: 34, color: ACCENT },
+  { label: "User space", detail: "0x1000000", start: 34, width: 38, color: GREEN },
+  { label: "User stack", detail: "0x1100000", start: 72, width: 16, color: AMBER },
+  { label: "VirtIO MMIO", detail: "0x10001000", start: 88, width: 12, color: RED },
 ];
 
 const processStates = [
@@ -80,94 +99,16 @@ const processStates = [
   { label: "EXITED", detail: "SYS_EXIT — slot reclaimed" },
 ];
 
-function SectionHeading({ number, children }) {
-  return (
-    <div className="flex items-baseline gap-3">
-      <span className="font-mono text-xs text-black/30">{number}</span>
-      <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-        {children}
-      </h2>
-    </div>
-  );
-}
-
-function Reveal({ children, className = "" }) {
-  const ref = useRef(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        el,
-        { opacity: 0, y: 28 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.7,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: el,
-            start: "top 85%",
-          },
-        }
-      );
-    }, ref);
-    return () => ctx.revert();
-  }, []);
-
-  return (
-    <div ref={ref} className={className}>
-      {children}
-    </div>
-  );
-}
-
 const FLOW_COLORS = {
-  io: "#1baf7a",
-  exit: "#eda100",
-  panic: "#d03b3b",
+  io: GREEN,
+  exit: AMBER,
+  panic: RED,
 };
-
-function StatTile({ label, value, suffix, format }) {
-  const valueRef = useRef(null);
-
-  useEffect(() => {
-    const el = valueRef.current;
-    const proxy = { n: 0 };
-    const ctx = gsap.context(() => {
-      gsap.to(proxy, {
-        n: value,
-        duration: 1.2,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: el,
-          start: "top 90%",
-        },
-        onUpdate: () => {
-          const text =
-            format === "decimal" ? proxy.n.toFixed(2) : Math.round(proxy.n).toString();
-          el.textContent = text;
-        },
-      });
-    });
-    return () => ctx.revert();
-  }, [value, format]);
-
-  return (
-    <div className="rounded-[1.5rem] border border-black/10 bg-[#f5eddd] p-6 transition hover:-translate-y-1 hover:border-black/15 hover:bg-[#efe3cc]">
-      <p className="text-xs uppercase tracking-[0.3em] text-black/40">{label}</p>
-      <p ref={valueRef} className="mt-3 whitespace-nowrap text-3xl font-semibold tracking-tight sm:text-4xl">
-        0
-      </p>
-      {suffix && <p className="mt-0.5 text-sm text-black/45">{suffix.trim()}</p>}
-    </div>
-  );
-}
 
 function MemoryMap() {
   return (
-    <div className="rounded-[1.5rem] border border-black/10 bg-[#f5eddd] p-6">
-      <div className="flex h-10 w-full overflow-hidden rounded-lg border border-black/10">
+    <div className="rounded-[2px] border border-paper/10 bg-carbon p-6">
+      <div className="flex h-10 w-full overflow-hidden rounded-[2px] border border-paper/10">
         {memoryRegions.map((r) => (
           <div
             key={r.label}
@@ -185,8 +126,8 @@ function MemoryMap() {
               style={{ backgroundColor: r.color }}
             />
             <div>
-              <p className="text-xs font-semibold text-black/75">{r.label}</p>
-              <code className="text-[11px] text-black/45">{r.detail}</code>
+              <p className="text-xs font-semibold text-bone">{r.label}</p>
+              <code className="text-[11px] text-bone/80">{r.detail}</code>
             </div>
           </div>
         ))}
@@ -197,16 +138,16 @@ function MemoryMap() {
 
 function ProcessStateDiagram() {
   return (
-    <div className="rounded-[1.5rem] border border-black/10 bg-[#f5eddd] p-6">
+    <div className="rounded-[2px] border border-paper/10 bg-carbon p-6">
       <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-2">
         {processStates.map((s, i) => (
           <React.Fragment key={s.label}>
-            <div className="flex-1 rounded-xl border border-black/10 bg-white/50 px-4 py-3 text-center">
-              <p className="text-sm font-semibold tracking-tight">{s.label}</p>
-              <p className="mt-1 text-xs leading-5 text-black/50">{s.detail}</p>
+            <div className="flex-1 rounded-[2px] border border-paper/10 bg-paper/[0.04] px-4 py-3 text-center">
+              <p className="text-sm font-medium tracking-tight">{s.label}</p>
+              <p className="mt-1 text-xs leading-5 text-bone/80">{s.detail}</p>
             </div>
             {i !== processStates.length - 1 && (
-              <span className="mx-auto text-black/30 sm:mx-0">
+              <span className="mx-auto text-dust sm:mx-0">
                 <svg
                   width="20"
                   height="20"
@@ -237,9 +178,9 @@ function FlowNode({ x, y, w, h, title, sub, condition, variant = "solid", dot })
         y={y}
         width={w}
         height={h}
-        rx="10"
-        fill={isAccent ? SERIES_1 : isOutline ? "none" : "#f5eddd"}
-        stroke={isAccent ? SERIES_1 : isOutline ? "rgba(29, 26, 22, 0.35)" : "rgba(29, 26, 22, 0.15)"}
+        rx="2"
+        fill={isAccent ? ACCENT : isOutline ? "none" : SURFACE}
+        stroke={isAccent ? ACCENT : isOutline ? OUTLINE : SUBTLE}
         strokeWidth="1"
         strokeDasharray={isOutline ? "4 3" : undefined}
       />
@@ -252,7 +193,7 @@ function FlowNode({ x, y, w, h, title, sub, condition, variant = "solid", dot })
         textAnchor={dot ? "start" : "middle"}
         fontSize="12.5"
         fontWeight="600"
-        fill={isAccent ? "#fcfaf0" : INK}
+        fill={isAccent ? ON_ACCENT : TEXT}
       >
         {title}
       </text>
@@ -262,9 +203,9 @@ function FlowNode({ x, y, w, h, title, sub, condition, variant = "solid", dot })
           x={x + w / 2}
           y={textY + 15}
           textAnchor="middle"
-          fontFamily="monospace"
+          fontFamily="JetBrains Mono, ui-monospace, monospace"
           fontSize="9.5"
-          fill={isAccent ? "#fcfaf0" : INK}
+          fill={isAccent ? ON_ACCENT : TEXT}
           opacity={isAccent ? 0.85 : 0.5}
         >
           {sub}
@@ -278,7 +219,7 @@ function FlowNode({ x, y, w, h, title, sub, condition, variant = "solid", dot })
           textAnchor="middle"
           fontSize="9.5"
           fontStyle="italic"
-          fill={dot || INK}
+          fill={dot || TEXT}
           opacity="0.75"
         >
           {condition}
@@ -327,7 +268,7 @@ function FlowLegend() {
     { color: FLOW_COLORS.panic, label: "Panic / exception" },
   ];
   return (
-    <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-black/55">
+    <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-bone/80">
       {items.map((item) => (
         <span key={item.label} className="inline-flex items-center gap-2">
           <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: item.color }} />
@@ -370,13 +311,13 @@ function TrapFlowchartDesktop() {
         y={boundary.y1}
         width={boundary.x2 - boundary.x1}
         height={boundary.y2 - boundary.y1}
-        rx="14"
+        rx="3"
         fill="none"
-        stroke="rgba(29, 26, 22, 0.18)"
+        stroke={BOUNDARY}
         strokeWidth="1"
         strokeDasharray="5 4"
       />
-      <text x={boundary.x1 + 14} y={boundary.y1 + 18} fontSize="9.5" letterSpacing="1.5" fill={INK} opacity="0.4">
+      <text x={boundary.x1 + 14} y={boundary.y1 + 18} fontSize="9.5" letterSpacing="1.5" fill={TEXT} opacity="0.4">
         KERNEL (S-MODE)
       </text>
 
@@ -421,7 +362,7 @@ function TrapFlowchartDesktop() {
         strokeDasharray="4 3"
         markerEnd="url(#kaos-flow-arrowhead)"
       />
-      <text x={(65 + returnX + returnW / 2) / 2} y="322" textAnchor="middle" fontSize="9.5" fontStyle="italic" fill={INK} opacity="0.45">
+      <text x={(65 + returnX + returnW / 2) / 2} y="322" textAnchor="middle" fontSize="9.5" fontStyle="italic" fill={TEXT} opacity="0.45">
         sret — back to user mode
       </text>
 
@@ -467,13 +408,13 @@ function TrapFlowchartMobile() {
         y={boundary.y1}
         width={boundary.x2 - boundary.x1}
         height={boundary.y2 - boundary.y1}
-        rx="14"
+        rx="3"
         fill="none"
-        stroke="rgba(29, 26, 22, 0.18)"
+        stroke={BOUNDARY}
         strokeWidth="1"
         strokeDasharray="5 4"
       />
-      <text x={boundary.x1 + 12} y={boundary.y1 + 16} fontSize="9" letterSpacing="1.5" fill={INK} opacity="0.4">
+      <text x={boundary.x1 + 12} y={boundary.y1 + 16} fontSize="9" letterSpacing="1.5" fill={TEXT} opacity="0.4">
         KERNEL (S-MODE)
       </text>
 
@@ -558,64 +499,17 @@ function TrapFlowchartMobile() {
 }
 
 export default function Kaos() {
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
-  }, []);
-
   return (
-    <main className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(120,113,108,0.12),_transparent_26%),linear-gradient(180deg,#fcfaf0_0%,#f3ecdd_100%)] font-inter text-[#1d1a16]">
-      <div className="relative mx-auto flex w-full max-w-6xl flex-col px-6 py-8 sm:px-10 lg:px-16">
-        <header className="flex items-center justify-between gap-4 border-b border-black/10 pb-6">
-          <Link
-            to="/projects/low-level-systems-lab"
-            className="inline-flex items-center gap-2 text-sm uppercase tracking-[0.3em] text-black/60 transition hover:text-black"
-          >
-            <span className="text-lg leading-none">←</span>
-            Back
-          </Link>
+    <ProjectPage
+      slug="kaos"
+      tagline="A small operating system in C for 32-bit RISC-V: SV32 virtual memory, cooperative processes and a TAR file system on a VirtIO disk."
+      tags={platformTags}
+    >
 
-          <span className="text-xs uppercase tracking-[0.35em] text-black/35">
-            Low-level systems lab
-          </span>
-        </header>
-
-        <Reveal className="grid gap-8 py-14 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
-          <div className="max-w-3xl space-y-6">
-            <p className="text-sm uppercase tracking-[0.35em] text-black/40">
-              Project file
-            </p>
-            <h1 className="text-5xl font-semibold tracking-tight sm:text-6xl lg:text-7xl">
-              KaOS
-            </h1>
-            <p className="max-w-2xl text-base leading-8 text-black/65 sm:text-lg">
-              A minimal educational operating system written in C for RISC-V
-              32-bit — page-based virtual memory (SV32), cooperative
-              multitasking, and a TAR-based file system over a VirtIO block
-              device.
-            </p>
-            <div className="flex flex-wrap gap-2">
-              {platformTags.map((tag) => (
-                <span
-                  key={tag}
-                  className="rounded-full border border-black/10 bg-white/50 px-3 py-1 text-xs uppercase tracking-[0.28em] text-black/55"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </div>
-        </Reveal>
-
-        <Reveal className="max-w-3xl pb-14">
-          <SectionHeading number="01">Overview</SectionHeading>
-          <p className="mt-4 text-base leading-8 text-black/65 sm:text-lg">
+        <Section label="Overview" className="max-w-3xl">
+          <p className="max-w-[64ch] text-lg leading-8 text-bone [&+p]:mt-5">
             Internally named{" "}
-            <code className="rounded bg-black/5 px-1.5 py-0.5 text-sm">
-              kavrynOS
-            </code>
+            <Code>kavrynOS</Code>
             , KaOS is a from-scratch RISC-V 32-bit kernel written in C that
             boots bare-metal on top of OpenSBI. It demonstrates the core
             pieces of a real operating system at a small, readable scale:
@@ -624,55 +518,53 @@ export default function Kaos() {
             scheduling, a VirtIO block-device driver, and a TAR-based file
             system built on top of it.
           </p>
-        </Reveal>
+        </Section>
 
-        <Reveal className="pb-14">
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <Section>
+          <StatRow>
             {statTiles.map((tile) => (
               <StatTile key={tile.label} {...tile} />
             ))}
-          </div>
-        </Reveal>
+          </StatRow>
+        </Section>
 
-        <Reveal className="pb-14">
-          <SectionHeading number="02">How a trap is handled</SectionHeading>
-          <p className="mt-2 max-w-2xl text-sm leading-6 text-black/50">
+        <Section label="How a trap is handled">
+          <p className="mb-8 max-w-[62ch] text-lg leading-8 text-bone">
             Every user-process request into the kernel — a system call or a
-            fault — arrives through the same trap entry point. The accent
+            fault — arrives through the same trap entry point. The glowing
             box is where that dispatch decision happens.
           </p>
-          <div className="mt-6 rounded-[1.5rem] border border-black/10 bg-[#f5eddd] p-6">
+          <div className="mt-6 rounded-[2px] border border-paper/10 bg-carbon p-6">
             <TrapFlowchartDesktop />
             <TrapFlowchartMobile />
             <FlowLegend />
           </div>
-        </Reveal>
+        </Section>
 
-        <Reveal className="pb-14">
-          <SectionHeading number="03">Architecture</SectionHeading>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <Section label="Architecture">
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
             {architecture.map((item) => (
               <div
                 key={item.title}
-                className="rounded-[1.5rem] border border-black/10 bg-[#f5eddd] p-6 transition hover:-translate-y-1 hover:border-black/15 hover:bg-[#efe3cc]"
+                className={CARD}
               >
-                <h3 className="text-sm font-semibold tracking-tight">
+<CardTrim />
+                <h3 className="text-sm font-medium tracking-tight">
                   {item.title}
                 </h3>
-                <code className="mt-1 block text-xs text-black/40">
+                <code className="mt-1 block text-xs text-dust">
                   {item.file}
                 </code>
-                <p className="mt-3 text-sm leading-6 text-black/65">
+                <p className="mt-3 text-sm leading-6 text-bone">
                   {item.blurb}
                 </p>
               </div>
             ))}
           </div>
-        </Reveal>
+        </Section>
 
-        <Reveal className="pb-14">
-          <SectionHeading number="04">Under the hood</SectionHeading>
-          <p className="mt-2 max-w-2xl text-sm leading-6 text-black/50">
+        <Section label="Under the hood">
+          <p className="mb-8 max-w-[62ch] text-lg leading-8 text-bone">
             Fixed memory layout and a small, explicit process lifecycle —
             the two things that make the kernel easy to reason about at
             this scale.
@@ -681,50 +573,37 @@ export default function Kaos() {
             <MemoryMap />
             <ProcessStateDiagram />
           </div>
-        </Reveal>
+        </Section>
 
-        <Reveal className="max-w-3xl pb-14">
-          <ul className="space-y-4 text-base leading-7 text-black/65">
-            <li className="flex gap-3">
-              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-black/40" />
-              Scheduling is cooperative, not preemptive — there's no timer
+        <Section className="max-w-3xl">
+          <BulletList>
+            <Bullet>Scheduling is cooperative, not preemptive — there's no timer
               interrupt driving context switches. A process holds the CPU
-              until it exits or yields, and the kernel is single-core only.
-            </li>
-            <li className="flex gap-3">
-              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-black/40" />
-              System calls follow a fixed register convention: the syscall
+              until it exits or yields, and the kernel is single-core only.</Bullet>
+            <Bullet>System calls follow a fixed register convention: the syscall
               number is passed in{" "}
-              <code className="rounded bg-black/5 px-1.5 py-0.5 text-sm">a3</code>,
+              <Code>a3</Code>,
               arguments in{" "}
-              <code className="rounded bg-black/5 px-1.5 py-0.5 text-sm">a0–a2</code>,
+              <Code>a0–a2</Code>,
               the return value comes back in{" "}
-              <code className="rounded bg-black/5 px-1.5 py-0.5 text-sm">a0</code>,
+              <Code>a0</Code>,
               and the PC is advanced by 4 past the{" "}
-              <code className="rounded bg-black/5 px-1.5 py-0.5 text-sm">ecall</code>{" "}
-              on return.
-            </li>
-            <li className="flex gap-3">
-              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-black/40" />
-              The VirtIO block driver talks to the disk through virtqueues —
+              <Code>ecall</Code>{" "}
+              on return.</Bullet>
+            <Bullet>The VirtIO block driver talks to the disk through virtqueues —
               a 3-descriptor chain per request — and does synchronous,
-              busy-wait I/O rather than interrupt-driven I/O.
-            </li>
-            <li className="flex gap-3">
-              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-black/40" />
-              The file system is just a TAR archive: up to 8 files, a 1MB
+              busy-wait I/O rather than interrupt-driven I/O.</Bullet>
+            <Bullet>The file system is just a TAR archive: up to 8 files, a 1MB
               disk image, 512-byte sectors, cached in memory and flushed to
-              disk on writes.
-            </li>
-          </ul>
-        </Reveal>
+              disk on writes.</Bullet>
+          </BulletList>
+        </Section>
 
-        <Reveal className="pb-14">
-          <SectionHeading number="05">System calls</SectionHeading>
-          <div className="mt-6 overflow-x-auto rounded-[1.5rem] border border-black/10 bg-[#f5eddd]">
+        <Section label="System calls">
+          <div className="overflow-x-auto rounded-[2px] border border-paper/10 bg-carbon">
             <table className="w-full min-w-[420px] text-left text-sm">
               <thead>
-                <tr className="border-b border-black/10 text-xs uppercase tracking-[0.25em] text-black/40">
+                <tr className="border-b border-paper/10 text-xs uppercase tracking-[0.25em] text-dust">
                   <th className="px-6 py-4 font-medium">Syscall</th>
                   <th className="px-4 py-4 font-medium">#</th>
                   <th className="px-4 py-4 font-medium">Description</th>
@@ -734,50 +613,30 @@ export default function Kaos() {
                 {syscalls.map((s, i) => (
                   <tr
                     key={s.name}
-                    className={i !== syscalls.length - 1 ? "border-b border-black/5" : ""}
+                    className={i !== syscalls.length - 1 ? "border-b border-paper/5" : ""}
                   >
                     <td className="px-6 py-3">
                       <code className="text-xs">{s.name}</code>
                     </td>
-                    <td className="px-4 py-3 text-black/50">{s.number}</td>
-                    <td className="px-4 py-3 text-black/65">{s.description}</td>
+                    <td className="px-4 py-3 text-bone/80">{s.number}</td>
+                    <td className="px-4 py-3 text-bone">{s.description}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-        </Reveal>
+        </Section>
 
-        <Reveal className="max-w-3xl pb-20">
-          <SectionHeading number="06">Roadmap &amp; limitations</SectionHeading>
-          <ul className="mt-6 space-y-4 text-base leading-7 text-black/65">
-            <li className="flex gap-3">
-              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-black/40" />
-              Maximum 8 processes and a single CPU core — no preemptive
-              scheduling, cooperative only.
-            </li>
-            <li className="flex gap-3">
-              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-black/40" />
-              No dynamic memory allocation in userspace.
-            </li>
-            <li className="flex gap-3">
-              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-black/40" />
-              Fixed-size, 1MB file system with no runtime file creation or
-              deletion — files are pre-created via the TAR disk image.
-            </li>
-          </ul>
-        </Reveal>
+        <Section label="Roadmap & limitations" className="max-w-3xl">
+          <BulletList>
+            <Bullet>Maximum 8 processes and a single CPU core — no preemptive
+              scheduling, cooperative only.</Bullet>
+            <Bullet>No dynamic memory allocation in userspace.</Bullet>
+            <Bullet>Fixed-size, 1MB file system with no runtime file creation or
+              deletion — files are pre-created via the TAR disk image.</Bullet>
+          </BulletList>
+        </Section>
 
-        <footer className="border-t border-black/10 py-10">
-          <Link
-            to="/"
-            className="inline-flex items-center gap-2 text-sm uppercase tracking-[0.3em] text-black/60 transition hover:text-black"
-          >
-            <span className="text-lg leading-none">←</span>
-            Back home
-          </Link>
-        </footer>
-      </div>
-    </main>
+    </ProjectPage>
   );
 }

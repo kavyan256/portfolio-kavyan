@@ -1,11 +1,28 @@
-import React, { useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import React from "react";
+import {
+  ProjectPage,
+  Section,
+  Code,
+  Bullet,
+  BulletList,
+  CARD,
+  CardTrim,
+} from "../../../components/project/ProjectKit";
+import {
+  TEXT,
+  SURFACE,
+  ON_ACCENT,
+  SUBTLE,
+  BOUNDARY,
+  BASELINE,
+  OUTLINE,
+  GREEN,
+  AMBER,
+  RED,
+  NEON,
+} from "../../../theme/palette";
 
-const INK = "#1d1a16";
-const BASELINE = "rgba(29, 26, 22, 0.28)";
-const SERIES_1 = "#2a78d6";
+const ACCENT = NEON.lime;
 
 const architecture = [
   {
@@ -65,52 +82,10 @@ const featureGroups = [
   },
 ];
 
-function SectionHeading({ number, children }) {
-  return (
-    <div className="flex items-baseline gap-3">
-      <span className="font-mono text-xs text-black/30">{number}</span>
-      <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-        {children}
-      </h2>
-    </div>
-  );
-}
-
-function Reveal({ children, className = "" }) {
-  const ref = useRef(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        el,
-        { opacity: 0, y: 28 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.7,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: el,
-            start: "top 85%",
-          },
-        }
-      );
-    }, ref);
-    return () => ctx.revert();
-  }, []);
-
-  return (
-    <div ref={ref} className={className}>
-      {children}
-    </div>
-  );
-}
-
 const FLOW_COLORS = {
-  builtin: "#1baf7a",
-  external: "#eda100",
-  notFound: "#d03b3b",
+  builtin: GREEN,
+  external: AMBER,
+  notFound: RED,
 };
 
 function FlowNode({ x, y, w, h, title, sub, condition, variant = "solid", dot }) {
@@ -125,9 +100,9 @@ function FlowNode({ x, y, w, h, title, sub, condition, variant = "solid", dot })
         y={y}
         width={w}
         height={h}
-        rx="10"
-        fill={isAccent ? SERIES_1 : isOutline ? "none" : "#f5eddd"}
-        stroke={isAccent ? SERIES_1 : isOutline ? "rgba(29, 26, 22, 0.35)" : "rgba(29, 26, 22, 0.15)"}
+        rx="2"
+        fill={isAccent ? ACCENT : isOutline ? "none" : SURFACE}
+        stroke={isAccent ? ACCENT : isOutline ? OUTLINE : SUBTLE}
         strokeWidth="1"
         strokeDasharray={isOutline ? "4 3" : undefined}
       />
@@ -140,7 +115,7 @@ function FlowNode({ x, y, w, h, title, sub, condition, variant = "solid", dot })
         textAnchor={dot ? "start" : "middle"}
         fontSize="12.5"
         fontWeight="600"
-        fill={isAccent ? "#fcfaf0" : INK}
+        fill={isAccent ? ON_ACCENT : TEXT}
       >
         {title}
       </text>
@@ -150,9 +125,9 @@ function FlowNode({ x, y, w, h, title, sub, condition, variant = "solid", dot })
           x={x + w / 2}
           y={textY + 15}
           textAnchor="middle"
-          fontFamily="monospace"
+          fontFamily="JetBrains Mono, ui-monospace, monospace"
           fontSize="9.5"
-          fill={isAccent ? "#fcfaf0" : INK}
+          fill={isAccent ? ON_ACCENT : TEXT}
           opacity={isAccent ? 0.85 : 0.5}
         >
           {sub}
@@ -166,7 +141,7 @@ function FlowNode({ x, y, w, h, title, sub, condition, variant = "solid", dot })
           textAnchor="middle"
           fontSize="9.5"
           fontStyle="italic"
-          fill={dot || INK}
+          fill={dot || TEXT}
           opacity="0.75"
         >
           {condition}
@@ -216,7 +191,7 @@ function FlowLegend() {
     { color: FLOW_COLORS.notFound, label: "Command not found" },
   ];
   return (
-    <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-black/55">
+    <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-bone/80">
       {items.map((item) => (
         <span key={item.label} className="inline-flex items-center gap-2">
           <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: item.color }} />
@@ -259,13 +234,13 @@ function CommandFlowchartDesktop() {
         y={boundary.y1}
         width={boundary.x2 - boundary.x1}
         height={boundary.y2 - boundary.y1}
-        rx="14"
+        rx="3"
         fill="none"
-        stroke="rgba(29, 26, 22, 0.18)"
+        stroke={BOUNDARY}
         strokeWidth="1"
         strokeDasharray="5 4"
       />
-      <text x={boundary.x1 + 14} y={boundary.y1 + 18} fontSize="9.5" letterSpacing="1.5" fill={INK} opacity="0.4">
+      <text x={boundary.x1 + 14} y={boundary.y1 + 18} fontSize="9.5" letterSpacing="1.5" fill={TEXT} opacity="0.4">
         SHELL PROCESS
       </text>
 
@@ -302,7 +277,7 @@ function CommandFlowchartDesktop() {
         strokeDasharray="4 3"
         markerEnd="url(#bmos-flow-arrowhead)"
       />
-      <text x={(45 + outputX + outputW / 2) / 2} y="322" textAnchor="middle" fontSize="9.5" fontStyle="italic" fill={INK} opacity="0.45">
+      <text x={(45 + outputX + outputW / 2) / 2} y="322" textAnchor="middle" fontSize="9.5" fontStyle="italic" fill={TEXT} opacity="0.45">
         REPL loop back to the $ prompt
       </text>
 
@@ -347,13 +322,13 @@ function CommandFlowchartMobile() {
         y={boundary.y1}
         width={boundary.x2 - boundary.x1}
         height={boundary.y2 - boundary.y1}
-        rx="14"
+        rx="3"
         fill="none"
-        stroke="rgba(29, 26, 22, 0.18)"
+        stroke={BOUNDARY}
         strokeWidth="1"
         strokeDasharray="5 4"
       />
-      <text x={boundary.x1 + 12} y={boundary.y1 + 16} fontSize="9" letterSpacing="1.5" fill={INK} opacity="0.4">
+      <text x={boundary.x1 + 12} y={boundary.y1 + 16} fontSize="9" letterSpacing="1.5" fill={TEXT} opacity="0.4">
         SHELL PROCESS
       </text>
 
@@ -421,163 +396,99 @@ function CommandFlowchartMobile() {
 }
 
 export default function Bmos() {
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
-  }, []);
-
   return (
-    <main className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(120,113,108,0.12),_transparent_26%),linear-gradient(180deg,#fcfaf0_0%,#f3ecdd_100%)] font-inter text-[#1d1a16]">
-      <div className="relative mx-auto flex w-full max-w-6xl flex-col px-6 py-8 sm:px-10 lg:px-16">
-        <header className="flex items-center justify-between gap-4 border-b border-black/10 pb-6">
-          <Link
-            to="/projects/low-level-systems-lab"
-            className="inline-flex items-center gap-2 text-sm uppercase tracking-[0.3em] text-black/60 transition hover:text-black"
-          >
-            <span className="text-lg leading-none">←</span>
-            Back
-          </Link>
+    <ProjectPage
+      slug="bmos-shell"
+      tagline="An interactive Unix-like shell written in Rust, with builtin commands, PATH resolution and completion that knows your executables."
+      tags={["Rust", "Shell", "REPL", "PATH resolution", "Completion"]}
+    >
 
-          <span className="text-xs uppercase tracking-[0.35em] text-black/35">
-            Low-level systems lab
-          </span>
-        </header>
-
-        <Reveal className="grid gap-8 py-14 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
-          <div className="max-w-3xl space-y-6">
-            <p className="text-sm uppercase tracking-[0.35em] text-black/40">
-              Project file
-            </p>
-            <h1 className="text-5xl font-semibold tracking-tight sm:text-6xl lg:text-7xl">
-              BMOS Shell
-            </h1>
-            <p className="max-w-2xl text-base leading-8 text-black/65 sm:text-lg">
-              A lightweight, interactive Unix-like shell written in Rust —
-              builtin commands, PATH resolution, and intelligent completion.
-            </p>
-            <div className="flex flex-wrap gap-2">
-              {["Rust", "Shell", "REPL", "PATH Resolution", "Completion"].map((tag) => (
-                <span
-                  key={tag}
-                  className="rounded-full border border-black/10 bg-white/50 px-3 py-1 text-xs uppercase tracking-[0.28em] text-black/55"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </div>
-        </Reveal>
-
-        <Reveal className="max-w-3xl pb-14">
-          <SectionHeading number="01">Overview</SectionHeading>
-          <p className="mt-4 text-base leading-8 text-black/65 sm:text-lg">
+        <Section label="Overview" className="max-w-3xl">
+          <p className="max-w-[64ch] text-lg leading-8 text-bone [&+p]:mt-5">
             BMOS ("Basic Multi-purpose Operating System" shell) is a Rust
             REPL that implements the everyday shell experience from scratch:
             a command prompt, a set of builtin utilities (
-            <code className="rounded bg-black/5 px-1.5 py-0.5 text-sm">cd</code>,{" "}
-            <code className="rounded bg-black/5 px-1.5 py-0.5 text-sm">echo</code>,{" "}
-            <code className="rounded bg-black/5 px-1.5 py-0.5 text-sm">pwd</code>,{" "}
-            <code className="rounded bg-black/5 px-1.5 py-0.5 text-sm">exit</code>,{" "}
-            <code className="rounded bg-black/5 px-1.5 py-0.5 text-sm">type</code>,{" "}
-            <code className="rounded bg-black/5 px-1.5 py-0.5 text-sm">jobs</code>
+            <Code>cd</Code>,{" "}
+            <Code>echo</Code>,{" "}
+            <Code>pwd</Code>,{" "}
+            <Code>exit</Code>,{" "}
+            <Code>type</Code>,{" "}
+            <Code>jobs</Code>
             ), PATH-based resolution for everything else, and intelligent
             command/path completion. It carries exactly one external
             dependency —{" "}
-            <code className="rounded bg-black/5 px-1.5 py-0.5 text-sm">rustyline</code>{" "}
+            <Code>rustyline</Code>{" "}
             — for line editing and history.
           </p>
-        </Reveal>
+        </Section>
 
-        <Reveal className="pb-14">
-          <SectionHeading number="02">How a command flows</SectionHeading>
-          <p className="mt-2 max-w-2xl text-sm leading-6 text-black/50">
-            One line of input, start to finish — the accent box is the
+        <Section label="How a command flows">
+          <p className="mb-8 max-w-[62ch] text-lg leading-8 text-bone">
+            One line of input, start to finish — the glowing box is the
             routing decision: is this a known builtin, something resolvable
             on PATH, or nothing the shell recognizes at all?
           </p>
-          <div className="mt-6 rounded-[1.5rem] border border-black/10 bg-[#f5eddd] p-6">
+          <div className="mt-6 rounded-[2px] border border-paper/10 bg-carbon p-6">
             <CommandFlowchartDesktop />
             <CommandFlowchartMobile />
             <FlowLegend />
           </div>
-        </Reveal>
+        </Section>
 
-        <Reveal className="pb-14">
-          <SectionHeading number="03">Architecture</SectionHeading>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <Section label="Architecture">
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
             {architecture.map((item) => (
               <div
                 key={item.title}
-                className="rounded-[1.5rem] border border-black/10 bg-[#f5eddd] p-6 transition hover:-translate-y-1 hover:border-black/15 hover:bg-[#efe3cc]"
+                className={CARD}
               >
-                <h3 className="text-sm font-semibold tracking-tight">
+<CardTrim />
+                <h3 className="text-sm font-medium tracking-tight">
                   {item.title}
                 </h3>
-                <code className="mt-1 block text-xs text-black/40">
+                <code className="mt-1 block text-xs text-dust">
                   {item.file}
                 </code>
-                <p className="mt-3 text-sm leading-6 text-black/65">
+                <p className="mt-3 text-sm leading-6 text-bone">
                   {item.blurb}
                 </p>
               </div>
             ))}
           </div>
-        </Reveal>
+        </Section>
 
-        <Reveal className="max-w-3xl pb-14">
-          <SectionHeading number="04">Under the hood</SectionHeading>
-          <ul className="mt-6 space-y-4 text-base leading-7 text-black/65">
-            <li className="flex gap-3">
-              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-black/40" />
-              <span>
-                <code className="rounded bg-black/5 px-1.5 py-0.5 text-sm">
-                  check_builtin.rs
-                </code>{" "}
+        <Section label="Under the hood" className="max-w-3xl">
+          <BulletList>
+            <Bullet>
+                <Code>check_builtin.rs</Code>{" "}
                 decides builtin vs. PATH-resolved external command before
                 anything is executed.
-              </span>
-            </li>
-            <li className="flex gap-3">
-              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-black/40" />
-              Background execution (<code className="rounded bg-black/5 px-1.5 py-0.5 text-sm">&amp;</code>)
+              </Bullet>
+            <Bullet>Background execution (<Code>&amp;</Code>)
               is tracked and surfaced through the{" "}
-              <code className="rounded bg-black/5 px-1.5 py-0.5 text-sm">jobs</code>{" "}
-              builtin.
-            </li>
-            <li className="flex gap-3">
-              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-black/40" />
-              I/O redirection is configured in{" "}
-              <code className="rounded bg-black/5 px-1.5 py-0.5 text-sm">
-                output_config.rs
-              </code>{" "}
-              before a command's output is written.
-            </li>
-            <li className="flex gap-3">
-              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-black/40" />
-              Command and path completion are powered by{" "}
-              <code className="rounded bg-black/5 px-1.5 py-0.5 text-sm">
-                rustyline
-              </code>
-              , which also provides line editing and history.
-            </li>
-          </ul>
-        </Reveal>
+              <Code>jobs</Code>{" "}
+              builtin.</Bullet>
+            <Bullet>I/O redirection is configured in{" "}
+              <Code>output_config.rs</Code>{" "}
+              before a command's output is written.</Bullet>
+            <Bullet>Command and path completion are powered by{" "}
+              <Code>rustyline</Code>
+              , which also provides line editing and history.</Bullet>
+          </BulletList>
+        </Section>
 
-        <Reveal className="pb-20">
-          <SectionHeading number="05">Supported commands &amp; features</SectionHeading>
-          <div className="mt-6 grid gap-6 sm:grid-cols-2">
+        <Section label="Supported commands & features">
+          <div className="grid gap-6 sm:grid-cols-2">
             {featureGroups.map((group) => (
               <div key={group.label}>
-                <p className="text-xs uppercase tracking-[0.3em] text-black/40">
+                <p className="text-xs uppercase tracking-[0.3em] text-dust">
                   {group.label}
                 </p>
                 <div className="mt-3 flex flex-wrap gap-2">
                   {group.commands.map((cmd) => (
                     <code
                       key={cmd}
-                      className="rounded-full border border-black/10 bg-white/50 px-3 py-1 text-xs text-black/60 transition hover:border-black/20 hover:bg-white hover:text-black"
+                      className="rounded-[2px] border border-paper/10 bg-paper/[0.04] px-3 py-1 text-xs text-bone transition hover:border-paper/20 hover:bg-paper/10 hover:text-paper"
                     >
                       {cmd}
                     </code>
@@ -586,18 +497,8 @@ export default function Bmos() {
               </div>
             ))}
           </div>
-        </Reveal>
+        </Section>
 
-        <footer className="border-t border-black/10 py-10">
-          <Link
-            to="/"
-            className="inline-flex items-center gap-2 text-sm uppercase tracking-[0.3em] text-black/60 transition hover:text-black"
-          >
-            <span className="text-lg leading-none">←</span>
-            Back home
-          </Link>
-        </footer>
-      </div>
-    </main>
+    </ProjectPage>
   );
 }

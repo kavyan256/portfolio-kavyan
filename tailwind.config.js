@@ -12,12 +12,22 @@ export default {
           300: "#42424570",
         },
         zinc: "#101010",
+        void: "#0b0a09",
+        carbon: {
+          DEFAULT: "#151311",
+          hi: "#1c1a17",
+        },
+        paper: "#fffce1",
+        bone: "#b9af95",
+        dust: "#8b8371",
       },
 
       fontFamily: {
         amidone: ["AmidoneGrotesk", "sans-serif"],
         montserrat: ["Montserrat", "sans-serif"],
         inter: ["Inter", "sans-serif"],
+        display: ["Amidone", "sans-serif"],
+        code: ["JetBrains Mono", "ui-monospace", "monospace"],
       },
     },
   },
