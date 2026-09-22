@@ -149,7 +149,7 @@ const Hero = () => {
     
         <div className="flex items-center justify-center text-center text-xl text-[#fffce1] mt-4 shadow-2xl">
           <p id="subtitle" className="opacity-0 w-[45dvw] mx-8 font-light tracking-wide leading-relaxed">
-            Full-Stack Developer • Systems Design Engineer • AI/ML Engineer <br />
+            Systems Programmer • Infrastructure & DevOps
           </p>
         </div>
       </div>

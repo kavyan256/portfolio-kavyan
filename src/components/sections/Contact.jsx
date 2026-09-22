@@ -1,4 +1,9 @@
 import React from "react";
+import { NEON } from "../../theme/palette";
+
+// Hover draws a neon underline under each link, one tube colour per link.
+const LINK =
+  "relative w-fit transition-colors hover:text-black after:absolute after:inset-x-0 after:-bottom-1 after:h-[2px] after:origin-left after:scale-x-0 after:rounded-full after:bg-[var(--neon)] after:shadow-[0_0_12px_var(--neon)] after:transition-transform after:duration-500 hover:after:scale-x-100 focus-visible:after:scale-x-100 outline-none";
 
 export default function Contact() {
   return (
@@ -23,7 +28,8 @@ export default function Contact() {
             <span className="text-gray-500">Email</span>
             <a
               href="mailto:kavyanhembrom@gmail.com"
-              className="transition hover:opacity-60"
+              className={LINK}
+              style={{ "--neon": NEON.magenta }}
             >
               kavyanhembrom@gmail.com
             </a>
@@ -32,24 +38,26 @@ export default function Contact() {
           <div className="flex flex-col gap-2">
             <span className="text-gray-500">GitHub</span>
             <a
-              href="https://github.com/kavyan"
+              href="https://github.com/kavyan256"
               target="_blank"
               rel="noopener noreferrer"
-              className="transition hover:opacity-60"
+              className={LINK}
+              style={{ "--neon": NEON.cyan }}
             >
-              github.com/kavyan
+              github.com/kavyan256
             </a>
           </div>
 
           <div className="flex flex-col gap-2">
             <span className="text-gray-500">LinkedIn</span>
             <a
-              href="https://linkedin.com/in/kavyan"
+              href="https://linkedin.com/in/kavyan-hembrom/"
               target="_blank"
               rel="noopener noreferrer"
-              className="transition hover:opacity-60"
+              className={LINK}
+              style={{ "--neon": NEON.ember }}
             >
-              linkedin.com/in/kavyan
+              linkedin.com/in/kavyan-hembrom
             </a>
           </div>
         </div>

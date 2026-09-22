@@ -1,5 +1,5 @@
 import React from "react";
-import projects from "../../data/projects";
+import { categories } from "../../data/projectIndex";
 import ProjectCard from "./ProjectCard";
 
 export default function FeaturedProjects() {
@@ -15,8 +15,8 @@ export default function FeaturedProjects() {
 
       {/* Projects grid */}
       <div className="grid w-full gap-8 px-12 mx-auto md:px-24 md:grid-cols-2">
-        {projects.map((project) => (
-          <ProjectCard key={project.title} project={project} />
+        {Object.keys(categories).map((key) => (
+          <ProjectCard key={key} categoryKey={key} />
         ))}
       </div>
 

@@ -9,13 +9,11 @@ const navItems = [
     name: "Projects",
     href: "#projects",
     dropdown: [
-      { name: "Design Work", href: "#design" },
-      { name: "AI/ML", href: "#AIML" },
-      { name: "System Design", href: "#system-design" },
-      { name: "Web Development", href: "#webDevelopment" },
+      { name: "Low-Level Systems Lab", href: "/projects/low-level-systems-lab" },
+      { name: "DevOps Experiments", href: "/projects/devops-experiments" },
     ],
     description:
-      "A showcase of my portfolio including design work, AI/ML projects, case studies, and web development.",
+      "Systems I've built from scratch, and the infrastructure I run them on.",
   },
 
   {
@@ -27,7 +25,7 @@ const navItems = [
       { name: "Experience", href: "#experience" },
       { name: "Interests", href: "#interests" },
     ],
-    description: "Learn more about me, my background, skills, and interests. I specialize in low-level systems, AI/ML, and creating innovative web experiences.",
+    description: "Learn more about me, my background, skills, and interests. I work on low-level systems, operating systems and infrastructure.",
   },
 
   {

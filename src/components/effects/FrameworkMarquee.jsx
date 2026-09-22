@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import { NEON } from "../../theme/palette";
 
 export default function FrameworkMarquee() {
   return (
@@ -50,7 +51,7 @@ function MarqueeRow({ reverse }) {
       className="relative w-full py-2 overflow-hidden"
       style={{
         maskImage:
-          "linear-gradient(to right, transparent, black 20%, black 80%, transparent)",
+          "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
       }}
     >
       <div
@@ -71,45 +72,49 @@ const icons = [
   "devicon-cplusplus-plain",
   "devicon-python-plain",
   "devicon-javascript-plain",
+  "devicon-typescript-plain",
   "devicon-tailwindcss-plain",
   "devicon-git-plain",
   "devicon-docker-plain",
   "devicon-linux-plain",
   "devicon-go-original-wordmark",
   "devicon-rust-plain",
-  "devicon-tensorflow-original",
+  "devicon-github-original",
   "devicon-nodejs-plain",
   "devicon-react-original",
   "devicon-nextjs-plain",
   "devicon-express-original-wordmark",
   "devicon-mongodb-plain",
   "devicon-postgresql-plain",
-  "devicon-graphql-plain-wordmark",
   "devicon-redis-plain",
   "devicon-kubernetes-plain",
+  "devicon-amazonwebservices-plain-wordmark",
+  "devicon-terraform-plain",
+  "devicon-traefikproxy-plain",
 ];
+
+// Dark tiles in the same shape as the home page's project cards, each icon
+// lit by one of the hero's tube neons in turn.
+const TUBE = [NEON.magenta, NEON.lime, NEON.cyan, NEON.ember];
 
 function TileSet() {
   return (
     <>
-      {icons.map((icon, i) => (
-        <div
-          key={`${icon}-${i}`}
-          className="
-            w-56 h-32
-            rounded-md
-            border-2 border-[#1b2aa6]
-            bg-transparent
-            flex items-center justify-center
-            flex-shrink-0
-          "
-        >
-          <i
-            className={`${icon} text-6xl text-[#1b2aa6]`}
-            aria-hidden
-          />
-        </div>
-      ))}
+      {icons.map((icon, i) => {
+        const neon = TUBE[i % TUBE.length];
+        return (
+          <div
+            key={`${icon}-${i}`}
+            className="flex items-center justify-center flex-shrink-0 w-56 h-32 rounded-[18px] bg-void"
+          >
+            <i
+              className={`${icon} text-6xl`}
+              style={{ color: neon, filter: `drop-shadow(0 0 10px ${neon}90)` }}
+              aria-hidden
+            />
+          </div>
+        );
+      })}
     </>
   );
 }

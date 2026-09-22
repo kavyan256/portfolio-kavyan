@@ -46,9 +46,11 @@ const NavItem = ({
       <span className="relative">
         {item.name}
         <span
-          className={`absolute left-0 bottom-0 w-0 h-[1px] transition-all duration-500 ease-out group-hover:w-full ${
-            showWhiteRect ? "bg-black" : "bg-[#fcfaf0]"
-          }`}
+          className="absolute left-0 bottom-0 w-0 h-[2px] rounded-full transition-all duration-500 ease-out group-hover:w-full"
+          style={{
+            background: "linear-gradient(90deg, #f967fb, #83f36e, #60aed5, #fe8a2e)",
+            boxShadow: "0 0 10px rgba(249, 103, 251, 0.7)",
+          }}
         ></span>
       </span>
     </a>

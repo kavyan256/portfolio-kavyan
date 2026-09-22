@@ -1,54 +1,68 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { categories, projectsIn } from "../../data/projectIndex";
+import { BONE } from "../../theme/palette";
+import { FOCUS, NeonTube } from "../project/ProjectKit";
 
-export default function ProjectCard({ project, linkTo }) {
-  const destination = linkTo ?? project.path;
-  const cardContent = (
-    <article className="group overflow-hidden rounded-[2rem] border border-black/10 bg-[#f5eddd] transition-transform duration-500 hover:-translate-y-1">
-      <div className="relative aspect-[4/3] overflow-hidden">
-        <img
-          src={project.image}
-          alt={project.title}
-          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-black/5 to-transparent" />
-      </div>
+// A piece of the project pages' dark room, set into the home page's cream
+// sheet. The category's colour is the gradient of its projects' neons.
+export default function ProjectCard({ categoryKey }) {
+  const category = categories[categoryKey];
+  const neons = projectsIn(categoryKey).map((p) => p.neon);
+  const tubeColors = neons.length > 1 ? neons : [neons[0] ?? BONE, BONE];
+  const trim = `linear-gradient(90deg, ${tubeColors.join(", ")})`;
 
-      <div className="space-y-5 p-6 sm:p-8 text-[#1d1a16]">
-        <div className="space-y-2">
-          <p className="text-xs uppercase tracking-[0.35em] text-black/35">
-            {project.subtitle}
-          </p>
-          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-            {project.title}
-          </h2>
-        </div>
-
-        <p className="max-w-xl text-sm leading-7 text-black/65 sm:text-base">
-          {project.description}
-        </p>
-
-        <div className="flex flex-wrap gap-2">
-          {project.tags.map((tag) => (
-            <span
-              key={tag}
-              className="rounded-full border border-black/10 bg-white/50 px-3 py-1 text-xs uppercase tracking-[0.28em] text-black/55"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-      </div>
-    </article>
-  );
-
-  if (!destination) {
-    return cardContent;
-  }
+  // The home page scrolls inside its own container, so watch visibility
+  // with an IntersectionObserver rather than a window ScrollTrigger. The
+  // tube mounts (and draws itself) the first time the card is seen.
+  const ref = useRef(null);
+  const [seen, setSeen] = useState(false);
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return undefined;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setSeen(true);
+          io.disconnect();
+        }
+      },
+      { threshold: 0.45 }
+    );
+    io.observe(node);
+    return () => io.disconnect();
+  }, []);
 
   return (
-    <Link to={destination} className="block outline-none" aria-label={`Open project page for ${project.title}`}>
-      {cardContent}
+    <Link
+      ref={ref}
+      to={category.path}
+      style={{ "--neon": tubeColors[0] }}
+      className={`group relative flex min-h-[26rem] flex-col justify-between overflow-hidden rounded-[18px] bg-void p-8 font-inter text-paper shadow-[0_40px_80px_-48px_rgba(11,10,9,0.6)] transition-[transform,box-shadow] duration-500 hover:-translate-y-1 hover:shadow-[0_40px_90px_-40px_var(--neon)] sm:p-10 ${FOCUS}`}
+    >
+      <span
+        aria-hidden="true"
+        style={{ backgroundImage: trim }}
+        className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 shadow-[0_0_14px_var(--neon)] transition-transform duration-700 ease-out group-hover:scale-x-100 group-focus-visible:scale-x-100"
+      />
+
+      <span
+        aria-hidden="true"
+        className="absolute right-8 top-7 font-display text-3xl leading-none text-dust transition-all duration-500 group-hover:translate-x-1 group-hover:text-[color:var(--neon)] sm:right-10 sm:top-9"
+      >
+        →
+      </span>
+
+      <h3 className="relative mt-6 font-display text-[clamp(2.75rem,6vw,5.25rem)] leading-[0.88] tracking-[-0.02em] transition-transform duration-500 group-hover:translate-x-3">
+        {category.lines.map((line) => (
+          <span key={line} className="block">
+            {line}
+          </span>
+        ))}
+        {seen && <NeonTube colors={tubeColors} variant="low" delay={0.15} />}
+      </h3>
+
+      <p className="mt-12 max-w-[46ch] text-base leading-7 text-bone">{category.intro}</p>
     </Link>
   );
 }
