@@ -20,6 +20,14 @@ export const categories = {
     intro:
       "Infrastructure I run and the software that runs on it: a serverless timetable app, a home Kubernetes cluster and a developer portal.",
   },
+  "hackathon-builds": {
+    title: "Hackathon Builds",
+    lines: ["Hackathon", "Builds"],
+    crumb: "Hackathons",
+    path: "/projects/hackathon-builds",
+    intro:
+      "Things built against a deadline and shipped anyway: finished, released and used by someone other than me.",
+  },
 };
 
 export const projects = [
@@ -67,6 +75,42 @@ export const projects = [
     stack: ["AWS Amplify", "Lambda", "DynamoDB", "Cedar"],
     repo: "https://github.com/kavyan256/slate",
     live: "https://main.dosqfo1xoqa7l.amplifyapp.com",
+  },
+  {
+    slug: "shiori",
+    name: "Shiori",
+    category: "hackathon-builds",
+    neon: NEON.rose,
+    kind: "Hackathon project, No Hands: Wispr Challenge",
+    summary:
+      "A Windows tray app that saves your whole desk by voice (apps, tabs, terminals, Office files) and brings it back with a note on where your head was.",
+    stack: ["Python", "pywin32", "WebView2", "MV3 extension"],
+    repo: "https://github.com/kavyan256/shiori",
+    live: "https://kavyan256.github.io/shiori/",
+  },
+  {
+    slug: "quench",
+    name: "Quench",
+    category: "hackathon-builds",
+    neon: NEON.aqua,
+    kind: "Hackathon project, Environmental Hacks",
+    summary:
+      "A water control room for plastic-free events: plans the jars and cups, then predicts which refill station runs dry next and sends a runner.",
+    stack: ["AWS SAM", "Lambda", "SQS", "Step Functions"],
+    repo: "https://github.com/kavyan256/quench",
+    live: "https://quench.kavyan.dev",
+  },
+  {
+    slug: "aksi",
+    name: "Aksi",
+    category: "hackathon-builds",
+    neon: NEON.yellow,
+    kind: "Hackathon project",
+    summary:
+      "Eyes for blind and low-vision people: point the phone, hold the screen, ask in any of 11 languages and hear the answer.",
+    stack: ["FastAPI", "Sarvam AI", "Gemma 4", "Render"],
+    repo: "https://github.com/kavyan256/Aksi",
+    live: "https://aksi.onrender.com",
   },
 ];
 

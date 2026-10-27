@@ -392,6 +392,49 @@ export function CardTrim() {
   );
 }
 
+// Steps left to right (top to bottom on phones), joined by arrows.
+export function ChainDiagram({ steps }) {
+  return (
+    <div className="rounded-[2px] border border-paper/10 bg-carbon p-6">
+      <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:gap-3">
+        {steps.map((s, i) => (
+          <React.Fragment key={s.label}>
+            <div className="flex min-w-0 flex-1 basis-0 flex-col justify-center rounded-[2px] border border-paper/10 bg-paper/[0.04] px-4 py-4 text-center">
+              <p className="text-sm font-medium tracking-tight">{s.label}</p>
+              <p className="mt-1 text-xs leading-5 text-bone/80">{s.detail}</p>
+            </div>
+            {i !== steps.length - 1 && (
+              <span className="mx-auto shrink-0 self-center text-dust sm:mx-0">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  className="rotate-90 sm:rotate-0"
+                >
+                  <line x1="2" y1="10" x2="16" y2="10" stroke="currentColor" strokeWidth="1.5" />
+                  <path d="M12,5 L18,10 L12,15" fill="none" stroke="currentColor" strokeWidth="1.5" />
+                </svg>
+              </span>
+            )}
+          </React.Fragment>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// A screenshot in a hairline frame, with a caption under it.
+export function Shot({ src, w, h, alt, caption, eager = false }) {
+  return (
+    <figure>
+      <div className="overflow-hidden rounded-[2px] border border-paper/10 bg-carbon">
+        <img src={src} width={w} height={h} alt={alt} loading={eager ? "eager" : "lazy"} className="block h-auto w-full" />
+      </div>
+      {caption && <figcaption className="mt-3 text-sm leading-6 text-bone/80">{caption}</figcaption>}
+    </figure>
+  );
+}
+
 export function Panel({ children, className = "" }) {
   return (
     <div className={`rounded-[2px] border border-paper/10 bg-carbon ${className}`}>{children}</div>

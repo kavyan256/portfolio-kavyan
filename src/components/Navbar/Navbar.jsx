@@ -11,6 +11,7 @@ const navItems = [
     dropdown: [
       { name: "Low-Level Systems Lab", href: "/projects/low-level-systems-lab" },
       { name: "DevOps Experiments", href: "/projects/devops-experiments" },
+      { name: "Hackathon Builds", href: "/projects/hackathon-builds" },
     ],
     description:
       "Systems I've built from scratch, and the infrastructure I run them on.",

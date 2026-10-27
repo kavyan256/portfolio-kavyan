@@ -3,10 +3,14 @@ import LoadingPage from "./pages/LoadingPage";
 import LandingPage from "./pages/LandingPage";
 import LowLevelSystemsLab from "./pages/projects/LowLevelSystemsLab";
 import DevOpsExperiments from "./pages/projects/DevOpsExperiments";
+import HackathonBuilds from "./pages/projects/HackathonBuilds";
 import Redix from "./pages/projects/details/Redix";
 import Bmos from "./pages/projects/details/Bmos";
 import Kaos from "./pages/projects/details/Kaos";
 import Slate from "./pages/projects/details/Slate";
+import Shiori from "./pages/projects/details/Shiori";
+import Quench from "./pages/projects/details/Quench";
+import Aksi from "./pages/projects/details/Aksi";
 // import CreativeWeb from "./pages/projects/CreativeWeb";
 // import ExperimentalProjects from "./pages/projects/ExperimentalProjects";
 import gsap from "gsap";
@@ -75,12 +79,16 @@ const App = () => {
             <Route path="/" element={<LandingPage />} />
             <Route path="/projects/low-level-systems-lab" element={<LowLevelSystemsLab />} />
             <Route path="/projects/devops-experiments" element={<DevOpsExperiments />} />
+            <Route path="/projects/hackathon-builds" element={<HackathonBuilds />} />
             {/* <Route path="/projects/creative-web" element={<CreativeWeb />} /> */}
             {/* <Route path="/projects/experimental-projects" element={<ExperimentalProjects />} /> */}
             <Route path="/projects/redix" element={<Redix />} />
             <Route path="/projects/bmos-shell" element={<Bmos />} />
             <Route path="/projects/kaos" element={<Kaos />} />
             <Route path="/projects/slate" element={<Slate />} />
+            <Route path="/projects/shiori" element={<Shiori />} />
+            <Route path="/projects/quench" element={<Quench />} />
+            <Route path="/projects/aksi" element={<Aksi />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
 
